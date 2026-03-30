@@ -7,7 +7,6 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23008080'/><text x='50' y='68' font-size='55' font-weight='bold' text-anchor='middle' fill='white'>B</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <script>
@@ -17,125 +16,53 @@
                     colors: {
                         'accent': '#008080',
                         'accent-dark': '#006666',
-                        'accent-light': '#E6F5F5',
-                        'surface': '#ffffff',
-                        'text-dark': '#0f172a',
-                        'text-medium': '#64748b',
                         'text-light': '#94a3b8',
                         'warning': '#f59e0b',
-                        'danger': '#ef4444',
                     },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
                 }
             }
         }
     </script>
     <style>
         * { box-sizing: border-box; }
+        body { background: #0f172a; min-height: 100vh; }
+        .hero-gradient { background: linear-gradient(135deg, #006666 0%, #008080 40%, #14b8a6 100%); }
 
-        body {
-            background: #0f172a;
-            min-height: 100vh;
-        }
-
-        .hero-gradient {
-            background: linear-gradient(135deg, #006666 0%, #008080 40%, #14b8a6 100%);
-        }
-
-        /* Scrollbar */
         #expensesList::-webkit-scrollbar { width: 4px; }
         #expensesList::-webkit-scrollbar-track { background: transparent; }
         #expensesList::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
-        #expensesList::-webkit-scrollbar-thumb:hover { background: #475569; }
 
-        /* Remove number spinners */
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         input[type="number"] { -moz-appearance: textfield; }
 
-        .input-dark {
-            background: #1e293b;
-            border: 1.5px solid #334155;
-            color: #f1f5f9;
-            transition: all 0.2s ease;
-        }
+        .input-dark { background: #1e293b; border: 1.5px solid #334155; color: #f1f5f9; transition: all 0.2s ease; }
         .input-dark::placeholder { color: #475569; }
-        .input-dark:focus {
-            border-color: #008080;
-            box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.15);
-            outline: none;
-        }
+        .input-dark:focus { border-color: #008080; box-shadow: 0 0 0 3px rgba(0,128,128,0.15); outline: none; }
 
-        .btn-glow {
-            background: linear-gradient(135deg, #008080, #0d9488);
-            box-shadow: 0 0 20px rgba(0, 128, 128, 0.3);
-            transition: all 0.3s ease;
-        }
-        .btn-glow:hover {
-            box-shadow: 0 0 30px rgba(0, 128, 128, 0.5);
-            transform: translateY(-1px);
-        }
+        .btn-glow { background: linear-gradient(135deg, #008080, #0d9488); box-shadow: 0 0 20px rgba(0,128,128,0.3); transition: all 0.3s ease; }
+        .btn-glow:hover { box-shadow: 0 0 30px rgba(0,128,128,0.5); transform: translateY(-1px); }
         .btn-glow:active { transform: translateY(0); }
 
-        .btn-warning-glow {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
-            transition: all 0.3s ease;
-        }
-        .btn-warning-glow:hover {
-            box-shadow: 0 0 30px rgba(245, 158, 11, 0.5);
-            transform: translateY(-1px);
-        }
+        .btn-warning-glow { background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 0 20px rgba(245,158,11,0.3); transition: all 0.3s ease; }
+        .btn-warning-glow:hover { box-shadow: 0 0 30px rgba(245,158,11,0.5); transform: translateY(-1px); }
 
-        .btn-blue-glow {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-            transition: all 0.3s ease;
-        }
-        .btn-blue-glow:hover {
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
-            transform: translateY(-1px);
-        }
+        .btn-blue-glow { background: linear-gradient(135deg, #3b82f6, #2563eb); box-shadow: 0 0 20px rgba(59,130,246,0.3); transition: all 0.3s ease; }
+        .btn-blue-glow:hover { box-shadow: 0 0 30px rgba(59,130,246,0.5); transform: translateY(-1px); }
         .btn-blue-glow:active { transform: translateY(0); }
 
-        .dark-card {
-            background: #1e293b;
-            border: 1px solid #334155;
-        }
+        .dark-card { background: #1e293b; border: 1px solid #334155; }
 
-        .expense-item {
-            background: #1e293b;
-            border: 1px solid transparent;
-            transition: all 0.2s ease;
-        }
-        .expense-item:hover {
-            border-color: #334155;
-            background: #253349;
-        }
+        .expense-item { background: #1e293b; border: 1px solid transparent; transition: all 0.2s ease; }
+        .expense-item:hover { border-color: #334155; background: #253349; }
         .expense-item:hover .row-actions { opacity: 1; }
-        .row-actions {
-            opacity: 0;
-            transition: opacity 0.15s ease;
-        }
+        .row-actions { opacity: 0; transition: opacity 0.15s ease; }
 
-        .progress-track {
-            background: #334155;
-            height: 6px;
-            border-radius: 9999px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            border-radius: 9999px;
-            transition: width 0.5s ease;
-        }
+        .progress-track { background: #334155; height: 6px; border-radius: 9999px; overflow: hidden; }
+        .progress-fill { height: 100%; border-radius: 9999px; transition: width 0.5s ease; }
 
-        @media (max-width: 1024px) {
-            .row-actions { opacity: 1; }
-        }
-
+        @media (max-width: 1024px) { .row-actions { opacity: 1; } }
         @media (max-width: 640px) {
             .stat-value { font-size: 1.1rem !important; }
             .expense-item { padding: 10px; }
@@ -145,7 +72,7 @@
 </head>
 <body class="min-h-screen font-sans text-gray-100">
 
-    <!-- Top Hero Banner -->
+    <!-- Hero Banner -->
     <div class="hero-gradient">
         <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-16 sm:pb-24">
             <header class="flex items-center justify-between">
@@ -158,8 +85,20 @@
                 <p class="text-xs text-white/60 hidden sm:block">Personal Budget Tracker</p>
             </header>
 
-            <!-- Stats Row inside hero -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mt-6 sm:mt-8">
+            <!-- Group Selector -->
+            <div class="mt-5 relative" id="groupSelectorWrapper">
+                <button onclick="toggleGroupSelector()" id="groupSelectorBtn" class="bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2.5 flex items-center gap-2.5 transition duration-200 w-full sm:w-auto">
+                    <i class="fas fa-folder text-white/50 text-xs"></i>
+                    <span id="groupSelectorLabel" class="text-sm font-semibold text-white">All Groups</span>
+                    <i class="fas fa-chevron-down text-[10px] text-white/40 ml-auto sm:ml-1"></i>
+                </button>
+                <div id="groupSelectorMenu" class="hidden absolute left-0 right-0 sm:right-auto sm:min-w-[240px] top-full mt-1.5 rounded-xl overflow-hidden shadow-2xl z-50" style="background: #1a2536; border: 1px solid #334155;">
+                    <div class="max-h-64 overflow-y-auto" id="groupSelectorItems"></div>
+                </div>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mt-4 sm:mt-5">
                 <div class="bg-white/25 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-white/30 shadow-lg shadow-black/10">
                     <div class="flex items-center gap-1 sm:gap-1.5 mb-1">
                         <i class="fas fa-wallet text-white/60 text-[10px] sm:text-xs"></i>
@@ -177,7 +116,7 @@
                 <div class="bg-blue-500/25 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-blue-400/30 shadow-lg shadow-black/10">
                     <div class="flex items-center gap-1 sm:gap-1.5 mb-1">
                         <i class="fas fa-building-columns text-blue-300/70 text-[10px] sm:text-xs"></i>
-                        <p class="text-[9px] sm:text-[11px] font-semibold text-blue-200/70 uppercase tracking-wider">In Bank</p>
+                        <p class="text-[9px] sm:text-[11px] font-semibold text-blue-200/70 uppercase tracking-wider">Savings</p>
                     </div>
                     <p class="stat-value text-lg sm:text-2xl font-extrabold text-blue-100 leading-none drop-shadow-sm" id="displayBank">&#8369;0.00</p>
                 </div>
@@ -203,104 +142,67 @@
         </div>
     </div>
 
-    <!-- Main Content (overlaps hero) -->
+    <!-- Main Content -->
     <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 -mt-6 sm:-mt-10">
         <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-5">
 
             <!-- Left: Forms -->
             <div class="lg:col-span-2 space-y-4 sm:space-y-5">
 
-                <!-- Budget Input -->
-                <div class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5">
+                <!-- Budget Input (per group) -->
+                <div class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5" id="budgetCard">
                     <label for="startingCapital" class="block text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
-                        <i class="fas fa-wallet text-accent text-sm"></i> Set Budget
+                        <i class="fas fa-wallet text-accent text-sm"></i> <span id="budgetLabel">Set Budget</span>
                     </label>
                     <div class="relative">
                         <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-light font-bold text-sm">&#8369;</span>
-                        <input
-                            type="number"
-                            id="startingCapital"
-                            placeholder="Enter your budget"
-                            class="input-dark w-full pl-9 pr-4 py-3 rounded-xl text-sm font-medium"
-                            step="50"
-                        />
+                        <input type="number" id="startingCapital" placeholder="Enter budget for this group" class="input-dark w-full pl-9 pr-4 py-3 rounded-xl text-sm font-medium" step="50" />
                     </div>
                 </div>
 
-                <!-- Transfer to Bank -->
-                <div class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5">
+                <!-- Transfer to Savings (per group) -->
+                <div class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5" id="savingsCard">
                     <h2 class="text-sm font-bold text-gray-300 mb-3 flex items-center gap-2">
-                        <i class="fas fa-building-columns text-blue-400 text-xs"></i> Transfer to Bank
+                        <i class="fas fa-building-columns text-blue-400 text-xs"></i> Transfer to Savings
                     </h2>
                     <div class="relative mb-3">
                         <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-light font-bold text-sm">&#8369;</span>
-                        <input
-                            type="number"
-                            id="transferAmount"
-                            placeholder="Amount to transfer"
-                            class="input-dark w-full pl-9 pr-4 py-3 rounded-xl text-sm font-medium"
-                            step="0.01"
-                        />
+                        <input type="number" id="transferAmount" placeholder="Amount to transfer" class="input-dark w-full pl-9 pr-4 py-3 rounded-xl text-sm font-medium" step="0.01" />
                     </div>
                     <div class="flex gap-2">
-                        <button
-                            onclick="handleTransfer('toBank')"
-                            class="flex-1 btn-blue-glow text-white font-bold py-2.5 rounded-xl flex items-center justify-center text-xs sm:text-sm"
-                        >
-                            <i class="fas fa-arrow-right mr-1.5 text-[10px]"></i> To Bank
+                        <button onclick="handleTransfer('toBank')" class="flex-1 btn-blue-glow text-white font-bold py-2.5 rounded-xl flex items-center justify-center text-xs sm:text-sm">
+                            <i class="fas fa-arrow-right mr-1.5 text-[10px]"></i> To Savings
                         </button>
-                        <button
-                            onclick="handleTransfer('fromBank')"
-                            class="flex-1 bg-slate-700 hover:bg-slate-600 text-gray-300 font-bold py-2.5 rounded-xl flex items-center justify-center text-xs sm:text-sm transition duration-200"
-                        >
+                        <button onclick="handleTransfer('fromBank')" class="flex-1 bg-slate-700 hover:bg-slate-600 text-gray-300 font-bold py-2.5 rounded-xl flex items-center justify-center text-xs sm:text-sm transition duration-200">
                             <i class="fas fa-arrow-left mr-1.5 text-[10px]"></i> Withdraw
                         </button>
                     </div>
                 </div>
 
-                <!-- Add Expense Form -->
-                <div class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5">
+                <!-- Expense Form -->
+                <div class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5" id="expenseCard">
                     <h2 class="text-sm font-bold text-gray-300 mb-4 flex items-center gap-2">
                         <i class="fas fa-plus text-accent text-xs"></i> New Transaction
                     </h2>
                     <input type="hidden" id="editingId" value="">
                     <div class="space-y-3 mb-5">
                         <div>
-                            <label for="expenseLabel" class="block text-[11px] font-semibold text-text-light mb-1.5 uppercase tracking-wider">Description</label>
-                            <input
-                                type="text"
-                                id="expenseLabel"
-                                placeholder="What did you spend on?"
-                                class="input-dark w-full px-4 py-3 rounded-xl text-sm"
-                            />
+                            <label class="block text-[11px] font-semibold text-text-light mb-1.5 uppercase tracking-wider">Description</label>
+                            <input type="text" id="expenseLabel" placeholder="What did you spend on?" class="input-dark w-full px-4 py-3 rounded-xl text-sm" />
                         </div>
                         <div>
-                            <label for="expenseAmount" class="block text-[11px] font-semibold text-text-light mb-1.5 uppercase tracking-wider">Amount</label>
+                            <label class="block text-[11px] font-semibold text-text-light mb-1.5 uppercase tracking-wider">Amount</label>
                             <div class="relative">
                                 <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-light font-bold text-sm">&#8369;</span>
-                                <input
-                                    type="number"
-                                    id="expenseAmount"
-                                    placeholder="0.00"
-                                    class="input-dark w-full pl-9 pr-4 py-3 rounded-xl text-sm font-medium"
-                                    step="0.01"
-                                />
+                                <input type="number" id="expenseAmount" placeholder="0.00" class="input-dark w-full pl-9 pr-4 py-3 rounded-xl text-sm font-medium" step="0.01" />
                             </div>
                         </div>
                     </div>
                     <div class="flex gap-3">
-                        <button
-                            onclick="handleSubmission()"
-                            id="submitButton"
-                            class="flex-grow btn-glow text-white font-bold py-3 rounded-xl flex items-center justify-center text-sm"
-                        >
+                        <button onclick="handleSubmission()" id="submitButton" class="flex-grow btn-glow text-white font-bold py-3 rounded-xl flex items-center justify-center text-sm">
                             <i class="fas fa-paper-plane mr-2 text-xs"></i> Log Expense
                         </button>
-                        <button
-                            onclick="resetForm()"
-                            id="cancelEditButton"
-                            class="hidden bg-slate-700 hover:bg-slate-600 text-gray-300 font-semibold py-3 px-5 rounded-xl transition duration-200 items-center justify-center text-sm"
-                        >
+                        <button onclick="resetForm()" id="cancelEditButton" class="hidden bg-slate-700 hover:bg-slate-600 text-gray-300 font-semibold py-3 px-5 rounded-xl transition duration-200 items-center justify-center text-sm">
                             <i class="fas fa-times mr-1"></i> Cancel
                         </button>
                     </div>
@@ -309,11 +211,18 @@
 
             <!-- Right: History -->
             <div class="lg:col-span-3 dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5 flex flex-col min-h-[400px] sm:min-h-[500px]">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-sm font-bold text-gray-300 flex items-center gap-2">
-                        <i class="fas fa-clock-rotate-left text-accent text-xs"></i> Transaction History
-                    </h2>
-                    <span class="text-[11px] font-semibold text-text-light bg-slate-800 px-2.5 py-1 rounded-full" id="expenseCount"></span>
+                <div class="mb-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <h2 class="text-sm font-bold text-gray-300 flex items-center gap-2">
+                            <i class="fas fa-clock-rotate-left text-accent text-xs"></i> History
+                        </h2>
+                        <span class="text-[11px] font-semibold text-text-light bg-slate-800 px-2.5 py-1 rounded-full" id="expenseCount"></span>
+                    </div>
+                    <div class="flex bg-slate-800/60 rounded-lg p-0.5 gap-0.5">
+                        <button onclick="setHistoryFilter('all')" id="hfAll" class="flex-1 text-[11px] font-semibold py-1.5 px-2 rounded-md transition duration-150">All</button>
+                        <button onclick="setHistoryFilter('expenses')" id="hfExpenses" class="flex-1 text-[11px] font-semibold py-1.5 px-2 rounded-md transition duration-150">Expenses</button>
+                        <button onclick="setHistoryFilter('savings')" id="hfSavings" class="flex-1 text-[11px] font-semibold py-1.5 px-2 rounded-md transition duration-150">Savings</button>
+                    </div>
                 </div>
                 <div id="expensesList" class="space-y-1.5 flex-1 overflow-y-auto pr-1">
                     <div class="flex flex-col items-center justify-center py-20 text-center" id="noExpensesMessage">
@@ -325,22 +234,53 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
-        <!-- Footer -->
         <footer class="text-center py-8 mt-6">
             <p class="text-xs text-slate-600">Bals Finance Tracker &mdash; All data stored locally on your device</p>
         </footer>
     </div>
 
     <script>
-        // --- Initialization and Persistence ---
-        let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
-        let startingCapital = parseFloat(localStorage.getItem('startingCapital')) || 0;
-        let bankBalance = parseFloat(localStorage.getItem('bankBalance')) || 0;
+        // --- Data ---
+        // groups: [{ name, budget, savings }]
+        let groups = JSON.parse(localStorage.getItem('bft_groups')) || [];
+        let expenses = JSON.parse(localStorage.getItem('bft_expenses')) || [];
+        let activeGroup = localStorage.getItem('bft_activeGroup') || '__all__';
+        let historyFilter = 'all';
 
-        // --- DOM Elements ---
+        // Migrate old data if exists
+        (function migrateOldData() {
+            const oldExpenses = JSON.parse(localStorage.getItem('expenses'));
+            const oldCapital = parseFloat(localStorage.getItem('startingCapital'));
+            const oldBank = parseFloat(localStorage.getItem('bankBalance'));
+            const oldGroups = JSON.parse(localStorage.getItem('budgetGroups'));
+
+            if (oldExpenses && !localStorage.getItem('bft_migrated')) {
+                // Create a "General" group from old data
+                if (!groups.find(g => g.name === 'General')) {
+                    groups.push({ name: 'General', budget: oldCapital || 0, savings: oldBank || 0 });
+                }
+                // Migrate expenses
+                oldExpenses.forEach(exp => {
+                    if (!exp.group) exp.group = 'General';
+                    expenses.push(exp);
+                });
+                // Migrate old named groups
+                if (oldGroups) {
+                    oldGroups.forEach(gName => {
+                        if (gName !== 'General' && !groups.find(g => g.name === gName)) {
+                            groups.push({ name: gName, budget: 0, savings: 0 });
+                        }
+                    });
+                }
+                activeGroup = 'General';
+                localStorage.setItem('bft_migrated', '1');
+                saveData();
+            }
+        })();
+
+        // --- DOM ---
         const labelEl = document.getElementById('expenseLabel');
         const amountEl = document.getElementById('expenseAmount');
         const editingIdEl = document.getElementById('editingId');
@@ -349,306 +289,367 @@
         const expensesList = document.getElementById('expensesList');
         const transferAmountEl = document.getElementById('transferAmount');
 
-        // --- Utility Functions ---
-
-        function formatCurrency(amount) {
-            return new Intl.NumberFormat('en-PH', {
-                style: 'currency',
-                currency: 'PHP',
-                minimumFractionDigits: 2,
-            }).format(amount);
+        // --- Utilities ---
+        function formatCurrency(n) {
+            return new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', minimumFractionDigits: 2 }).format(n);
         }
 
         function saveData() {
-            localStorage.setItem('expenses', JSON.stringify(expenses));
-            localStorage.setItem('startingCapital', startingCapital);
-            localStorage.setItem('bankBalance', bankBalance);
+            localStorage.setItem('bft_groups', JSON.stringify(groups));
+            localStorage.setItem('bft_expenses', JSON.stringify(expenses));
+            localStorage.setItem('bft_activeGroup', activeGroup);
         }
 
-        function resetForm() {
-            labelEl.value = '';
-            amountEl.value = '';
-            editingIdEl.value = '';
+        function getGroup(name) { return groups.find(g => g.name === name); }
 
-            submitButton.innerHTML = '<i class="fas fa-paper-plane mr-2 text-xs"></i> Log Expense';
-            submitButton.classList.remove('btn-warning-glow');
-            submitButton.classList.add('btn-glow');
-
-            cancelButton.classList.add('hidden');
-            labelEl.focus();
+        function getGroupStats(groupName) {
+            const g = getGroup(groupName);
+            if (!g) return { budget: 0, spent: 0, savings: 0, remaining: 0 };
+            const spent = expenses.filter(e => e.group === groupName && (e.type === 'expense' || !e.type)).reduce((s, e) => s + e.amount, 0);
+            return { budget: g.budget, spent, savings: g.savings, remaining: g.budget - spent - g.savings };
         }
 
-        // --- Core Logic ---
+        function getAllStats() {
+            let budget = 0, spent = 0, savings = 0;
+            groups.forEach(g => {
+                budget += g.budget;
+                savings += g.savings;
+            });
+            spent = expenses.filter(e => e.type === 'expense' || !e.type).reduce((s, e) => s + e.amount, 0);
+            return { budget, spent, savings, remaining: budget - spent - savings };
+        }
 
-        window.onload = function() {
-            document.getElementById('startingCapital').value = startingCapital > 0 ? startingCapital.toFixed(2) : '';
-            updateDisplay();
-        };
+        function isAllView() { return activeGroup === '__all__'; }
 
-        document.getElementById('startingCapital').addEventListener('input', function(e) {
-            startingCapital = parseFloat(e.target.value) || 0;
-            saveData();
-            updateDisplay();
+        // --- Group Selector Dropdown ---
+        let groupSelectorOpen = false;
+
+        function toggleGroupSelector() {
+            groupSelectorOpen = !groupSelectorOpen;
+            const menu = document.getElementById('groupSelectorMenu');
+            if (groupSelectorOpen) {
+                renderGroupSelectorItems();
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        }
+
+        function closeGroupSelector() {
+            groupSelectorOpen = false;
+            document.getElementById('groupSelectorMenu').classList.add('hidden');
+        }
+
+        function updateGroupSelectorLabel() {
+            const label = document.getElementById('groupSelectorLabel');
+            label.textContent = isAllView() ? 'All Groups' : activeGroup;
+        }
+
+        function renderGroupSelectorItems() {
+            const c = document.getElementById('groupSelectorItems');
+            let html = '';
+
+            // All Groups option
+            html += `<button onclick="switchGroup('__all__')" class="w-full text-left px-4 py-2.5 text-sm flex items-center gap-2.5 ${isAllView() ? 'bg-accent/15 text-accent' : 'text-slate-300 hover:bg-slate-700/50'} transition duration-150">
+                <i class="fas fa-globe text-[10px] ${isAllView() ? 'text-accent' : 'text-slate-500'}"></i>
+                <span class="font-medium">All Groups</span>
+            </button>`;
+
+            if (groups.length > 0) {
+                html += '<div class="h-px bg-slate-700/80 mx-3"></div>';
+            }
+
+            // Each group
+            groups.forEach(g => {
+                const active = activeGroup === g.name;
+                const esc = g.name.replace(/'/g, "\\'");
+                const stats = getGroupStats(g.name);
+                html += `<div class="flex items-center ${active ? 'bg-accent/15' : 'hover:bg-slate-700/50'} transition duration-150">
+                    <button onclick="switchGroup('${esc}')" class="flex-grow text-left px-4 py-2.5 flex items-center gap-2.5 min-w-0">
+                        <i class="fas fa-folder text-[10px] ${active ? 'text-accent' : 'text-slate-500'} flex-shrink-0"></i>
+                        <div class="min-w-0">
+                            <span class="text-sm font-medium ${active ? 'text-accent' : 'text-slate-300'} block truncate">${g.name}</span>
+                            <span class="text-[10px] text-slate-500">Budget: ${formatCurrency(g.budget)}</span>
+                        </div>
+                    </button>
+                    <button onclick="event.stopPropagation(); deleteGroup('${esc}')" class="px-3 py-2.5 text-slate-600 hover:text-red-400 transition duration-150 flex-shrink-0" title="Delete group">
+                        <i class="fas fa-trash-alt text-[10px]"></i>
+                    </button>
+                </div>`;
+            });
+
+            // Create new
+            html += '<div class="h-px bg-slate-700/80 mx-3"></div>';
+            html += `<button onclick="createGroup()" class="w-full text-left px-4 py-2.5 text-sm flex items-center gap-2.5 text-accent hover:bg-slate-700/50 transition duration-150">
+                <i class="fas fa-plus text-[10px]"></i>
+                <span class="font-medium">Create New Group</span>
+            </button>`;
+
+            c.innerHTML = html;
+        }
+
+        document.addEventListener('click', function(e) {
+            if (groupSelectorOpen && !document.getElementById('groupSelectorWrapper').contains(e.target)) {
+                closeGroupSelector();
+            }
         });
 
-        // --- Bank Transfer ---
-        function handleTransfer(direction) {
-            const amount = parseFloat(transferAmountEl.value);
+        function switchGroup(name) {
+            activeGroup = name;
+            saveData();
+            resetForm();
+            closeGroupSelector();
+            updateGroupSelectorLabel();
+            updateBudgetInput();
+            updateFormVisibility();
+            updateDisplay();
+        }
 
-            if (!amount || amount <= 0) {
-                alert('Please enter a valid amount greater than zero.');
-                transferAmountEl.focus();
-                return;
+        function createGroup() {
+            closeGroupSelector();
+            const name = prompt('Enter group name (e.g., School, Work):');
+            if (!name || !name.trim()) return;
+            const trimmed = name.trim();
+            if (groups.find(g => g.name === trimmed)) { alert('Group "' + trimmed + '" already exists.'); return; }
+            groups.push({ name: trimmed, budget: 0, savings: 0 });
+            activeGroup = trimmed;
+            saveData();
+            updateGroupSelectorLabel();
+            updateBudgetInput();
+            updateFormVisibility();
+            updateDisplay();
+        }
+
+        function deleteGroup(name) {
+            if (!confirm('Delete "' + name + '" and all its transactions?')) return;
+            groups = groups.filter(g => g.name !== name);
+            expenses = expenses.filter(e => e.group !== name);
+            if (activeGroup === name) activeGroup = '__all__';
+            saveData();
+            renderGroupSelectorItems();
+            updateGroupSelectorLabel();
+            updateBudgetInput();
+            updateFormVisibility();
+            updateDisplay();
+        }
+
+        // --- Budget Input ---
+        function updateBudgetInput() {
+            const input = document.getElementById('startingCapital');
+            const label = document.getElementById('budgetLabel');
+            if (isAllView()) {
+                input.value = '';
+                input.disabled = true;
+                input.placeholder = 'Select a group to set budget';
+                label.textContent = 'Budget (All Groups)';
+            } else {
+                const g = getGroup(activeGroup);
+                input.disabled = false;
+                input.value = g && g.budget > 0 ? g.budget.toFixed(2) : '';
+                input.placeholder = 'Set budget for ' + activeGroup;
+                label.textContent = 'Budget — ' + activeGroup;
             }
+        }
 
-            const totalExpenses = expenses.filter(e => e.type !== 'bank').reduce((sum, exp) => sum + exp.amount, 0);
-            const remaining = startingCapital - totalExpenses - bankBalance;
+        document.getElementById('startingCapital').addEventListener('input', function(e) {
+            if (isAllView()) return;
+            const g = getGroup(activeGroup);
+            if (g) { g.budget = parseFloat(e.target.value) || 0; saveData(); updateDisplay(); }
+        });
+
+        // --- Form Visibility ---
+        function updateFormVisibility() {
+            const isAll = isAllView();
+            document.getElementById('savingsCard').style.opacity = isAll ? '0.4' : '1';
+            document.getElementById('savingsCard').style.pointerEvents = isAll ? 'none' : 'auto';
+            document.getElementById('expenseCard').style.opacity = isAll ? '0.4' : '1';
+            document.getElementById('expenseCard').style.pointerEvents = isAll ? 'none' : 'auto';
+        }
+
+        // --- Savings Transfer ---
+        function handleTransfer(direction) {
+            if (isAllView()) return;
+            const amount = parseFloat(transferAmountEl.value);
+            if (!amount || amount <= 0) { alert('Please enter a valid amount.'); transferAmountEl.focus(); return; }
+
+            const g = getGroup(activeGroup);
+            if (!g) return;
+            const stats = getGroupStats(activeGroup);
 
             if (direction === 'toBank') {
-                if (amount > remaining) {
-                    alert('Insufficient remaining balance. You only have ' + formatCurrency(remaining) + ' available.');
-                    return;
-                }
-                bankBalance += amount;
-                expenses.push({
-                    id: Date.now(),
-                    label: 'Transfer to Bank',
-                    amount: amount,
-                    type: 'bank',
-                    date: new Date().toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' })
-                });
+                if (amount > stats.remaining) { alert('Insufficient remaining. Only ' + formatCurrency(stats.remaining) + ' available.'); return; }
+                g.savings += amount;
+                expenses.push({ id: Date.now(), label: 'Transfer to Savings', amount, type: 'bank', group: activeGroup, date: new Date().toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' }) });
             } else {
-                if (amount > bankBalance) {
-                    alert('Insufficient bank balance. You only have ' + formatCurrency(bankBalance) + ' in bank.');
-                    return;
-                }
-                bankBalance -= amount;
-                expenses.push({
-                    id: Date.now(),
-                    label: 'Withdraw from Bank',
-                    amount: amount,
-                    type: 'withdraw',
-                    date: new Date().toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' })
-                });
+                if (amount > g.savings) { alert('Insufficient savings. Only ' + formatCurrency(g.savings) + ' available.'); return; }
+                g.savings -= amount;
+                expenses.push({ id: Date.now(), label: 'Withdraw from Savings', amount, type: 'withdraw', group: activeGroup, date: new Date().toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' }) });
             }
-
             transferAmountEl.value = '';
             saveData();
             updateDisplay();
         }
 
-        document.getElementById('transferAmount').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') handleTransfer('toBank');
-        });
+        document.getElementById('transferAmount').addEventListener('keypress', function(e) { if (e.key === 'Enter') handleTransfer('toBank'); });
 
         // --- Expense Handling ---
+        function resetForm() {
+            labelEl.value = '';
+            amountEl.value = '';
+            editingIdEl.value = '';
+            submitButton.innerHTML = '<i class="fas fa-paper-plane mr-2 text-xs"></i> Log Expense';
+            submitButton.classList.remove('btn-warning-glow');
+            submitButton.classList.add('btn-glow');
+            cancelButton.classList.add('hidden');
+        }
+
         function handleSubmission() {
+            if (isAllView()) return;
             const label = labelEl.value.trim();
             const amount = parseFloat(amountEl.value);
             const editingId = editingIdEl.value;
 
-            if (!label) {
-                alert('Please enter a description for the transaction.');
-                labelEl.focus();
-                return;
-            }
-
-            if (!amount || amount <= 0) {
-                alert('Please enter a valid amount greater than zero.');
-                amountEl.focus();
-                return;
-            }
+            if (!label) { alert('Please enter a description.'); labelEl.focus(); return; }
+            if (!amount || amount <= 0) { alert('Please enter a valid amount.'); amountEl.focus(); return; }
 
             if (editingId) {
-                const index = expenses.findIndex(exp => exp.id == editingId);
-                if (index !== -1) {
-                    expenses[index].label = label;
-                    expenses[index].amount = amount;
-                }
+                const idx = expenses.findIndex(exp => exp.id == editingId);
+                if (idx !== -1) { expenses[idx].label = label; expenses[idx].amount = amount; }
             } else {
-                expenses.push({
-                    id: Date.now(),
-                    label: label,
-                    amount: amount,
-                    type: 'expense',
-                    date: new Date().toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' })
-                });
+                expenses.push({ id: Date.now(), label, amount, type: 'expense', group: activeGroup, date: new Date().toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' }) });
             }
-
             saveData();
             resetForm();
             updateDisplay();
         }
 
         function editExpense(id) {
-            const expense = expenses.find(exp => exp.id === id);
-            if (!expense) return;
-
-            // Only allow editing regular expenses
-            if (expense.type === 'bank' || expense.type === 'withdraw') return;
-
-            labelEl.value = expense.label;
-            amountEl.value = expense.amount;
+            const exp = expenses.find(e => e.id === id);
+            if (!exp || exp.type === 'bank' || exp.type === 'withdraw') return;
+            // Switch to the expense's group if needed
+            if (activeGroup !== exp.group) { switchGroup(exp.group); }
+            labelEl.value = exp.label;
+            amountEl.value = exp.amount;
             editingIdEl.value = id;
-
             submitButton.innerHTML = '<i class="fas fa-sync-alt mr-2 text-xs"></i> Update Expense';
             submitButton.classList.remove('btn-glow');
             submitButton.classList.add('btn-warning-glow');
             cancelButton.classList.remove('hidden');
-
             window.scrollTo({ top: 0, behavior: 'smooth' });
             labelEl.focus();
         }
 
         function deleteExpense(id) {
-            const expense = expenses.find(exp => exp.id === id);
-            if (!expense) return;
+            const exp = expenses.find(e => e.id === id);
+            if (!exp) return;
+            if (!confirm('Remove this transaction?')) return;
+            if (exp.type === 'bank' || exp.type === 'withdraw') {
+                const g = getGroup(exp.group);
+                if (g) { g.savings += (exp.type === 'bank' ? -exp.amount : exp.amount); }
+            }
+            expenses = expenses.filter(e => e.id !== id);
+            saveData();
+            updateDisplay();
+            if (editingIdEl.value == id) resetForm();
+        }
 
-            if (!confirm("Are you sure you want to remove this transaction?")) {
+        // --- History Filter ---
+        function setHistoryFilter(type) {
+            historyFilter = type;
+            ['all','expenses','savings'].forEach(t => {
+                const el = document.getElementById('hf' + t.charAt(0).toUpperCase() + t.slice(1));
+                el.className = t === historyFilter
+                    ? 'flex-1 text-[11px] font-semibold py-1.5 px-2 rounded-md transition duration-150 bg-accent text-white shadow-sm'
+                    : 'flex-1 text-[11px] font-semibold py-1.5 px-2 rounded-md transition duration-150 text-slate-400 hover:text-slate-200';
+            });
+            updateDisplay();
+        }
+
+        // --- Main Display ---
+        function updateDisplay() {
+            const stats = isAllView() ? getAllStats() : getGroupStats(activeGroup);
+
+            document.getElementById('displayCapital').textContent = formatCurrency(stats.budget);
+            document.getElementById('displayExpenses').textContent = formatCurrency(stats.spent);
+            document.getElementById('displayBank').textContent = formatCurrency(stats.savings);
+            document.getElementById('displayRemaining').textContent = formatCurrency(stats.remaining);
+
+            // Progress
+            const totalUsed = stats.spent + stats.savings;
+            const pct = stats.budget > 0 ? Math.min((totalUsed / stats.budget) * 100, 100) : 0;
+            document.getElementById('progressBar').style.width = pct + '%';
+            document.getElementById('progressPercent').textContent = Math.round(pct) + '%';
+            const pb = document.getElementById('progressBar');
+            pb.classList.remove('bg-white/70', 'bg-red-400', 'bg-amber-400');
+            pb.classList.add(pct >= 100 ? 'bg-red-400' : pct >= 75 ? 'bg-amber-400' : 'bg-white/70');
+
+            // Remaining card
+            const rc = document.getElementById('remainingCard');
+            const rl = document.getElementById('remainingLabel');
+            const rt = document.getElementById('displayRemaining');
+            rc.className = 'rounded-xl sm:rounded-2xl p-3 sm:p-5 border shadow-lg shadow-black/10';
+            rl.className = 'text-[9px] sm:text-[11px] font-semibold uppercase tracking-wider mb-1';
+            rt.className = 'stat-value text-lg sm:text-2xl font-extrabold leading-none drop-shadow-sm';
+            if (stats.remaining < 0) { rc.classList.add('bg-red-500/30','border-red-400/40'); rt.classList.add('text-red-200'); rl.classList.add('text-red-300/80'); }
+            else if (stats.remaining > 0) { rc.classList.add('bg-emerald-500/30','border-emerald-400/40'); rt.classList.add('text-emerald-200'); rl.classList.add('text-emerald-300/80'); }
+            else { rc.classList.add('bg-white/25','border-white/30'); rt.classList.add('text-white'); rl.classList.add('text-white/70'); }
+
+            // Filtered history
+            let filtered = isAllView() ? [...expenses] : expenses.filter(e => e.group === activeGroup);
+            if (historyFilter === 'expenses') filtered = filtered.filter(e => e.type === 'expense' || !e.type);
+            else if (historyFilter === 'savings') filtered = filtered.filter(e => e.type === 'bank' || e.type === 'withdraw');
+
+            document.getElementById('expenseCount').textContent = filtered.length > 0 ? `${filtered.length} item${filtered.length !== 1 ? 's' : ''}` : '';
+
+            if (filtered.length === 0) {
+                const msgs = { all: 'No transactions yet', expenses: 'No expenses yet', savings: 'No savings transactions yet' };
+                expensesList.innerHTML = `<div class="flex flex-col items-center justify-center py-20 text-center" id="noExpensesMessage">
+                    <div class="w-14 h-14 rounded-2xl bg-slate-800 flex items-center justify-center mb-4"><i class="fas fa-receipt text-xl text-slate-600"></i></div>
+                    <p class="text-text-light font-medium text-sm">${msgs[historyFilter]}</p>
+                    <p class="text-xs text-slate-600 mt-1">${isAllView() && groups.length === 0 ? 'Create a group to get started' : 'Your transactions will appear here'}</p>
+                </div>`;
                 return;
             }
 
-            // Reverse bank balance if deleting a transfer
-            if (expense.type === 'bank') {
-                bankBalance -= expense.amount;
-            } else if (expense.type === 'withdraw') {
-                bankBalance += expense.amount;
-            }
+            filtered.sort((a, b) => b.id - a.id);
+            expensesList.innerHTML = filtered.map(exp => {
+                const isBank = exp.type === 'bank';
+                const isW = exp.type === 'withdraw';
+                const isT = isBank || isW;
+                const iconBg = isBank ? 'bg-blue-500/15' : isW ? 'bg-amber-500/15' : 'bg-accent/15';
+                const iconCls = isBank ? 'fa-building-columns text-blue-400' : isW ? 'fa-arrow-left text-amber-400' : 'fa-arrow-down text-accent';
+                const amtClr = isBank ? 'text-blue-400' : isW ? 'text-emerald-400' : 'text-red-400';
+                const prefix = isW ? '+' : '-';
+                const grpTag = isAllView() && exp.group ? `<span class="text-[9px] sm:text-[10px] font-semibold text-accent bg-accent/10 px-1.5 py-0.5 rounded-md ml-1.5">${exp.group}</span>` : '';
+                const editBtn = isT ? '' : `<button onclick="editExpense(${exp.id})" title="Edit" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-slate-500 hover:text-amber-400 hover:bg-amber-400/10 transition duration-200"><i class="fas fa-pen text-[10px] sm:text-[11px]"></i></button>`;
 
-            expenses = expenses.filter(exp => exp.id !== id);
-            saveData();
-            updateDisplay();
-            if (editingIdEl.value == id) {
-                resetForm();
-            }
-        }
-
-        function updateDisplay() {
-            const totalExpenses = expenses.filter(e => e.type === 'expense' || (!e.type)).reduce((sum, exp) => sum + exp.amount, 0);
-            const remaining = startingCapital - totalExpenses - bankBalance;
-
-            // 1. Update Summary
-            document.getElementById('displayCapital').textContent = formatCurrency(startingCapital);
-            document.getElementById('displayExpenses').textContent = formatCurrency(totalExpenses);
-            document.getElementById('displayBank').textContent = formatCurrency(bankBalance);
-            document.getElementById('displayRemaining').textContent = formatCurrency(remaining);
-
-            // 2. Progress bar (spent + bank vs budget)
-            const totalUsed = totalExpenses + bankBalance;
-            const percent = startingCapital > 0 ? Math.min((totalUsed / startingCapital) * 100, 100) : 0;
-            document.getElementById('progressBar').style.width = percent + '%';
-            document.getElementById('progressPercent').textContent = Math.round(percent) + '%';
-
-            const progressBar = document.getElementById('progressBar');
-            progressBar.classList.remove('bg-white/70', 'bg-red-400', 'bg-amber-400');
-            if (percent >= 100) {
-                progressBar.classList.add('bg-red-400');
-            } else if (percent >= 75) {
-                progressBar.classList.add('bg-amber-400');
-            } else {
-                progressBar.classList.add('bg-white/70');
-            }
-
-            // 3. Remaining card style
-            const remainingCard = document.getElementById('remainingCard');
-            const remainingLabel = document.getElementById('remainingLabel');
-            const remainingText = document.getElementById('displayRemaining');
-
-            remainingCard.className = 'rounded-xl sm:rounded-2xl p-3 sm:p-5 border shadow-lg shadow-black/10';
-            remainingLabel.className = 'text-[9px] sm:text-[11px] font-semibold uppercase tracking-wider mb-1';
-            remainingText.className = 'stat-value text-lg sm:text-2xl font-extrabold leading-none drop-shadow-sm';
-
-            if (remaining < 0) {
-                remainingCard.classList.add('bg-red-500/30', 'border-red-400/40');
-                remainingText.classList.add('text-red-200');
-                remainingLabel.classList.add('text-red-300/80');
-            } else if (remaining > 0) {
-                remainingCard.classList.add('bg-emerald-500/30', 'border-emerald-400/40');
-                remainingText.classList.add('text-emerald-200');
-                remainingLabel.classList.add('text-emerald-300/80');
-            } else {
-                remainingCard.classList.add('bg-white/25', 'border-white/30');
-                remainingText.classList.add('text-white');
-                remainingLabel.classList.add('text-white/70');
-            }
-
-            // 4. Expense count
-            const countEl = document.getElementById('expenseCount');
-            countEl.textContent = expenses.length > 0 ? `${expenses.length} item${expenses.length !== 1 ? 's' : ''}` : '';
-
-            // 5. Expenses list
-            if (expenses.length === 0) {
-                expensesList.innerHTML = `
-                    <div class="flex flex-col items-center justify-center py-20 text-center" id="noExpensesMessage">
-                        <div class="w-14 h-14 rounded-2xl bg-slate-800 flex items-center justify-center mb-4">
-                            <i class="fas fa-receipt text-xl text-slate-600"></i>
-                        </div>
-                        <p class="text-text-light font-medium text-sm">No transactions yet</p>
-                        <p class="text-xs text-slate-600 mt-1">Your expenses will appear here</p>
-                    </div>`;
-            } else {
-                expensesList.querySelector('#noExpensesMessage')?.remove();
-
-                expenses.sort((a, b) => b.id - a.id);
-
-                expensesList.innerHTML = expenses.map(exp => {
-                    const isBank = exp.type === 'bank';
-                    const isWithdraw = exp.type === 'withdraw';
-                    const isTransfer = isBank || isWithdraw;
-
-                    const iconBg = isBank ? 'bg-blue-500/15' : isWithdraw ? 'bg-amber-500/15' : 'bg-accent/15';
-                    const iconClass = isBank ? 'fa-building-columns text-blue-400' : isWithdraw ? 'fa-arrow-left text-amber-400' : 'fa-arrow-down text-accent';
-                    const amountColor = isBank ? 'text-blue-400' : isWithdraw ? 'text-emerald-400' : 'text-red-400';
-                    const amountPrefix = isWithdraw ? '+' : '-';
-                    const editBtn = isTransfer ? '' : `
-                        <button
-                            onclick="editExpense(${exp.id})"
-                            title="Edit"
-                            class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-slate-500 hover:text-amber-400 hover:bg-amber-400/10 transition duration-200"
-                        >
-                            <i class="fas fa-pen text-[10px] sm:text-[11px]"></i>
-                        </button>`;
-
-                    return `
-                    <div class="expense-item flex items-center p-2.5 sm:p-3 rounded-lg sm:rounded-xl group">
-                        <div class="icon-circle w-9 h-9 rounded-xl ${iconBg} items-center justify-center mr-3 flex-shrink-0 hidden sm:flex">
-                            <i class="fas ${iconClass} text-xs"></i>
-                        </div>
-
-                        <div class="flex-grow min-w-0">
-                            <p class="font-semibold text-gray-200 text-xs sm:text-sm truncate">${exp.label}</p>
-                            <p class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">${exp.date}</p>
-                        </div>
-
-                        <div class="flex items-center gap-0.5 sm:gap-1 flex-shrink-0 ml-2">
-                            <p class="font-bold ${amountColor} text-xs sm:text-sm mr-0.5 sm:mr-1">${amountPrefix}${formatCurrency(exp.amount)}</p>
-
-                            <div class="row-actions flex items-center">
-                                ${editBtn}
-                                <button
-                                    onclick="deleteExpense(${exp.id})"
-                                    title="Delete"
-                                    class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-slate-500 hover:text-red-400 hover:bg-red-400/10 transition duration-200"
-                                >
-                                    <i class="fas fa-trash-alt text-[10px] sm:text-[11px]"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>`;
-                }).join('');
-
-                expensesList.scrollTop = 0;
-            }
+                return `<div class="expense-item flex items-center p-2.5 sm:p-3 rounded-lg sm:rounded-xl group">
+                    <div class="icon-circle w-9 h-9 rounded-xl ${iconBg} items-center justify-center mr-3 flex-shrink-0 hidden sm:flex"><i class="fas ${iconCls} text-xs"></i></div>
+                    <div class="flex-grow min-w-0">
+                        <div class="flex items-center"><p class="font-semibold text-gray-200 text-xs sm:text-sm truncate">${exp.label}</p>${grpTag}</div>
+                        <p class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">${exp.date}</p>
+                    </div>
+                    <div class="flex items-center gap-0.5 sm:gap-1 flex-shrink-0 ml-2">
+                        <p class="font-bold ${amtClr} text-xs sm:text-sm mr-0.5 sm:mr-1">${prefix}${formatCurrency(exp.amount)}</p>
+                        <div class="row-actions flex items-center">${editBtn}<button onclick="deleteExpense(${exp.id})" title="Delete" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-slate-500 hover:text-red-400 hover:bg-red-400/10 transition duration-200"><i class="fas fa-trash-alt text-[10px] sm:text-[11px]"></i></button></div>
+                    </div>
+                </div>`;
+            }).join('');
+            expensesList.scrollTop = 0;
         }
 
         // --- Keyboard Shortcuts ---
-        document.getElementById('expenseAmount').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') handleSubmission();
-        });
+        document.getElementById('expenseAmount').addEventListener('keypress', function(e) { if (e.key === 'Enter') handleSubmission(); });
+        document.getElementById('expenseLabel').addEventListener('keypress', function(e) { if (e.key === 'Enter') document.getElementById('expenseAmount').focus(); });
 
-        document.getElementById('expenseLabel').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') document.getElementById('expenseAmount').focus();
-        });
+        // --- Init ---
+        window.onload = function() {
+            updateGroupSelectorLabel();
+            updateBudgetInput();
+            updateFormVisibility();
+            setHistoryFilter('all');
+            updateDisplay();
+        };
     </script>
 </body>
 </html>
