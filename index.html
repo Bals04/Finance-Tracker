@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bals Finance Tracker</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23008080'/><text x='50' y='68' font-size='55' font-weight='bold' text-anchor='middle' fill='white'>B</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'accent': '#008080',
+                        'accent-dark': '#006666',
+                        'accent-light': '#E6F5F5',
+                        'surface': '#ffffff',
+                        'text-dark': '#0f172a',
+                        'text-medium': '#64748b',
+                        'text-light': '#94a3b8',
+                        'warning': '#f59e0b',
+                        'danger': '#ef4444',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            background: #0f172a;
+            min-height: 100vh;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #006666 0%, #008080 40%, #14b8a6 100%);
+        }
+
+        /* Scrollbar */
+        #expensesList::-webkit-scrollbar { width: 4px; }
+        #expensesList::-webkit-scrollbar-track { background: transparent; }
+        #expensesList::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+        #expensesList::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        /* Remove number spinners */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type="number"] { -moz-appearance: textfield; }
+
+        .input-dark {
+            background: #1e293b;
+            border: 1.5px solid #334155;
+            color: #f1f5f9;
+            transition: all 0.2s ease;
+        }
+        .input-dark::placeholder { color: #475569; }
+        .input-dark:focus {
+            border-color: #008080;
+            box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.15);
+            outline: none;
+        }
+
+        .btn-glow {
+            background: linear-gradient(135deg, #008080, #0d9488);
+            box-shadow: 0 0 20px rgba(0, 128, 128, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-glow:hover {
+            box-shadow: 0 0 30px rgba(0, 128, 128, 0.5);
+            transform: translateY(-1px);
+        }
+        .btn-glow:active { transform: translateY(0); }
+
+        .btn-warning-glow {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-warning-glow:hover {
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .btn-blue-glow {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-blue-glow:hover {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+            transform: translateY(-1px);
+        }
+        .btn-blue-glow:active { transform: translateY(0); }
+
+        .dark-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+
+        .expense-item {
+            background: #1e293b;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .expense-item:hover {
+            border-color: #334155;
+            background: #253349;
+        }
+        .expense-item:hover .row-actions { opacity: 1; }
+        .row-actions {
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+
+        .progress-track {
+            background: #334155;
+            height: 6px;
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.5s ease;
+        }
+
+        @media (max-width: 1024px) {
+            .row-actions { opacity: 1; }
+        }
+
+        @media (max-width: 640px) {
+            .stat-value { font-size: 1.1rem !important; }
+            .expense-item { padding: 10px; }
+            .expense-item .icon-circle { display: none; }
+        }
+    </style>
+</head>
+<body class="min-h-screen font-sans text-gray-100">
+
+    <!-- Top Hero Banner -->
+    <div class="hero-gradient">
+        <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-16 sm:pb-24">
+            <header class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5 sm:gap-3">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
+                        <i class="fas fa-chart-pie text-base sm:text-lg text-white"></i>
+                    </div>
+                    <h1 class="text-lg sm:text-2xl font-extrabold text-white tracking-tight">Bals Finance Tracker</h1>
+                </div>
+                <p class="text-xs text-white/60 hidden sm:block">Personal Budget Tracker</p>
+            </header>
+
+            <!-- Stats Row inside hero -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mt-6 sm:mt-8">
+                <div class="bg-white/25 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-white/30 shadow-lg shadow-black/10">
+                    <div class="flex items-center gap-1 sm:gap-1.5 mb-1">
+                        <i class="fas fa-wallet text-white/60 text-[10px] sm:text-xs"></i>
+                        <p class="text-[9px] sm:text-[11px] font-semibold text-white/70 uppercase tracking-wider">Budget</p>
+                    </div>
+                    <p class="stat-value text-lg sm:text-2xl font-extrabold text-white leading-none drop-shadow-sm" id="displayCapital">&#8369;0.00</p>
+                </div>
+                <div class="bg-white/25 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-white/30 shadow-lg shadow-black/10">
+                    <div class="flex items-center gap-1 sm:gap-1.5 mb-1">
+                        <i class="fas fa-arrow-trend-down text-white/60 text-[10px] sm:text-xs"></i>
+                        <p class="text-[9px] sm:text-[11px] font-semibold text-white/70 uppercase tracking-wider">Spent</p>
+                    </div>
+                    <p class="stat-value text-lg sm:text-2xl font-extrabold text-white leading-none drop-shadow-sm" id="displayExpenses">&#8369;0.00</p>
+                </div>
+                <div class="bg-blue-500/25 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-blue-400/30 shadow-lg shadow-black/10">
+                    <div class="flex items-center gap-1 sm:gap-1.5 mb-1">
+                        <i class="fas fa-building-columns text-blue-300/70 text-[10px] sm:text-xs"></i>
+                        <p class="text-[9px] sm:text-[11px] font-semibold text-blue-200/70 uppercase tracking-wider">In Bank</p>
+                    </div>
+                    <p class="stat-value text-lg sm:text-2xl font-extrabold text-blue-100 leading-none drop-shadow-sm" id="displayBank">&#8369;0.00</p>
+                </div>
+                <div class="rounded-xl sm:rounded-2xl p-3 sm:p-5 border shadow-lg shadow-black/10" id="remainingCard">
+                    <div class="flex items-center gap-1 sm:gap-1.5 mb-1">
+                        <i class="fas fa-coins text-white/60 text-[10px] sm:text-xs" id="remainingIcon"></i>
+                        <p class="text-[9px] sm:text-[11px] font-semibold uppercase tracking-wider" id="remainingLabel">Remaining</p>
+                    </div>
+                    <p class="stat-value text-lg sm:text-2xl font-extrabold leading-none drop-shadow-sm" id="displayRemaining">&#8369;0.00</p>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="mt-5">
+                <div class="flex justify-between items-center mb-1.5">
+                    <span class="text-[11px] text-white/40 font-medium">Budget used</span>
+                    <span class="text-[11px] text-white/60 font-bold" id="progressPercent">0%</span>
+                </div>
+                <div class="progress-track bg-white/10">
+                    <div class="progress-fill bg-white/70" id="progressBar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content (overlaps hero) -->
+    <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 -mt-6 sm:-mt-10">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-5">
+
+            <!-- Left: Forms -->
+            <div class="lg:col-span-2 space-y-4 sm:space-y-5">
+
+                <!-- Budget Input -->
+                <div class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5">
+                    <label for="startingCapital" class="block text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                        <i class="fas fa-wallet text-accent text-sm"></i> Set Budget
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-light font-bold text-sm">&#8369;</span>
+                        <input
+                            type="number"
+                            id="startingCapital"
+                            placeholder="Enter your budget"
+                            class="input-dark w-full pl-9 pr-4 py-3 rounded-xl text-sm font-medium"
+                            step="50"
+                        />
+                    </div>
+                </div>
+
+                <!-- Transfer to Bank -->
+                <div class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5">
+                    <h2 class="text-sm font-bold text-gray-300 mb-3 flex items-center gap-2">
+                        <i class="fas fa-building-columns text-blue-400 text-xs"></i> Transfer to Bank
+                    </h2>
+                    <div class="relative mb-3">
+                        <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-light font-bold text-sm">&#8369;</span>
+                        <input
+                            type="number"
+                            id="transferAmount"
+                            placeholder="Amount to transfer"
+                            class="input-dark w-full pl-9 pr-4 py-3 rounded-xl text-sm font-medium"
+                            step="0.01"
+                        />
+                    </div>
+                    <div class="flex gap-2">
+                        <button
+                            onclick="handleTransfer('toBank')"
+                            class="flex-1 btn-blue-glow text-white font-bold py-2.5 rounded-xl flex items-center justify-center text-xs sm:text-sm"
+                        >
+                            <i class="fas fa-arrow-right mr-1.5 text-[10px]"></i> To Bank
+                        </button>
+                        <button
+                            onclick="handleTransfer('fromBank')"
+                            class="flex-1 bg-slate-700 hover:bg-slate-600 text-gray-300 font-bold py-2.5 rounded-xl flex items-center justify-center text-xs sm:text-sm transition duration-200"
+                        >
+                            <i class="fas fa-arrow-left mr-1.5 text-[10px]"></i> Withdraw
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Add Expense Form -->
+                <div class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5">
+                    <h2 class="text-sm font-bold text-gray-300 mb-4 flex items-center gap-2">
+                        <i class="fas fa-plus text-accent text-xs"></i> New Transaction
+                    </h2>
+                    <input type="hidden" id="editingId" value="">
+                    <div class="space-y-3 mb-5">
+                        <div>
+                            <label for="expenseLabel" class="block text-[11px] font-semibold text-text-light mb-1.5 uppercase tracking-wider">Description</label>
+                            <input
+                                type="text"
+                                id="expenseLabel"
+                                placeholder="What did you spend on?"
+                                class="input-dark w-full px-4 py-3 rounded-xl text-sm"
+                            />
+                        </div>
+                        <div>
+                            <label for="expenseAmount" class="block text-[11px] font-semibold text-text-light mb-1.5 uppercase tracking-wider">Amount</label>
+                            <div class="relative">
+                                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-light font-bold text-sm">&#8369;</span>
+                                <input
+                                    type="number"
+                                    id="expenseAmount"
+                                    placeholder="0.00"
+                                    class="input-dark w-full pl-9 pr-4 py-3 rounded-xl text-sm font-medium"
+                                    step="0.01"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <button
+                            onclick="handleSubmission()"
+                            id="submitButton"
+                            class="flex-grow btn-glow text-white font-bold py-3 rounded-xl flex items-center justify-center text-sm"
+                        >
+                            <i class="fas fa-paper-plane mr-2 text-xs"></i> Log Expense
+                        </button>
+                        <button
+                            onclick="resetForm()"
+                            id="cancelEditButton"
+                            class="hidden bg-slate-700 hover:bg-slate-600 text-gray-300 font-semibold py-3 px-5 rounded-xl transition duration-200 items-center justify-center text-sm"
+                        >
+                            <i class="fas fa-times mr-1"></i> Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: History -->
+            <div class="lg:col-span-3 dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5 flex flex-col min-h-[400px] sm:min-h-[500px]">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-sm font-bold text-gray-300 flex items-center gap-2">
+                        <i class="fas fa-clock-rotate-left text-accent text-xs"></i> Transaction History
+                    </h2>
+                    <span class="text-[11px] font-semibold text-text-light bg-slate-800 px-2.5 py-1 rounded-full" id="expenseCount"></span>
+                </div>
+                <div id="expensesList" class="space-y-1.5 flex-1 overflow-y-auto pr-1">
+                    <div class="flex flex-col items-center justify-center py-20 text-center" id="noExpensesMessage">
+                        <div class="w-14 h-14 rounded-2xl bg-slate-800 flex items-center justify-center mb-4">
+                            <i class="fas fa-receipt text-xl text-slate-600"></i>
+                        </div>
+                        <p class="text-text-light font-medium text-sm">No transactions yet</p>
+                        <p class="text-xs text-slate-600 mt-1">Your expenses will appear here</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center py-8 mt-6">
+            <p class="text-xs text-slate-600">Bals Finance Tracker &mdash; All data stored locally on your device</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- Initialization and Persistence ---
+        let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+        let startingCapital = parseFloat(localStorage.getItem('startingCapital')) || 0;
+        let bankBalance = parseFloat(localStorage.getItem('bankBalance')) || 0;
+
+        // --- DOM Elements ---
+        const labelEl = document.getElementById('expenseLabel');
+        const amountEl = document.getElementById('expenseAmount');
+        const editingIdEl = document.getElementById('editingId');
+        const submitButton = document.getElementById('submitButton');
+        const cancelButton = document.getElementById('cancelEditButton');
+        const expensesList = document.getElementById('expensesList');
+        const transferAmountEl = document.getElementById('transferAmount');
+
+        // --- Utility Functions ---
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-PH', {
+                style: 'currency',
+                currency: 'PHP',
+                minimumFractionDigits: 2,
+            }).format(amount);
+        }
+
+        function saveData() {
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+            localStorage.setItem('startingCapital', startingCapital);
+            localStorage.setItem('bankBalance', bankBalance);
+        }
+
+        function resetForm() {
+            labelEl.value = '';
+            amountEl.value = '';
+            editingIdEl.value = '';
+
+            submitButton.innerHTML = '<i class="fas fa-paper-plane mr-2 text-xs"></i> Log Expense';
+            submitButton.classList.remove('btn-warning-glow');
+            submitButton.classList.add('btn-glow');
+
+            cancelButton.classList.add('hidden');
+            labelEl.focus();
+        }
+
+        // --- Core Logic ---
+
+        window.onload = function() {
+            document.getElementById('startingCapital').value = startingCapital > 0 ? startingCapital.toFixed(2) : '';
+            updateDisplay();
+        };
+
+        document.getElementById('startingCapital').addEventListener('input', function(e) {
+            startingCapital = parseFloat(e.target.value) || 0;
+            saveData();
+            updateDisplay();
+        });
+
+        // --- Bank Transfer ---
+        function handleTransfer(direction) {
+            const amount = parseFloat(transferAmountEl.value);
+
+            if (!amount || amount <= 0) {
+                alert('Please enter a valid amount greater than zero.');
+                transferAmountEl.focus();
+                return;
+            }
+
+            const totalExpenses = expenses.filter(e => e.type !== 'bank').reduce((sum, exp) => sum + exp.amount, 0);
+            const remaining = startingCapital - totalExpenses - bankBalance;
+
+            if (direction === 'toBank') {
+                if (amount > remaining) {
+                    alert('Insufficient remaining balance. You only have ' + formatCurrency(remaining) + ' available.');
+                    return;
+                }
+                bankBalance += amount;
+                expenses.push({
+                    id: Date.now(),
+                    label: 'Transfer to Bank',
+                    amount: amount,
+                    type: 'bank',
+                    date: new Date().toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' })
+                });
+            } else {
+                if (amount > bankBalance) {
+                    alert('Insufficient bank balance. You only have ' + formatCurrency(bankBalance) + ' in bank.');
+                    return;
+                }
+                bankBalance -= amount;
+                expenses.push({
+                    id: Date.now(),
+                    label: 'Withdraw from Bank',
+                    amount: amount,
+                    type: 'withdraw',
+                    date: new Date().toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' })
+                });
+            }
+
+            transferAmountEl.value = '';
+            saveData();
+            updateDisplay();
+        }
+
+        document.getElementById('transferAmount').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleTransfer('toBank');
+        });
+
+        // --- Expense Handling ---
+        function handleSubmission() {
+            const label = labelEl.value.trim();
+            const amount = parseFloat(amountEl.value);
+            const editingId = editingIdEl.value;
+
+            if (!label) {
+                alert('Please enter a description for the transaction.');
+                labelEl.focus();
+                return;
+            }
+
+            if (!amount || amount <= 0) {
+                alert('Please enter a valid amount greater than zero.');
+                amountEl.focus();
+                return;
+            }
+
+            if (editingId) {
+                const index = expenses.findIndex(exp => exp.id == editingId);
+                if (index !== -1) {
+                    expenses[index].label = label;
+                    expenses[index].amount = amount;
+                }
+            } else {
+                expenses.push({
+                    id: Date.now(),
+                    label: label,
+                    amount: amount,
+                    type: 'expense',
+                    date: new Date().toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' })
+                });
+            }
+
+            saveData();
+            resetForm();
+            updateDisplay();
+        }
+
+        function editExpense(id) {
+            const expense = expenses.find(exp => exp.id === id);
+            if (!expense) return;
+
+            // Only allow editing regular expenses
+            if (expense.type === 'bank' || expense.type === 'withdraw') return;
+
+            labelEl.value = expense.label;
+            amountEl.value = expense.amount;
+            editingIdEl.value = id;
+
+            submitButton.innerHTML = '<i class="fas fa-sync-alt mr-2 text-xs"></i> Update Expense';
+            submitButton.classList.remove('btn-glow');
+            submitButton.classList.add('btn-warning-glow');
+            cancelButton.classList.remove('hidden');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            labelEl.focus();
+        }
+
+        function deleteExpense(id) {
+            const expense = expenses.find(exp => exp.id === id);
+            if (!expense) return;
+
+            if (!confirm("Are you sure you want to remove this transaction?")) {
+                return;
+            }
+
+            // Reverse bank balance if deleting a transfer
+            if (expense.type === 'bank') {
+                bankBalance -= expense.amount;
+            } else if (expense.type === 'withdraw') {
+                bankBalance += expense.amount;
+            }
+
+            expenses = expenses.filter(exp => exp.id !== id);
+            saveData();
+            updateDisplay();
+            if (editingIdEl.value == id) {
+                resetForm();
+            }
+        }
+
+        function updateDisplay() {
+            const totalExpenses = expenses.filter(e => e.type === 'expense' || (!e.type)).reduce((sum, exp) => sum + exp.amount, 0);
+            const remaining = startingCapital - totalExpenses - bankBalance;
+
+            // 1. Update Summary
+            document.getElementById('displayCapital').textContent = formatCurrency(startingCapital);
+            document.getElementById('displayExpenses').textContent = formatCurrency(totalExpenses);
+            document.getElementById('displayBank').textContent = formatCurrency(bankBalance);
+            document.getElementById('displayRemaining').textContent = formatCurrency(remaining);
+
+            // 2. Progress bar (spent + bank vs budget)
+            const totalUsed = totalExpenses + bankBalance;
+            const percent = startingCapital > 0 ? Math.min((totalUsed / startingCapital) * 100, 100) : 0;
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('progressPercent').textContent = Math.round(percent) + '%';
+
+            const progressBar = document.getElementById('progressBar');
+            progressBar.classList.remove('bg-white/70', 'bg-red-400', 'bg-amber-400');
+            if (percent >= 100) {
+                progressBar.classList.add('bg-red-400');
+            } else if (percent >= 75) {
+                progressBar.classList.add('bg-amber-400');
+            } else {
+                progressBar.classList.add('bg-white/70');
+            }
+
+            // 3. Remaining card style
+            const remainingCard = document.getElementById('remainingCard');
+            const remainingLabel = document.getElementById('remainingLabel');
+            const remainingText = document.getElementById('displayRemaining');
+
+            remainingCard.className = 'rounded-xl sm:rounded-2xl p-3 sm:p-5 border shadow-lg shadow-black/10';
+            remainingLabel.className = 'text-[9px] sm:text-[11px] font-semibold uppercase tracking-wider mb-1';
+            remainingText.className = 'stat-value text-lg sm:text-2xl font-extrabold leading-none drop-shadow-sm';
+
+            if (remaining < 0) {
+                remainingCard.classList.add('bg-red-500/30', 'border-red-400/40');
+                remainingText.classList.add('text-red-200');
+                remainingLabel.classList.add('text-red-300/80');
+            } else if (remaining > 0) {
+                remainingCard.classList.add('bg-emerald-500/30', 'border-emerald-400/40');
+                remainingText.classList.add('text-emerald-200');
+                remainingLabel.classList.add('text-emerald-300/80');
+            } else {
+                remainingCard.classList.add('bg-white/25', 'border-white/30');
+                remainingText.classList.add('text-white');
+                remainingLabel.classList.add('text-white/70');
+            }
+
+            // 4. Expense count
+            const countEl = document.getElementById('expenseCount');
+            countEl.textContent = expenses.length > 0 ? `${expenses.length} item${expenses.length !== 1 ? 's' : ''}` : '';
+
+            // 5. Expenses list
+            if (expenses.length === 0) {
+                expensesList.innerHTML = `
+                    <div class="flex flex-col items-center justify-center py-20 text-center" id="noExpensesMessage">
+                        <div class="w-14 h-14 rounded-2xl bg-slate-800 flex items-center justify-center mb-4">
+                            <i class="fas fa-receipt text-xl text-slate-600"></i>
+                        </div>
+                        <p class="text-text-light font-medium text-sm">No transactions yet</p>
+                        <p class="text-xs text-slate-600 mt-1">Your expenses will appear here</p>
+                    </div>`;
+            } else {
+                expensesList.querySelector('#noExpensesMessage')?.remove();
+
+                expenses.sort((a, b) => b.id - a.id);
+
+                expensesList.innerHTML = expenses.map(exp => {
+                    const isBank = exp.type === 'bank';
+                    const isWithdraw = exp.type === 'withdraw';
+                    const isTransfer = isBank || isWithdraw;
+
+                    const iconBg = isBank ? 'bg-blue-500/15' : isWithdraw ? 'bg-amber-500/15' : 'bg-accent/15';
+                    const iconClass = isBank ? 'fa-building-columns text-blue-400' : isWithdraw ? 'fa-arrow-left text-amber-400' : 'fa-arrow-down text-accent';
+                    const amountColor = isBank ? 'text-blue-400' : isWithdraw ? 'text-emerald-400' : 'text-red-400';
+                    const amountPrefix = isWithdraw ? '+' : '-';
+                    const editBtn = isTransfer ? '' : `
+                        <button
+                            onclick="editExpense(${exp.id})"
+                            title="Edit"
+                            class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-slate-500 hover:text-amber-400 hover:bg-amber-400/10 transition duration-200"
+                        >
+                            <i class="fas fa-pen text-[10px] sm:text-[11px]"></i>
+                        </button>`;
+
+                    return `
+                    <div class="expense-item flex items-center p-2.5 sm:p-3 rounded-lg sm:rounded-xl group">
+                        <div class="icon-circle w-9 h-9 rounded-xl ${iconBg} items-center justify-center mr-3 flex-shrink-0 hidden sm:flex">
+                            <i class="fas ${iconClass} text-xs"></i>
+                        </div>
+
+                        <div class="flex-grow min-w-0">
+                            <p class="font-semibold text-gray-200 text-xs sm:text-sm truncate">${exp.label}</p>
+                            <p class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">${exp.date}</p>
+                        </div>
+
+                        <div class="flex items-center gap-0.5 sm:gap-1 flex-shrink-0 ml-2">
+                            <p class="font-bold ${amountColor} text-xs sm:text-sm mr-0.5 sm:mr-1">${amountPrefix}${formatCurrency(exp.amount)}</p>
+
+                            <div class="row-actions flex items-center">
+                                ${editBtn}
+                                <button
+                                    onclick="deleteExpense(${exp.id})"
+                                    title="Delete"
+                                    class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-slate-500 hover:text-red-400 hover:bg-red-400/10 transition duration-200"
+                                >
+                                    <i class="fas fa-trash-alt text-[10px] sm:text-[11px]"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('');
+
+                expensesList.scrollTop = 0;
+            }
+        }
+
+        // --- Keyboard Shortcuts ---
+        document.getElementById('expenseAmount').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleSubmission();
+        });
+
+        document.getElementById('expenseLabel').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') document.getElementById('expenseAmount').focus();
+        });
+    </script>
+</body>
+</html>
