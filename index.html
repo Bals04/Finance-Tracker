@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bals Finance Tracker</title>
+    <title>BaiNance</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23008080'/><text x='50' y='68' font-size='55' font-weight='bold' text-anchor='middle' fill='white'>B</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <script>
@@ -62,6 +62,11 @@
         .progress-track { background: #334155; height: 6px; border-radius: 9999px; overflow: hidden; }
         .progress-fill { height: 100%; border-radius: 9999px; transition: width 0.5s ease; }
 
+        .toast-enter { animation: toastIn 0.3s ease forwards; }
+        .toast-exit { animation: toastOut 0.3s ease forwards; }
+        @keyframes toastIn { from { opacity: 0; transform: translateY(12px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes toastOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(-8px) scale(0.95); } }
+
         @media (max-width: 1024px) { .row-actions { opacity: 1; } }
         @media (max-width: 640px) {
             .stat-value { font-size: 1.1rem !important; }
@@ -80,9 +85,11 @@
                     <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
                         <i class="fas fa-chart-pie text-base sm:text-lg text-white"></i>
                     </div>
-                    <h1 class="text-lg sm:text-2xl font-extrabold text-white tracking-tight">Bals Finance Tracker</h1>
+                    <div>
+                        <h1 class="text-xl sm:text-3xl font-black text-white tracking-tight leading-none italic" style="font-family: 'Outfit', sans-serif;">BaiNance</h1>
+                        <p class="text-[10px] sm:text-xs text-white/50 mt-0.5 italic">Your personal finance tracker</p>
+                    </div>
                 </div>
-                <p class="text-xs text-white/60 hidden sm:block">Personal Budget Tracker</p>
             </header>
 
             <!-- Group Selector -->
@@ -237,11 +244,125 @@
         </div>
 
         <footer class="text-center py-8 mt-6">
-            <p class="text-xs text-slate-600">Bals Finance Tracker &mdash; All data stored locally on your device</p>
+            <p class="text-xs text-slate-600">BaiNance &mdash; All data stored locally on your device</p>
         </footer>
     </div>
 
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed top-4 right-4 z-[90] flex flex-col gap-2 pointer-events-none max-w-xs sm:max-w-sm"></div>
+
+    <!-- Custom Modal -->
+    <div id="modalOverlay" class="fixed inset-0 z-[100] hidden items-center justify-center p-4" style="background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);">
+        <div class="dark-card rounded-2xl p-5 w-full max-w-sm shadow-2xl" id="modalBox">
+            <div class="flex items-center gap-2.5 mb-3">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" id="modalIconWrap">
+                    <i id="modalIcon" class="fas text-sm"></i>
+                </div>
+                <h3 class="text-sm font-bold text-gray-200" id="modalTitle">Title</h3>
+            </div>
+            <p class="text-sm text-slate-300 mb-4 leading-relaxed" id="modalMessage">Message</p>
+            <input type="text" id="modalInput" class="input-dark w-full px-4 py-3 rounded-xl text-sm mb-4 hidden" maxlength="30" />
+            <div class="flex gap-2" id="modalActions"></div>
+        </div>
+    </div>
+
     <script>
+        // --- Modal System ---
+        let modalResolve = null;
+
+        function showModal({ type = 'alert', title = '', message = '', placeholder = '', icon = 'info-circle', iconColor = 'accent' }) {
+            return new Promise(resolve => {
+                modalResolve = resolve;
+                const overlay = document.getElementById('modalOverlay');
+                const titleEl = document.getElementById('modalTitle');
+                const msgEl = document.getElementById('modalMessage');
+                const inputEl = document.getElementById('modalInput');
+                const actionsEl = document.getElementById('modalActions');
+                const iconWrap = document.getElementById('modalIconWrap');
+                const iconEl = document.getElementById('modalIcon');
+
+                titleEl.textContent = title;
+                msgEl.textContent = message;
+
+                // Icon
+                const colors = { accent: 'bg-accent/15 text-accent', red: 'bg-red-500/15 text-red-400', amber: 'bg-amber-500/15 text-amber-400', blue: 'bg-blue-500/15 text-blue-400' };
+                iconWrap.className = 'w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ' + (colors[iconColor] || colors.accent);
+                iconEl.className = 'fas fa-' + icon + ' text-sm';
+
+                // Input
+                if (type === 'prompt') {
+                    inputEl.classList.remove('hidden');
+                    inputEl.value = '';
+                    inputEl.placeholder = placeholder || '';
+                } else {
+                    inputEl.classList.add('hidden');
+                }
+
+                // Buttons
+                if (type === 'alert') {
+                    actionsEl.innerHTML = `<button onclick="closeModal(true)" class="flex-1 btn-glow text-white font-bold py-2.5 rounded-xl text-sm">OK</button>`;
+                } else if (type === 'confirm') {
+                    actionsEl.innerHTML = `
+                        <button onclick="closeModal(false)" class="flex-1 bg-slate-700 hover:bg-slate-600 text-gray-300 font-semibold py-2.5 rounded-xl text-sm transition duration-200">Cancel</button>
+                        <button onclick="closeModal(true)" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold py-2.5 rounded-xl text-sm transition duration-200 shadow-lg shadow-red-500/20">Delete</button>`;
+                } else if (type === 'prompt') {
+                    actionsEl.innerHTML = `
+                        <button onclick="closeModal(null)" class="flex-1 bg-slate-700 hover:bg-slate-600 text-gray-300 font-semibold py-2.5 rounded-xl text-sm transition duration-200">Cancel</button>
+                        <button onclick="closeModal(document.getElementById('modalInput').value)" class="flex-1 btn-glow text-white font-bold py-2.5 rounded-xl text-sm">Confirm</button>`;
+                }
+
+                overlay.classList.remove('hidden');
+                overlay.classList.add('flex');
+
+                if (type === 'prompt') {
+                    setTimeout(() => inputEl.focus(), 100);
+                }
+            });
+        }
+
+        function closeModal(value) {
+            const overlay = document.getElementById('modalOverlay');
+            overlay.classList.add('hidden');
+            overlay.classList.remove('flex');
+            if (modalResolve) { modalResolve(value); modalResolve = null; }
+        }
+
+        // Close on backdrop click
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closeModal(null);
+        });
+
+        // Enter key for modal input
+        document.getElementById('modalInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') closeModal(this.value);
+        });
+
+        // --- Toast ---
+        function toast(message, { icon = 'check', color = 'accent' } = {}) {
+            const container = document.getElementById('toastContainer');
+            const colors = {
+                accent: 'bg-accent/20 text-accent border-accent/30',
+                red: 'bg-red-500/20 text-red-400 border-red-500/30',
+                blue: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
+                amber: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
+                emerald: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
+            };
+            const iconColors = { accent: 'text-accent', red: 'text-red-400', blue: 'text-blue-400', amber: 'text-amber-400', emerald: 'text-emerald-400' };
+
+            const el = document.createElement('div');
+            el.className = `toast-enter pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl border shadow-lg text-sm font-medium ${colors[color] || colors.accent}`;
+            el.style.background = '#1e293b';
+            el.innerHTML = `<i class="fas fa-${icon} text-xs ${iconColors[color] || iconColors.accent}"></i><span class="text-gray-200">${message}</span>`;
+
+            container.appendChild(el);
+
+            setTimeout(() => {
+                el.classList.remove('toast-enter');
+                el.classList.add('toast-exit');
+                el.addEventListener('animationend', () => el.remove());
+            }, 2500);
+        }
+
         // --- Data ---
         // groups: [{ name, budget, savings }]
         let groups = JSON.parse(localStorage.getItem('bft_groups')) || [];
@@ -405,12 +526,15 @@
             updateDisplay();
         }
 
-        function createGroup() {
+        async function createGroup() {
             closeGroupSelector();
-            const name = prompt('Enter group name (e.g., School, Work):');
+            const name = await showModal({ type: 'prompt', title: 'New Group', message: 'Enter a name for your budget group.', placeholder: 'e.g., School, Work', icon: 'folder-plus', iconColor: 'accent' });
             if (!name || !name.trim()) return;
             const trimmed = name.trim();
-            if (groups.find(g => g.name === trimmed)) { alert('Group "' + trimmed + '" already exists.'); return; }
+            if (groups.find(g => g.name === trimmed)) {
+                await showModal({ type: 'alert', title: 'Already Exists', message: 'Group "' + trimmed + '" already exists.', icon: 'exclamation-circle', iconColor: 'amber' });
+                return;
+            }
             groups.push({ name: trimmed, budget: 0, savings: 0 });
             activeGroup = trimmed;
             saveData();
@@ -418,10 +542,12 @@
             updateBudgetInput();
             updateFormVisibility();
             updateDisplay();
+            toast('Group "' + trimmed + '" created', { icon: 'folder-plus', color: 'accent' });
         }
 
-        function deleteGroup(name) {
-            if (!confirm('Delete "' + name + '" and all its transactions?')) return;
+        async function deleteGroup(name) {
+            const ok = await showModal({ type: 'confirm', title: 'Delete Group', message: 'Delete "' + name + '" and all its transactions? This cannot be undone.', icon: 'trash-alt', iconColor: 'red' });
+            if (!ok) return;
             groups = groups.filter(g => g.name !== name);
             expenses = expenses.filter(e => e.group !== name);
             if (activeGroup === name) activeGroup = '__all__';
@@ -431,6 +557,7 @@
             updateBudgetInput();
             updateFormVisibility();
             updateDisplay();
+            toast('Group "' + name + '" deleted', { icon: 'trash-alt', color: 'red' });
         }
 
         // --- Budget Input ---
@@ -467,27 +594,41 @@
         }
 
         // --- Savings Transfer ---
-        function handleTransfer(direction) {
+        async function handleTransfer(direction) {
             if (isAllView()) return;
             const amount = parseFloat(transferAmountEl.value);
-            if (!amount || amount <= 0) { alert('Please enter a valid amount.'); transferAmountEl.focus(); return; }
+            if (!amount || amount <= 0) {
+                await showModal({ type: 'alert', title: 'Invalid Amount', message: 'Please enter a valid amount greater than zero.', icon: 'exclamation-circle', iconColor: 'amber' });
+                transferAmountEl.focus(); return;
+            }
 
             const g = getGroup(activeGroup);
             if (!g) return;
             const stats = getGroupStats(activeGroup);
 
             if (direction === 'toBank') {
-                if (amount > stats.remaining) { alert('Insufficient remaining. Only ' + formatCurrency(stats.remaining) + ' available.'); return; }
+                if (amount > stats.remaining) {
+                    await showModal({ type: 'alert', title: 'Insufficient Balance', message: 'Not enough remaining balance. You only have ' + formatCurrency(stats.remaining) + ' available.', icon: 'exclamation-triangle', iconColor: 'red' });
+                    return;
+                }
                 g.savings += amount;
                 expenses.push({ id: Date.now(), label: 'Transfer to Savings', amount, type: 'bank', group: activeGroup, date: new Date().toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' }) });
+                transferAmountEl.value = '';
+                saveData();
+                updateDisplay();
+                toast(formatCurrency(amount) + ' transferred to savings', { icon: 'building-columns', color: 'blue' });
             } else {
-                if (amount > g.savings) { alert('Insufficient savings. Only ' + formatCurrency(g.savings) + ' available.'); return; }
+                if (amount > g.savings) {
+                    await showModal({ type: 'alert', title: 'Insufficient Savings', message: 'Not enough in savings. You only have ' + formatCurrency(g.savings) + ' available.', icon: 'exclamation-triangle', iconColor: 'red' });
+                    return;
+                }
                 g.savings -= amount;
                 expenses.push({ id: Date.now(), label: 'Withdraw from Savings', amount, type: 'withdraw', group: activeGroup, date: new Date().toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' }) });
+                transferAmountEl.value = '';
+                saveData();
+                updateDisplay();
+                toast(formatCurrency(amount) + ' withdrawn from savings', { icon: 'arrow-left', color: 'emerald' });
             }
-            transferAmountEl.value = '';
-            saveData();
-            updateDisplay();
         }
 
         document.getElementById('transferAmount').addEventListener('keypress', function(e) { if (e.key === 'Enter') handleTransfer('toBank'); });
@@ -503,24 +644,31 @@
             cancelButton.classList.add('hidden');
         }
 
-        function handleSubmission() {
+        async function handleSubmission() {
             if (isAllView()) return;
             const label = labelEl.value.trim();
             const amount = parseFloat(amountEl.value);
             const editingId = editingIdEl.value;
 
-            if (!label) { alert('Please enter a description.'); labelEl.focus(); return; }
-            if (!amount || amount <= 0) { alert('Please enter a valid amount.'); amountEl.focus(); return; }
+            if (!label) {
+                await showModal({ type: 'alert', title: 'Missing Description', message: 'Please enter a description for the transaction.', icon: 'pen', iconColor: 'amber' });
+                labelEl.focus(); return;
+            }
+            if (!amount || amount <= 0) {
+                await showModal({ type: 'alert', title: 'Invalid Amount', message: 'Please enter a valid amount greater than zero.', icon: 'exclamation-circle', iconColor: 'amber' });
+                amountEl.focus(); return;
+            }
 
             if (editingId) {
                 const idx = expenses.findIndex(exp => exp.id == editingId);
                 if (idx !== -1) { expenses[idx].label = label; expenses[idx].amount = amount; }
+                saveData(); resetForm(); updateDisplay();
+                toast('Transaction updated', { icon: 'pen', color: 'amber' });
             } else {
                 expenses.push({ id: Date.now(), label, amount, type: 'expense', group: activeGroup, date: new Date().toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' }) });
+                saveData(); resetForm(); updateDisplay();
+                toast(label + ' — ' + formatCurrency(amount) + ' logged', { icon: 'receipt', color: 'accent' });
             }
-            saveData();
-            resetForm();
-            updateDisplay();
         }
 
         function editExpense(id) {
@@ -539,18 +687,21 @@
             labelEl.focus();
         }
 
-        function deleteExpense(id) {
+        async function deleteExpense(id) {
             const exp = expenses.find(e => e.id === id);
             if (!exp) return;
-            if (!confirm('Remove this transaction?')) return;
+            const ok = await showModal({ type: 'confirm', title: 'Delete Transaction', message: 'Remove "' + exp.label + '" (' + formatCurrency(exp.amount) + ')? This cannot be undone.', icon: 'trash-alt', iconColor: 'red' });
+            if (!ok) return;
             if (exp.type === 'bank' || exp.type === 'withdraw') {
                 const g = getGroup(exp.group);
                 if (g) { g.savings += (exp.type === 'bank' ? -exp.amount : exp.amount); }
             }
+            const deletedLabel = exp.label;
             expenses = expenses.filter(e => e.id !== id);
             saveData();
             updateDisplay();
             if (editingIdEl.value == id) resetForm();
+            toast('"' + deletedLabel + '" removed', { icon: 'trash-alt', color: 'red' });
         }
 
         // --- History Filter ---
