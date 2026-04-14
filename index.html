@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BaiNance</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23008080'/><text x='50' y='68' font-size='55' font-weight='bold' text-anchor='middle' fill='white'>B</text></svg>">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23008080'/><text x='50' y='68' font-size='55' font-weight='bold' text-anchor='middle' fill='white'>B</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <script>
         tailwind.config = {
@@ -25,56 +31,467 @@
         }
     </script>
     <style>
-        * { box-sizing: border-box; }
-        body { background: #0f172a; min-height: 100vh; }
-        .hero-gradient { background: linear-gradient(135deg, #006666 0%, #008080 40%, #14b8a6 100%); }
+        * {
+            box-sizing: border-box;
+        }
 
-        #expensesList::-webkit-scrollbar { width: 4px; }
-        #expensesList::-webkit-scrollbar-track { background: transparent; }
-        #expensesList::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+        body {
+            background: #0f172a;
+            min-height: 100vh;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #006666 0%, #008080 40%, #14b8a6 100%);
+        }
+
+        #expensesList::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        #expensesList::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #expensesList::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 9999px;
+        }
 
         input[type="number"]::-webkit-inner-spin-button,
-        input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-        input[type="number"] { -moz-appearance: textfield; }
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
 
-        .input-dark { background: #1e293b; border: 1.5px solid #334155; color: #f1f5f9; transition: all 0.2s ease; }
-        .input-dark::placeholder { color: #475569; }
-        .input-dark:focus { border-color: #008080; box-shadow: 0 0 0 3px rgba(0,128,128,0.15); outline: none; }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
 
-        .btn-glow { background: linear-gradient(135deg, #008080, #0d9488); box-shadow: 0 0 20px rgba(0,128,128,0.3); transition: all 0.3s ease; }
-        .btn-glow:hover { box-shadow: 0 0 30px rgba(0,128,128,0.5); transform: translateY(-1px); }
-        .btn-glow:active { transform: translateY(0); }
+        .input-dark {
+            background: #1e293b;
+            border: 1.5px solid #334155;
+            color: #f1f5f9;
+            transition: all 0.2s ease;
+        }
 
-        .btn-warning-glow { background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 0 20px rgba(245,158,11,0.3); transition: all 0.3s ease; }
-        .btn-warning-glow:hover { box-shadow: 0 0 30px rgba(245,158,11,0.5); transform: translateY(-1px); }
+        .input-dark::placeholder {
+            color: #475569;
+        }
 
-        .btn-blue-glow { background: linear-gradient(135deg, #3b82f6, #2563eb); box-shadow: 0 0 20px rgba(59,130,246,0.3); transition: all 0.3s ease; }
-        .btn-blue-glow:hover { box-shadow: 0 0 30px rgba(59,130,246,0.5); transform: translateY(-1px); }
-        .btn-blue-glow:active { transform: translateY(0); }
+        .input-dark:focus {
+            border-color: #008080;
+            box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.15);
+            outline: none;
+        }
 
-        .dark-card { background: #1e293b; border: 1px solid #334155; }
+        .btn-glow {
+            background: linear-gradient(135deg, #008080, #0d9488);
+            box-shadow: 0 0 20px rgba(0, 128, 128, 0.3);
+            transition: all 0.3s ease;
+        }
 
-        .expense-item { background: #1e293b; border: 1px solid transparent; transition: all 0.2s ease; }
-        .expense-item:hover { border-color: #334155; background: #253349; }
-        .expense-item:hover .row-actions { opacity: 1; }
-        .row-actions { opacity: 0; transition: opacity 0.15s ease; }
+        .btn-glow:hover {
+            box-shadow: 0 0 30px rgba(0, 128, 128, 0.5);
+            transform: translateY(-1px);
+        }
 
-        .progress-track { background: #334155; height: 6px; border-radius: 9999px; overflow: hidden; }
-        .progress-fill { height: 100%; border-radius: 9999px; transition: width 0.5s ease; }
+        .btn-glow:active {
+            transform: translateY(0);
+        }
 
-        .toast-enter { animation: toastIn 0.3s ease forwards; }
-        .toast-exit { animation: toastOut 0.3s ease forwards; }
-        @keyframes toastIn { from { opacity: 0; transform: translateY(12px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        @keyframes toastOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(-8px) scale(0.95); } }
+        .btn-warning-glow {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transition: all 0.3s ease;
+        }
 
-        @media (max-width: 1024px) { .row-actions { opacity: 1; } }
+        .btn-warning-glow:hover {
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .btn-blue-glow {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-blue-glow:hover {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .btn-blue-glow:active {
+            transform: translateY(0);
+        }
+
+        .dark-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+
+        .expense-item {
+            background: #1e293b;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .expense-item:hover {
+            border-color: #334155;
+            background: #253349;
+        }
+
+        .expense-item:hover .row-actions {
+            opacity: 1;
+        }
+
+        .row-actions {
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+
+        .progress-track {
+            background: #334155;
+            height: 6px;
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.5s ease;
+        }
+
+        .toast-enter {
+            animation: toastIn 0.3s ease forwards;
+        }
+
+        .toast-exit {
+            animation: toastOut 0.3s ease forwards;
+        }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes toastOut {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-8px) scale(0.95);
+            }
+        }
+
+        #modalOverlay {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        #modalOverlay.flex {
+            opacity: 1;
+        }
+
+        #modalOverlay.modal-closing {
+            opacity: 0;
+        }
+
+        #modalBox {
+            animation: modalPop 0.22s ease forwards;
+        }
+
+        #modalOverlay.modal-closing #modalBox {
+            animation: modalPopOut 0.18s ease forwards;
+        }
+
+        #modalGrabber {
+            display: none;
+        }
+
+        #inputSheetOverlay {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        #inputSheetOverlay.flex {
+            opacity: 1;
+        }
+
+        #inputSheetOverlay.sheet-closing {
+            opacity: 0;
+        }
+
+        #groupSheetOverlay {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        #groupSheetOverlay.flex {
+            opacity: 1;
+        }
+
+        .group-sheet-grabber,
+        .group-picker-header {
+            display: none;
+        }
+
+        .mobile-input-actions {
+            display: none;
+        }
+
+        .mobile-sheet-close {
+            display: none;
+        }
+
+        .mobile-sheet-done {
+            display: none;
+        }
+
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: translateY(8px) scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes modalPopOut {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(8px) scale(0.96);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .row-actions {
+                opacity: 1;
+            }
+        }
+
         @media (max-width: 640px) {
-            .stat-value { font-size: 1.1rem !important; }
-            .expense-item { padding: 10px; }
-            .expense-item .icon-circle { display: none; }
+            .stat-value {
+                font-size: 1.1rem !important;
+            }
+
+            .expense-item {
+                padding: 10px;
+            }
+
+            .expense-item .icon-circle {
+                display: none;
+            }
+
+            input,
+            select,
+            textarea {
+                font-size: 16px !important;
+            }
+
+            .mobile-input-actions {
+                display: grid;
+            }
+
+            .input-card {
+                display: none;
+            }
+
+            .input-card.mobile-sheet-active {
+                display: block;
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 111;
+                width: 100%;
+                max-height: calc(100vh - 64px);
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
+                border-radius: 20px 20px 0 0;
+                border-left: 0;
+                border-right: 0;
+                border-bottom: 0;
+                padding: 12px 18px calc(18px + env(safe-area-inset-bottom));
+                box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.35);
+                animation: sheetIn 0.24s cubic-bezier(0.2, 0.85, 0.25, 1) forwards;
+            }
+
+            .input-card.mobile-sheet-closing {
+                animation: sheetOut 0.18s ease forwards;
+            }
+
+            .input-card.mobile-sheet-active::before {
+                content: '';
+                display: block;
+                width: 42px;
+                height: 5px;
+                margin: 0 auto 14px;
+                border-radius: 9999px;
+                background: #475569;
+            }
+
+            .input-card.sheet-dragging,
+            #groupSelectorMenu.sheet-dragging,
+            #modalOverlay.input-sheet #modalBox.sheet-dragging {
+                animation: none !important;
+                transition: none;
+            }
+
+            .mobile-sheet-close {
+                display: flex;
+                position: absolute;
+                top: 14px;
+                right: 14px;
+            }
+
+            .mobile-sheet-done {
+                display: flex;
+                min-height: 44px;
+                margin-top: 12px;
+            }
+
+            #modalOverlay.input-sheet {
+                align-items: flex-end;
+                justify-content: center;
+                padding: 0;
+                background: rgba(0, 0, 0, 0.5) !important;
+                backdrop-filter: blur(3px) !important;
+            }
+
+            #modalOverlay.input-sheet #modalBox {
+                width: 100%;
+                max-width: none;
+                border-radius: 20px 20px 0 0;
+                border-left: 0;
+                border-right: 0;
+                border-bottom: 0;
+                max-height: calc(100vh - 64px);
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
+                padding: 12px 18px calc(18px + env(safe-area-inset-bottom));
+                box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.35);
+                animation: sheetIn 0.24s cubic-bezier(0.2, 0.85, 0.25, 1) forwards;
+            }
+
+            #modalOverlay.input-sheet.modal-closing #modalBox {
+                animation: sheetOut 0.18s ease forwards;
+            }
+
+            #modalOverlay.input-sheet #modalGrabber {
+                display: block;
+                width: 42px;
+                height: 5px;
+                margin: 0 auto 14px;
+                border-radius: 9999px;
+                background: #475569;
+            }
+
+            #modalOverlay.input-sheet #modalActions {
+                gap: 10px;
+            }
+
+            #modalOverlay.input-sheet #modalActions button {
+                min-height: 44px;
+                border-radius: 10px;
+            }
+
+            #groupSheetOverlay.group-closing {
+                opacity: 0;
+            }
+
+            #groupSelectorMenu {
+                position: fixed !important;
+                left: 0 !important;
+                right: 0 !important;
+                top: auto !important;
+                bottom: 0 !important;
+                z-index: 120 !important;
+                margin-top: 0 !important;
+                width: 100%;
+                max-height: calc(100vh - 64px);
+                border-radius: 20px 20px 0 0 !important;
+                border-left: 0 !important;
+                border-right: 0 !important;
+                border-bottom: 0 !important;
+                padding: 12px 14px calc(14px + env(safe-area-inset-bottom));
+                box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.35);
+                animation: sheetIn 0.24s cubic-bezier(0.2, 0.85, 0.25, 1) forwards;
+            }
+
+            #groupSelectorMenu.group-closing {
+                animation: sheetOut 0.18s ease forwards;
+            }
+
+            #groupSelectorItems {
+                max-height: min(52vh, 360px);
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .group-sheet-grabber {
+                display: block;
+                width: 42px;
+                height: 5px;
+                margin: 0 auto 14px;
+                border-radius: 9999px;
+                background: #475569;
+                touch-action: none;
+            }
+
+            .group-picker-header {
+                display: flex;
+            }
+
+            @keyframes sheetIn {
+                from {
+                    opacity: 1;
+                    transform: translateY(100%);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes sheetOut {
+                from {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(100%);
+                }
+            }
         }
     </style>
 </head>
+
 <body class="min-h-screen font-sans text-gray-100">
 
     <!-- Hero Banner -->
@@ -82,11 +499,13 @@
         <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-16 sm:pb-24">
             <header class="flex items-center justify-between">
                 <div class="flex items-center gap-2.5 sm:gap-3">
-                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
+                    <div
+                        class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
                         <i class="fas fa-chart-pie text-base sm:text-lg text-white"></i>
                     </div>
                     <div>
-                        <h1 class="text-xl sm:text-3xl font-black text-white tracking-tight leading-none italic" style="font-family: 'Outfit', sans-serif;">BaiNance</h1>
+                        <h1 class="text-xl sm:text-3xl font-black text-white tracking-tight leading-none italic"
+                            style="font-family: 'Outfit', sans-serif;">BaiNance</h1>
                         <p class="text-[10px] sm:text-xs text-white/50 mt-0.5 italic">Your personal finance tracker</p>
                     </div>
                 </div>
@@ -94,45 +513,74 @@
 
             <!-- Group Selector -->
             <div class="mt-5 relative" id="groupSelectorWrapper">
-                <button onclick="toggleGroupSelector()" id="groupSelectorBtn" class="bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2.5 flex items-center gap-2.5 transition duration-200 w-full sm:w-auto">
+                <button onclick="toggleGroupSelector()" id="groupSelectorBtn"
+                    class="bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2.5 flex items-center gap-2.5 transition duration-200 w-full sm:w-auto">
                     <i class="fas fa-folder text-white/50 text-xs"></i>
-                    <span id="groupSelectorLabel" class="text-sm font-semibold text-white">All Groups</span>
-                    <i class="fas fa-chevron-down text-[10px] text-white/40 ml-auto sm:ml-1"></i>
+                    <span id="groupSelectorLabel" class="text-sm font-semibold text-white flex-1 sm:flex-none text-left">All Groups</span>
                 </button>
-                <div id="groupSelectorMenu" class="hidden absolute left-0 right-0 sm:right-auto sm:min-w-[240px] top-full mt-1.5 rounded-xl overflow-hidden shadow-2xl z-50" style="background: #1a2536; border: 1px solid #334155;">
+                <div id="groupSelectorMenu"
+                    class="hidden absolute left-0 right-0 sm:right-auto sm:min-w-[240px] top-full mt-1.5 rounded-xl overflow-hidden shadow-2xl z-50"
+                    style="background: #1a2536; border: 1px solid #334155;">
+                    <div class="group-sheet-grabber" aria-hidden="true"></div>
+                    <div class="group-picker-header items-center justify-between mb-3 px-1">
+                        <div>
+                            <p class="text-sm font-bold text-gray-200">Groups</p>
+                            <p class="text-xs text-slate-500">Choose where to work</p>
+                        </div>
+                        <button onclick="closeGroupSelector()" class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 flex items-center justify-center transition duration-200" aria-label="Close groups">
+                            <i class="fas fa-times text-xs"></i>
+                        </button>
+                    </div>
                     <div class="max-h-64 overflow-y-auto" id="groupSelectorItems"></div>
+                    <form onsubmit="createGroupFromInput(event)" class="border-t border-slate-700/80 p-3 flex gap-2">
+                        <input type="text" id="groupCreateInput" class="input-dark min-w-0 flex-1 px-3 py-2.5 rounded-lg text-sm" placeholder="New group name" maxlength="30" />
+                        <button type="submit" class="btn-glow text-white font-bold px-4 rounded-lg text-sm flex items-center justify-center">
+                            Add
+                        </button>
+                    </form>
                 </div>
             </div>
 
             <!-- Stats Row -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mt-4 sm:mt-5">
-                <div class="bg-white/25 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-white/30 shadow-lg shadow-black/10">
+                <div
+                    class="bg-white/25 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-white/30 shadow-lg shadow-black/10">
                     <div class="flex items-center gap-1 sm:gap-1.5 mb-1">
                         <i class="fas fa-wallet text-white/60 text-[10px] sm:text-xs"></i>
-                        <p class="text-[9px] sm:text-[11px] font-semibold text-white/70 uppercase tracking-wider">Budget</p>
+                        <p class="text-[9px] sm:text-[11px] font-semibold text-white/70 uppercase tracking-wider">Budget
+                        </p>
                     </div>
-                    <p class="stat-value text-lg sm:text-2xl font-extrabold text-white leading-none drop-shadow-sm" id="displayCapital">&#8369;0.00</p>
+                    <p class="stat-value text-lg sm:text-2xl font-extrabold text-white leading-none drop-shadow-sm"
+                        id="displayCapital">&#8369;0.00</p>
                 </div>
-                <div class="bg-white/25 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-white/30 shadow-lg shadow-black/10">
+                <div
+                    class="bg-white/25 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-white/30 shadow-lg shadow-black/10">
                     <div class="flex items-center gap-1 sm:gap-1.5 mb-1">
                         <i class="fas fa-arrow-trend-down text-white/60 text-[10px] sm:text-xs"></i>
-                        <p class="text-[9px] sm:text-[11px] font-semibold text-white/70 uppercase tracking-wider">Spent</p>
+                        <p class="text-[9px] sm:text-[11px] font-semibold text-white/70 uppercase tracking-wider">Spent
+                        </p>
                     </div>
-                    <p class="stat-value text-lg sm:text-2xl font-extrabold text-white leading-none drop-shadow-sm" id="displayExpenses">&#8369;0.00</p>
+                    <p class="stat-value text-lg sm:text-2xl font-extrabold text-white leading-none drop-shadow-sm"
+                        id="displayExpenses">&#8369;0.00</p>
                 </div>
-                <div class="bg-blue-500/25 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-blue-400/30 shadow-lg shadow-black/10">
+                <div
+                    class="bg-blue-500/25 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-blue-400/30 shadow-lg shadow-black/10">
                     <div class="flex items-center gap-1 sm:gap-1.5 mb-1">
                         <i class="fas fa-building-columns text-blue-300/70 text-[10px] sm:text-xs"></i>
-                        <p class="text-[9px] sm:text-[11px] font-semibold text-blue-200/70 uppercase tracking-wider">Savings</p>
+                        <p class="text-[9px] sm:text-[11px] font-semibold text-blue-200/70 uppercase tracking-wider">
+                            Savings</p>
                     </div>
-                    <p class="stat-value text-lg sm:text-2xl font-extrabold text-blue-100 leading-none drop-shadow-sm" id="displayBank">&#8369;0.00</p>
+                    <p class="stat-value text-lg sm:text-2xl font-extrabold text-blue-100 leading-none drop-shadow-sm"
+                        id="displayBank">&#8369;0.00</p>
                 </div>
                 <div class="rounded-xl sm:rounded-2xl p-3 sm:p-5 border shadow-lg shadow-black/10" id="remainingCard">
                     <div class="flex items-center gap-1 sm:gap-1.5 mb-1">
                         <i class="fas fa-coins text-white/60 text-[10px] sm:text-xs" id="remainingIcon"></i>
-                        <p class="text-[9px] sm:text-[11px] font-semibold uppercase tracking-wider" id="remainingLabel">Remaining</p>
+                        <p class="text-[9px] sm:text-[11px] font-semibold uppercase tracking-wider" id="remainingLabel">
+                            Remaining</p>
                     </div>
-                    <p class="stat-value text-lg sm:text-2xl font-extrabold leading-none drop-shadow-sm" id="displayRemaining">&#8369;0.00</p>
+                    <p class="stat-value text-lg sm:text-2xl font-extrabold leading-none drop-shadow-sm"
+                        id="displayRemaining">&#8369;0.00</p>
                 </div>
             </div>
 
@@ -155,61 +603,112 @@
 
             <!-- Left: Forms -->
             <div class="lg:col-span-2 space-y-4 sm:space-y-5">
+                <div class="mobile-input-actions grid-cols-3 gap-2">
+                    <button onclick="openInputSheet('budget')" id="mobileBudgetBtn"
+                        class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-gray-200 font-semibold py-3 px-2 rounded-lg text-[11px] flex flex-col items-center gap-1 transition duration-200">
+                        <i class="fas fa-wallet text-accent text-sm"></i>
+                        Set Budget
+                    </button>
+                    <button onclick="openInputSheet('expense')" id="mobileExpenseBtn"
+                        class="btn-glow text-white font-bold py-3 px-2 rounded-lg text-[11px] flex flex-col items-center gap-1">
+                        <i class="fas fa-plus text-sm"></i>
+                        Add Expense
+                    </button>
+                    <button onclick="openInputSheet('savings')" id="mobileSavingsBtn"
+                        class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-gray-200 font-semibold py-3 px-2 rounded-lg text-[11px] flex flex-col items-center gap-1 transition duration-200">
+                        <i class="fas fa-building-columns text-blue-400 text-sm"></i>
+                        Add Savings
+                    </button>
+                </div>
 
                 <!-- Budget Input (per group) -->
-                <div class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5" id="budgetCard">
-                    <label for="startingCapital" class="block text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                <div class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5 relative input-card" id="budgetCard">
+                    <button onclick="closeInputSheet()"
+                        class="mobile-sheet-close w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 items-center justify-center transition duration-200"
+                        aria-label="Close budget sheet">
+                        <i class="fas fa-times text-xs"></i>
+                    </button>
+                    <label for="startingCapital"
+                        class="block text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
                         <i class="fas fa-wallet text-accent text-sm"></i> <span id="budgetLabel">Set Budget</span>
                     </label>
                     <div class="relative">
-                        <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-light font-bold text-sm">&#8369;</span>
-                        <input type="number" id="startingCapital" placeholder="Enter budget for this group" class="input-dark w-full pl-9 pr-4 py-3 rounded-xl text-sm font-medium" step="50" />
+                        <span
+                            class="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-light font-bold text-sm">&#8369;</span>
+                        <input type="number" id="startingCapital" placeholder="Enter budget for this group"
+                            class="input-dark w-full pl-9 pr-4 py-3 rounded-xl text-sm font-medium" step="50" />
                     </div>
+                    <button onclick="closeInputSheet()"
+                        class="mobile-sheet-done w-full btn-glow text-white font-bold py-3 rounded-xl items-center justify-center text-sm">
+                        Done
+                    </button>
                 </div>
 
                 <!-- Transfer to Savings (per group) -->
-                <div class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5" id="savingsCard">
+                <div class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5 relative input-card" id="savingsCard">
+                    <button onclick="closeInputSheet()"
+                        class="mobile-sheet-close w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 items-center justify-center transition duration-200"
+                        aria-label="Close savings sheet">
+                        <i class="fas fa-times text-xs"></i>
+                    </button>
                     <h2 class="text-sm font-bold text-gray-300 mb-3 flex items-center gap-2">
                         <i class="fas fa-building-columns text-blue-400 text-xs"></i> Transfer to Savings
                     </h2>
                     <div class="relative mb-3">
-                        <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-light font-bold text-sm">&#8369;</span>
-                        <input type="number" id="transferAmount" placeholder="Amount to transfer" class="input-dark w-full pl-9 pr-4 py-3 rounded-xl text-sm font-medium" step="0.01" />
+                        <span
+                            class="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-light font-bold text-sm">&#8369;</span>
+                        <input type="number" id="transferAmount" placeholder="Amount to transfer"
+                            class="input-dark w-full pl-9 pr-4 py-3 rounded-xl text-sm font-medium" step="0.01" />
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="handleTransfer('toBank')" class="flex-1 btn-blue-glow text-white font-bold py-2.5 rounded-xl flex items-center justify-center text-xs sm:text-sm">
+                        <button onclick="handleTransfer('toBank')"
+                            class="flex-1 btn-blue-glow text-white font-bold py-2.5 rounded-xl flex items-center justify-center text-xs sm:text-sm">
                             <i class="fas fa-arrow-right mr-1.5 text-[10px]"></i> To Savings
                         </button>
-                        <button onclick="handleTransfer('fromBank')" class="flex-1 bg-slate-700 hover:bg-slate-600 text-gray-300 font-bold py-2.5 rounded-xl flex items-center justify-center text-xs sm:text-sm transition duration-200">
+                        <button onclick="handleTransfer('fromBank')"
+                            class="flex-1 bg-slate-700 hover:bg-slate-600 text-gray-300 font-bold py-2.5 rounded-xl flex items-center justify-center text-xs sm:text-sm transition duration-200">
                             <i class="fas fa-arrow-left mr-1.5 text-[10px]"></i> Withdraw
                         </button>
                     </div>
                 </div>
 
                 <!-- Expense Form -->
-                <div class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5" id="expenseCard">
+                <div class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5 relative input-card" id="expenseCard">
+                    <button onclick="closeInputSheet()"
+                        class="mobile-sheet-close w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 items-center justify-center transition duration-200"
+                        aria-label="Close transaction sheet">
+                        <i class="fas fa-times text-xs"></i>
+                    </button>
                     <h2 class="text-sm font-bold text-gray-300 mb-4 flex items-center gap-2">
                         <i class="fas fa-plus text-accent text-xs"></i> New Transaction
                     </h2>
                     <input type="hidden" id="editingId" value="">
                     <div class="space-y-3 mb-5">
                         <div>
-                            <label class="block text-[11px] font-semibold text-text-light mb-1.5 uppercase tracking-wider">Description</label>
-                            <input type="text" id="expenseLabel" placeholder="What did you spend on?" class="input-dark w-full px-4 py-3 rounded-xl text-sm" />
+                            <label
+                                class="block text-[11px] font-semibold text-text-light mb-1.5 uppercase tracking-wider">Description</label>
+                            <input type="text" id="expenseLabel" placeholder="What did you spend on?"
+                                class="input-dark w-full px-4 py-3 rounded-xl text-sm" />
                         </div>
                         <div>
-                            <label class="block text-[11px] font-semibold text-text-light mb-1.5 uppercase tracking-wider">Amount</label>
+                            <label
+                                class="block text-[11px] font-semibold text-text-light mb-1.5 uppercase tracking-wider">Amount</label>
                             <div class="relative">
-                                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-light font-bold text-sm">&#8369;</span>
-                                <input type="number" id="expenseAmount" placeholder="0.00" class="input-dark w-full pl-9 pr-4 py-3 rounded-xl text-sm font-medium" step="0.01" />
+                                <span
+                                    class="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-light font-bold text-sm">&#8369;</span>
+                                <input type="number" id="expenseAmount" placeholder="0.00"
+                                    class="input-dark w-full pl-9 pr-4 py-3 rounded-xl text-sm font-medium"
+                                    step="0.01" />
                             </div>
                         </div>
                     </div>
                     <div class="flex gap-3">
-                        <button onclick="handleSubmission()" id="submitButton" class="flex-grow btn-glow text-white font-bold py-3 rounded-xl flex items-center justify-center text-sm">
+                        <button onclick="handleSubmission()" id="submitButton"
+                            class="flex-grow btn-glow text-white font-bold py-3 rounded-xl flex items-center justify-center text-sm">
                             <i class="fas fa-paper-plane mr-2 text-xs"></i> Log Expense
                         </button>
-                        <button onclick="resetForm()" id="cancelEditButton" class="hidden bg-slate-700 hover:bg-slate-600 text-gray-300 font-semibold py-3 px-5 rounded-xl transition duration-200 items-center justify-center text-sm">
+                        <button onclick="resetForm(); closeInputSheet();" id="cancelEditButton"
+                            class="hidden bg-slate-700 hover:bg-slate-600 text-gray-300 font-semibold py-3 px-5 rounded-xl transition duration-200 items-center justify-center text-sm">
                             <i class="fas fa-times mr-1"></i> Cancel
                         </button>
                     </div>
@@ -217,18 +716,23 @@
             </div>
 
             <!-- Right: History -->
-            <div class="lg:col-span-3 dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5 flex flex-col min-h-[400px] sm:min-h-[500px]">
+            <div
+                class="lg:col-span-3 dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5 flex flex-col min-h-[400px] sm:min-h-[500px]">
                 <div class="mb-4">
                     <div class="flex items-center justify-between mb-3">
                         <h2 class="text-sm font-bold text-gray-300 flex items-center gap-2">
                             <i class="fas fa-clock-rotate-left text-accent text-xs"></i> History
                         </h2>
-                        <span class="text-[11px] font-semibold text-text-light bg-slate-800 px-2.5 py-1 rounded-full" id="expenseCount"></span>
+                        <span class="text-[11px] font-semibold text-text-light bg-slate-800 px-2.5 py-1 rounded-full"
+                            id="expenseCount"></span>
                     </div>
                     <div class="flex bg-slate-800/60 rounded-lg p-0.5 gap-0.5">
-                        <button onclick="setHistoryFilter('all')" id="hfAll" class="flex-1 text-[11px] font-semibold py-1.5 px-2 rounded-md transition duration-150">All</button>
-                        <button onclick="setHistoryFilter('expenses')" id="hfExpenses" class="flex-1 text-[11px] font-semibold py-1.5 px-2 rounded-md transition duration-150">Expenses</button>
-                        <button onclick="setHistoryFilter('savings')" id="hfSavings" class="flex-1 text-[11px] font-semibold py-1.5 px-2 rounded-md transition duration-150">Savings</button>
+                        <button onclick="setHistoryFilter('all')" id="hfAll"
+                            class="flex-1 text-[11px] font-semibold py-1.5 px-2 rounded-md transition duration-150">All</button>
+                        <button onclick="setHistoryFilter('expenses')" id="hfExpenses"
+                            class="flex-1 text-[11px] font-semibold py-1.5 px-2 rounded-md transition duration-150">Expenses</button>
+                        <button onclick="setHistoryFilter('savings')" id="hfSavings"
+                            class="flex-1 text-[11px] font-semibold py-1.5 px-2 rounded-md transition duration-150">Savings</button>
                     </div>
                 </div>
                 <div id="expensesList" class="space-y-1.5 flex-1 overflow-y-auto pr-1">
@@ -249,11 +753,21 @@
     </div>
 
     <!-- Toast Container -->
-    <div id="toastContainer" class="fixed top-4 right-4 z-[90] flex flex-col gap-2 pointer-events-none max-w-xs sm:max-w-sm"></div>
+    <div id="toastContainer"
+        class="fixed top-4 right-4 z-[90] flex flex-col gap-2 pointer-events-none max-w-xs sm:max-w-sm"></div>
+
+    <!-- Mobile Group Sheet Backdrop -->
+    <div id="groupSheetOverlay" class="fixed inset-0 z-[110] hidden" style="background: rgba(0,0,0,0.5); backdrop-filter: blur(3px);" onclick="closeGroupSelector()"></div>
+
+    <!-- Mobile Input Sheet Backdrop -->
+    <div id="inputSheetOverlay" class="fixed inset-0 z-[110] hidden"
+        style="background: rgba(0,0,0,0.5); backdrop-filter: blur(3px);" onclick="closeInputSheet()"></div>
 
     <!-- Custom Modal -->
-    <div id="modalOverlay" class="fixed inset-0 z-[100] hidden items-center justify-center p-4" style="background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);">
+    <div id="modalOverlay" class="fixed inset-0 z-[130] hidden items-center justify-center p-4"
+        style="background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);">
         <div class="dark-card rounded-2xl p-5 w-full max-w-sm shadow-2xl" id="modalBox">
+            <div id="modalGrabber" aria-hidden="true"></div>
             <div class="flex items-center gap-2.5 mb-3">
                 <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" id="modalIconWrap">
                     <i id="modalIcon" class="fas text-sm"></i>
@@ -261,7 +775,8 @@
                 <h3 class="text-sm font-bold text-gray-200" id="modalTitle">Title</h3>
             </div>
             <p class="text-sm text-slate-300 mb-4 leading-relaxed" id="modalMessage">Message</p>
-            <input type="text" id="modalInput" class="input-dark w-full px-4 py-3 rounded-xl text-sm mb-4 hidden" maxlength="30" />
+            <input type="text" id="modalInput" class="input-dark w-full px-4 py-3 rounded-xl text-sm mb-4 hidden"
+                maxlength="30" />
             <div class="flex gap-2" id="modalActions"></div>
         </div>
     </div>
@@ -269,9 +784,171 @@
     <script>
         // --- Modal System ---
         let modalResolve = null;
+        let modalCloseTimer = null;
+        let activeInputSheet = null;
+        let inputSheetCloseTimer = null;
+        let groupSheetCloseTimer = null;
+        let sheetDragState = null;
+
+        function isMobileView() {
+            return window.matchMedia('(max-width: 640px)').matches;
+        }
+
+        function getInputSheetCards() {
+            return {
+                budget: document.getElementById('budgetCard'),
+                savings: document.getElementById('savingsCard'),
+                expense: document.getElementById('expenseCard'),
+            };
+        }
+
+        function updateBodyLock() {
+            const modalOverlay = document.getElementById('modalOverlay');
+            const inputSheetOverlay = document.getElementById('inputSheetOverlay');
+            const groupSheetOverlay = document.getElementById('groupSheetOverlay');
+            const modalOpen = modalOverlay && !modalOverlay.classList.contains('hidden');
+            const inputSheetOpen = inputSheetOverlay && !inputSheetOverlay.classList.contains('hidden');
+            const groupSheetOpen = groupSheetOverlay && !groupSheetOverlay.classList.contains('hidden');
+            document.body.style.overflow = modalOpen || inputSheetOpen || groupSheetOpen ? 'hidden' : '';
+        }
+
+        function openInputSheet(type) {
+            if (!isMobileView()) {
+                const focusMap = {
+                    budget: 'startingCapital',
+                    savings: 'transferAmount',
+                    expense: 'expenseLabel',
+                };
+                const target = document.getElementById(focusMap[type]);
+                if (target) target.focus();
+                return;
+            }
+
+            if (isAllView()) return;
+            if (inputSheetCloseTimer) {
+                clearTimeout(inputSheetCloseTimer);
+                inputSheetCloseTimer = null;
+            }
+
+            const overlay = document.getElementById('inputSheetOverlay');
+            const cards = getInputSheetCards();
+            const card = cards[type];
+            if (!overlay || !card) return;
+
+            Object.values(cards).forEach(el => el.classList.remove('mobile-sheet-active', 'mobile-sheet-closing'));
+            activeInputSheet = type;
+            overlay.classList.remove('hidden', 'sheet-closing');
+            overlay.classList.add('flex');
+            card.style.transform = '';
+            card.classList.add('mobile-sheet-active');
+            updateBodyLock();
+
+            const focusMap = {
+                budget: 'startingCapital',
+                savings: 'transferAmount',
+                expense: 'expenseLabel',
+            };
+            const target = document.getElementById(focusMap[type]);
+            if (target && !isMobileView()) setTimeout(() => target.focus(), 120);
+        }
+
+        function closeInputSheet() {
+            const overlay = document.getElementById('inputSheetOverlay');
+            const cards = getInputSheetCards();
+            const card = activeInputSheet ? cards[activeInputSheet] : null;
+            if (!overlay || overlay.classList.contains('hidden')) return;
+
+            overlay.classList.add('sheet-closing');
+            if (card) {
+                card.style.transform = '';
+                card.classList.remove('sheet-dragging');
+                card.classList.add('mobile-sheet-closing');
+            }
+            if (inputSheetCloseTimer) clearTimeout(inputSheetCloseTimer);
+            inputSheetCloseTimer = setTimeout(() => {
+                Object.values(cards).forEach(el => {
+                    el.style.transform = '';
+                    el.classList.remove('mobile-sheet-active', 'mobile-sheet-closing', 'sheet-dragging');
+                });
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex', 'sheet-closing');
+                activeInputSheet = null;
+                inputSheetCloseTimer = null;
+                updateBodyLock();
+            }, 180);
+        }
+
+        function getGestureSheet(e) {
+            if (!isMobileView()) return null;
+            const inputCard = e.target.closest('.input-card.mobile-sheet-active');
+            if (inputCard) return { el: inputCard, close: closeInputSheet };
+
+            const groupMenu = document.getElementById('groupSelectorMenu');
+            if (groupMenu && !groupMenu.classList.contains('hidden') && groupMenu.contains(e.target)) {
+                return { el: groupMenu, close: closeGroupSelector, scrollEl: e.target.closest('#groupSelectorItems') || groupMenu };
+            }
+
+            const promptBox = e.target.closest('#modalOverlay.input-sheet #modalBox');
+            if (promptBox) return { el: promptBox, close: () => closeModal(null) };
+
+            return null;
+        }
+
+        document.addEventListener('touchstart', function (e) {
+            const sheet = getGestureSheet(e);
+            if (!sheet || e.touches.length !== 1) return;
+            sheetDragState = {
+                startY: e.touches[0].clientY,
+                currentY: e.touches[0].clientY,
+                sheet,
+                scrollEl: sheet.scrollEl || sheet.el,
+                dragging: false,
+            };
+        }, { passive: true });
+
+        document.addEventListener('touchmove', function (e) {
+            if (!sheetDragState || e.touches.length !== 1) return;
+
+            const sheetEl = sheetDragState.sheet.el;
+            const deltaY = e.touches[0].clientY - sheetDragState.startY;
+            sheetDragState.currentY = e.touches[0].clientY;
+
+            if (deltaY <= 0 || sheetDragState.scrollEl.scrollTop > 0) return;
+
+            e.preventDefault();
+            sheetDragState.dragging = true;
+            sheetEl.classList.add('sheet-dragging');
+            sheetEl.style.transform = 'translateY(' + Math.min(deltaY, 220) + 'px)';
+        }, { passive: false });
+
+        document.addEventListener('touchend', function () {
+            if (!sheetDragState) return;
+
+            const sheetEl = sheetDragState.sheet.el;
+            const deltaY = sheetDragState.currentY - sheetDragState.startY;
+            const shouldClose = sheetDragState.dragging && deltaY > 90;
+
+            sheetEl.classList.remove('sheet-dragging');
+            sheetEl.style.transform = '';
+
+            if (shouldClose) sheetDragState.sheet.close();
+            sheetDragState = null;
+        });
+
+        document.addEventListener('touchcancel', function () {
+            if (!sheetDragState) return;
+            sheetDragState.sheet.el.classList.remove('sheet-dragging');
+            sheetDragState.sheet.el.style.transform = '';
+            sheetDragState = null;
+        });
 
         function showModal({ type = 'alert', title = '', message = '', placeholder = '', icon = 'info-circle', iconColor = 'accent' }) {
             return new Promise(resolve => {
+                if (modalCloseTimer) {
+                    clearTimeout(modalCloseTimer);
+                    modalCloseTimer = null;
+                }
+
                 modalResolve = resolve;
                 const overlay = document.getElementById('modalOverlay');
                 const titleEl = document.getElementById('modalTitle');
@@ -312,29 +989,49 @@
                 }
 
                 overlay.classList.remove('hidden');
+                overlay.classList.remove('modal-closing');
+                overlay.classList.toggle('input-sheet', type === 'prompt');
                 overlay.classList.add('flex');
+                document.getElementById('modalBox').style.transform = '';
+                updateBodyLock();
 
                 if (type === 'prompt') {
-                    setTimeout(() => inputEl.focus(), 100);
+                    if (!isMobileView()) setTimeout(() => inputEl.focus(), 100);
                 }
             });
         }
 
         function closeModal(value) {
             const overlay = document.getElementById('modalOverlay');
-            overlay.classList.add('hidden');
-            overlay.classList.remove('flex');
+            const modalBox = document.getElementById('modalBox');
+            overlay.classList.add('modal-closing');
+            modalBox.style.transform = '';
+            modalBox.classList.remove('sheet-dragging');
+            if (modalCloseTimer) clearTimeout(modalCloseTimer);
+            modalCloseTimer = setTimeout(() => {
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex', 'modal-closing', 'input-sheet');
+                modalBox.style.transform = '';
+                modalBox.classList.remove('sheet-dragging');
+                modalCloseTimer = null;
+                updateBodyLock();
+            }, 180);
             if (modalResolve) { modalResolve(value); modalResolve = null; }
         }
 
         // Close on backdrop click
-        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+        document.getElementById('modalOverlay').addEventListener('click', function (e) {
             if (e.target === this) closeModal(null);
         });
 
         // Enter key for modal input
-        document.getElementById('modalInput').addEventListener('keypress', function(e) {
+        document.getElementById('modalInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') closeModal(this.value);
+        });
+
+        window.addEventListener('resize', function () {
+            if (!isMobileView()) closeInputSheet();
+            closeGroupSelector();
         });
 
         // --- Toast ---
@@ -365,9 +1062,10 @@
 
         // --- Data ---
         // groups: [{ name, budget, savings }]
+        const DEFAULT_GROUP_NAME = 'Personal';
         let groups = JSON.parse(localStorage.getItem('bft_groups')) || [];
         let expenses = JSON.parse(localStorage.getItem('bft_expenses')) || [];
-        let activeGroup = localStorage.getItem('bft_activeGroup') || '__all__';
+        let activeGroup = localStorage.getItem('bft_activeGroup') || DEFAULT_GROUP_NAME;
         let historyFilter = 'all';
 
         // Migrate old data if exists
@@ -399,6 +1097,20 @@
                 localStorage.setItem('bft_migrated', '1');
                 saveData();
             }
+        })();
+
+        (function ensureDefaultWorkspace() {
+            const hadNoGroups = groups.length === 0;
+            if (hadNoGroups) {
+                groups.push({ name: DEFAULT_GROUP_NAME, budget: 0, savings: 0 });
+            }
+            if (activeGroup === '__all__' && groups.length <= 1) {
+                activeGroup = groups[0].name;
+            }
+            if (activeGroup !== '__all__' && !groups.find(g => g.name === activeGroup)) {
+                activeGroup = groups[0].name;
+            }
+            saveData();
         })();
 
         // --- DOM ---
@@ -446,19 +1158,60 @@
         let groupSelectorOpen = false;
 
         function toggleGroupSelector() {
-            groupSelectorOpen = !groupSelectorOpen;
-            const menu = document.getElementById('groupSelectorMenu');
             if (groupSelectorOpen) {
-                renderGroupSelectorItems();
-                menu.classList.remove('hidden');
+                closeGroupSelector();
             } else {
-                menu.classList.add('hidden');
+                openGroupSelector();
             }
         }
 
+        function openGroupSelector() {
+            const menu = document.getElementById('groupSelectorMenu');
+            const overlay = document.getElementById('groupSheetOverlay');
+            if (groupSheetCloseTimer) {
+                clearTimeout(groupSheetCloseTimer);
+                groupSheetCloseTimer = null;
+            }
+            closeInputSheet();
+            groupSelectorOpen = true;
+            renderGroupSelectorItems();
+            menu.style.transform = '';
+            menu.classList.remove('hidden', 'group-closing', 'sheet-dragging');
+            if (isMobileView()) {
+                overlay.classList.remove('hidden', 'group-closing');
+                overlay.classList.add('flex');
+            }
+            updateBodyLock();
+        }
+
         function closeGroupSelector() {
+            const menu = document.getElementById('groupSelectorMenu');
+            const overlay = document.getElementById('groupSheetOverlay');
+            if (!groupSelectorOpen && menu.classList.contains('hidden')) return;
+
             groupSelectorOpen = false;
-            document.getElementById('groupSelectorMenu').classList.add('hidden');
+            menu.style.transform = '';
+            menu.classList.remove('sheet-dragging');
+
+            if (isMobileView() && !overlay.classList.contains('hidden')) {
+                menu.classList.add('group-closing');
+                overlay.classList.add('group-closing');
+                if (groupSheetCloseTimer) clearTimeout(groupSheetCloseTimer);
+                groupSheetCloseTimer = setTimeout(() => {
+                    menu.classList.add('hidden');
+                    menu.classList.remove('group-closing');
+                    overlay.classList.add('hidden');
+                    overlay.classList.remove('flex', 'group-closing');
+                    groupSheetCloseTimer = null;
+                    updateBodyLock();
+                }, 180);
+            } else {
+                menu.classList.add('hidden');
+                menu.classList.remove('group-closing');
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex', 'group-closing');
+                updateBodyLock();
+            }
         }
 
         function updateGroupSelectorLabel() {
@@ -470,13 +1223,11 @@
             const c = document.getElementById('groupSelectorItems');
             let html = '';
 
-            // All Groups option
-            html += `<button onclick="switchGroup('__all__')" class="w-full text-left px-4 py-2.5 text-sm flex items-center gap-2.5 ${isAllView() ? 'bg-accent/15 text-accent' : 'text-slate-300 hover:bg-slate-700/50'} transition duration-150">
-                <i class="fas fa-globe text-[10px] ${isAllView() ? 'text-accent' : 'text-slate-500'}"></i>
-                <span class="font-medium">All Groups</span>
-            </button>`;
-
-            if (groups.length > 0) {
+            if (groups.length > 1) {
+                html += `<button onclick="switchGroup('__all__')" class="w-full text-left px-4 py-2.5 text-sm flex items-center gap-2.5 ${isAllView() ? 'bg-accent/15 text-accent' : 'text-slate-300 hover:bg-slate-700/50'} transition duration-150">
+                    <i class="fas fa-globe text-[10px] ${isAllView() ? 'text-accent' : 'text-slate-500'}"></i>
+                    <span class="font-medium">All Groups</span>
+                </button>`;
                 html += '<div class="h-px bg-slate-700/80 mx-3"></div>';
             }
 
@@ -485,6 +1236,11 @@
                 const active = activeGroup === g.name;
                 const esc = g.name.replace(/'/g, "\\'");
                 const stats = getGroupStats(g.name);
+                const deleteBtn = groups.length > 1
+                    ? `<button onclick="event.stopPropagation(); deleteGroup('${esc}')" class="px-3 py-2.5 text-slate-600 hover:text-red-400 transition duration-150 flex-shrink-0" title="Delete group">
+                        <i class="fas fa-trash-alt text-[10px]"></i>
+                    </button>`
+                    : '';
                 html += `<div class="flex items-center ${active ? 'bg-accent/15' : 'hover:bg-slate-700/50'} transition duration-150">
                     <button onclick="switchGroup('${esc}')" class="flex-grow text-left px-4 py-2.5 flex items-center gap-2.5 min-w-0">
                         <i class="fas fa-folder text-[10px] ${active ? 'text-accent' : 'text-slate-500'} flex-shrink-0"></i>
@@ -493,23 +1249,14 @@
                             <span class="text-[10px] text-slate-500">Budget: ${formatCurrency(g.budget)}</span>
                         </div>
                     </button>
-                    <button onclick="event.stopPropagation(); deleteGroup('${esc}')" class="px-3 py-2.5 text-slate-600 hover:text-red-400 transition duration-150 flex-shrink-0" title="Delete group">
-                        <i class="fas fa-trash-alt text-[10px]"></i>
-                    </button>
+                    ${deleteBtn}
                 </div>`;
             });
-
-            // Create new
-            html += '<div class="h-px bg-slate-700/80 mx-3"></div>';
-            html += `<button onclick="createGroup()" class="w-full text-left px-4 py-2.5 text-sm flex items-center gap-2.5 text-accent hover:bg-slate-700/50 transition duration-150">
-                <i class="fas fa-plus text-[10px]"></i>
-                <span class="font-medium">Create New Group</span>
-            </button>`;
 
             c.innerHTML = html;
         }
 
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             if (groupSelectorOpen && !document.getElementById('groupSelectorWrapper').contains(e.target)) {
                 closeGroupSelector();
             }
@@ -520,24 +1267,31 @@
             saveData();
             resetForm();
             closeGroupSelector();
+            closeInputSheet();
             updateGroupSelectorLabel();
             updateBudgetInput();
             updateFormVisibility();
             updateDisplay();
         }
 
-        async function createGroup() {
-            closeGroupSelector();
-            const name = await showModal({ type: 'prompt', title: 'New Group', message: 'Enter a name for your budget group.', placeholder: 'e.g., School, Work', icon: 'folder-plus', iconColor: 'accent' });
-            if (!name || !name.trim()) return;
-            const trimmed = name.trim();
+        async function createGroupFromInput(event) {
+            event.preventDefault();
+            const input = document.getElementById('groupCreateInput');
+            const trimmed = input.value.trim();
+            if (!trimmed) {
+                if (!isMobileView()) input.focus();
+                return;
+            }
             if (groups.find(g => g.name === trimmed)) {
                 await showModal({ type: 'alert', title: 'Already Exists', message: 'Group "' + trimmed + '" already exists.', icon: 'exclamation-circle', iconColor: 'amber' });
+                if (!isMobileView()) input.select();
                 return;
             }
             groups.push({ name: trimmed, budget: 0, savings: 0 });
             activeGroup = trimmed;
+            input.value = '';
             saveData();
+            closeGroupSelector();
             updateGroupSelectorLabel();
             updateBudgetInput();
             updateFormVisibility();
@@ -550,7 +1304,12 @@
             if (!ok) return;
             groups = groups.filter(g => g.name !== name);
             expenses = expenses.filter(e => e.group !== name);
-            if (activeGroup === name) activeGroup = '__all__';
+            if (groups.length === 0) {
+                groups.push({ name: DEFAULT_GROUP_NAME, budget: 0, savings: 0 });
+                activeGroup = DEFAULT_GROUP_NAME;
+            } else if (activeGroup === name || groups.length === 1) {
+                activeGroup = groups[0].name;
+            }
             saveData();
             renderGroupSelectorItems();
             updateGroupSelectorLabel();
@@ -578,7 +1337,7 @@
             }
         }
 
-        document.getElementById('startingCapital').addEventListener('input', function(e) {
+        document.getElementById('startingCapital').addEventListener('input', function (e) {
             if (isAllView()) return;
             const g = getGroup(activeGroup);
             if (g) { g.budget = parseFloat(e.target.value) || 0; saveData(); updateDisplay(); }
@@ -591,6 +1350,14 @@
             document.getElementById('savingsCard').style.pointerEvents = isAll ? 'none' : 'auto';
             document.getElementById('expenseCard').style.opacity = isAll ? '0.4' : '1';
             document.getElementById('expenseCard').style.pointerEvents = isAll ? 'none' : 'auto';
+            ['Budget', 'Savings', 'Expense'].forEach(name => {
+                const btn = document.getElementById('mobile' + name + 'Btn');
+                if (!btn) return;
+                btn.disabled = isAll;
+                btn.classList.toggle('opacity-40', isAll);
+                btn.classList.toggle('pointer-events-none', isAll);
+            });
+            if (isAll) closeInputSheet();
         }
 
         // --- Savings Transfer ---
@@ -599,7 +1366,7 @@
             const amount = parseFloat(transferAmountEl.value);
             if (!amount || amount <= 0) {
                 await showModal({ type: 'alert', title: 'Invalid Amount', message: 'Please enter a valid amount greater than zero.', icon: 'exclamation-circle', iconColor: 'amber' });
-                transferAmountEl.focus(); return;
+                if (!isMobileView()) transferAmountEl.focus(); return;
             }
 
             const g = getGroup(activeGroup);
@@ -616,6 +1383,7 @@
                 transferAmountEl.value = '';
                 saveData();
                 updateDisplay();
+                closeInputSheet();
                 toast(formatCurrency(amount) + ' transferred to savings', { icon: 'building-columns', color: 'blue' });
             } else {
                 if (amount > g.savings) {
@@ -627,11 +1395,12 @@
                 transferAmountEl.value = '';
                 saveData();
                 updateDisplay();
+                closeInputSheet();
                 toast(formatCurrency(amount) + ' withdrawn from savings', { icon: 'arrow-left', color: 'emerald' });
             }
         }
 
-        document.getElementById('transferAmount').addEventListener('keypress', function(e) { if (e.key === 'Enter') handleTransfer('toBank'); });
+        document.getElementById('transferAmount').addEventListener('keypress', function (e) { if (e.key === 'Enter') handleTransfer('toBank'); });
 
         // --- Expense Handling ---
         function resetForm() {
@@ -652,21 +1421,23 @@
 
             if (!label) {
                 await showModal({ type: 'alert', title: 'Missing Description', message: 'Please enter a description for the transaction.', icon: 'pen', iconColor: 'amber' });
-                labelEl.focus(); return;
+                if (!isMobileView()) labelEl.focus(); return;
             }
             if (!amount || amount <= 0) {
                 await showModal({ type: 'alert', title: 'Invalid Amount', message: 'Please enter a valid amount greater than zero.', icon: 'exclamation-circle', iconColor: 'amber' });
-                amountEl.focus(); return;
+                if (!isMobileView()) amountEl.focus(); return;
             }
 
             if (editingId) {
                 const idx = expenses.findIndex(exp => exp.id == editingId);
                 if (idx !== -1) { expenses[idx].label = label; expenses[idx].amount = amount; }
                 saveData(); resetForm(); updateDisplay();
+                closeInputSheet();
                 toast('Transaction updated', { icon: 'pen', color: 'amber' });
             } else {
                 expenses.push({ id: Date.now(), label, amount, type: 'expense', group: activeGroup, date: new Date().toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' }) });
                 saveData(); resetForm(); updateDisplay();
+                closeInputSheet();
                 toast(label + ' — ' + formatCurrency(amount) + ' logged', { icon: 'receipt', color: 'accent' });
             }
         }
@@ -683,8 +1454,12 @@
             submitButton.classList.remove('btn-glow');
             submitButton.classList.add('btn-warning-glow');
             cancelButton.classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            labelEl.focus();
+            if (isMobileView()) {
+                openInputSheet('expense');
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                labelEl.focus();
+            }
         }
 
         async function deleteExpense(id) {
@@ -707,7 +1482,7 @@
         // --- History Filter ---
         function setHistoryFilter(type) {
             historyFilter = type;
-            ['all','expenses','savings'].forEach(t => {
+            ['all', 'expenses', 'savings'].forEach(t => {
                 const el = document.getElementById('hf' + t.charAt(0).toUpperCase() + t.slice(1));
                 el.className = t === historyFilter
                     ? 'flex-1 text-[11px] font-semibold py-1.5 px-2 rounded-md transition duration-150 bg-accent text-white shadow-sm'
@@ -741,9 +1516,9 @@
             rc.className = 'rounded-xl sm:rounded-2xl p-3 sm:p-5 border shadow-lg shadow-black/10';
             rl.className = 'text-[9px] sm:text-[11px] font-semibold uppercase tracking-wider mb-1';
             rt.className = 'stat-value text-lg sm:text-2xl font-extrabold leading-none drop-shadow-sm';
-            if (stats.remaining < 0) { rc.classList.add('bg-red-500/30','border-red-400/40'); rt.classList.add('text-red-200'); rl.classList.add('text-red-300/80'); }
-            else if (stats.remaining > 0) { rc.classList.add('bg-emerald-500/30','border-emerald-400/40'); rt.classList.add('text-emerald-200'); rl.classList.add('text-emerald-300/80'); }
-            else { rc.classList.add('bg-white/25','border-white/30'); rt.classList.add('text-white'); rl.classList.add('text-white/70'); }
+            if (stats.remaining < 0) { rc.classList.add('bg-red-500/30', 'border-red-400/40'); rt.classList.add('text-red-200'); rl.classList.add('text-red-300/80'); }
+            else if (stats.remaining > 0) { rc.classList.add('bg-emerald-500/30', 'border-emerald-400/40'); rt.classList.add('text-emerald-200'); rl.classList.add('text-emerald-300/80'); }
+            else { rc.classList.add('bg-white/25', 'border-white/30'); rt.classList.add('text-white'); rl.classList.add('text-white/70'); }
 
             // Filtered history
             let filtered = isAllView() ? [...expenses] : expenses.filter(e => e.group === activeGroup);
@@ -757,7 +1532,7 @@
                 expensesList.innerHTML = `<div class="flex flex-col items-center justify-center py-20 text-center" id="noExpensesMessage">
                     <div class="w-14 h-14 rounded-2xl bg-slate-800 flex items-center justify-center mb-4"><i class="fas fa-receipt text-xl text-slate-600"></i></div>
                     <p class="text-text-light font-medium text-sm">${msgs[historyFilter]}</p>
-                    <p class="text-xs text-slate-600 mt-1">${isAllView() && groups.length === 0 ? 'Create a group to get started' : 'Your transactions will appear here'}</p>
+                    <p class="text-xs text-slate-600 mt-1">Your transactions will appear here</p>
                 </div>`;
                 return;
             }
@@ -790,11 +1565,11 @@
         }
 
         // --- Keyboard Shortcuts ---
-        document.getElementById('expenseAmount').addEventListener('keypress', function(e) { if (e.key === 'Enter') handleSubmission(); });
-        document.getElementById('expenseLabel').addEventListener('keypress', function(e) { if (e.key === 'Enter') document.getElementById('expenseAmount').focus(); });
+        document.getElementById('expenseAmount').addEventListener('keypress', function (e) { if (e.key === 'Enter') handleSubmission(); });
+        document.getElementById('expenseLabel').addEventListener('keypress', function (e) { if (e.key === 'Enter') document.getElementById('expenseAmount').focus(); });
 
         // --- Init ---
-        window.onload = function() {
+        window.onload = function () {
             updateGroupSelectorLabel();
             updateBudgetInput();
             updateFormVisibility();
@@ -803,4 +1578,5 @@
         };
     </script>
 </body>
+
 </html>
