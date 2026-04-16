@@ -163,6 +163,218 @@
             transition: width 0.5s ease;
         }
 
+        .custom-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: #14b8a6 #0f172a;
+            scrollbar-gutter: stable;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0f172a;
+            border-radius: 9999px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #2dd4bf, #008080);
+            border: 2px solid #0f172a;
+            border-radius: 9999px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #5eead4, #0d9488);
+        }
+
+        .category-option {
+            --category-color: #008080;
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: #94a3b8;
+            transition: all 0.18s ease;
+        }
+
+        .category-option:hover {
+            color: #e2e8f0;
+            border-color: #475569;
+            background: #172033;
+        }
+
+        .category-option.is-selected {
+            color: #f8fafc;
+            border-color: var(--category-color);
+            background: #172033;
+            background: color-mix(in srgb, var(--category-color) 18%, #0f172a);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--category-color) 18%, transparent);
+        }
+
+        .category-option .category-icon {
+            color: var(--category-color);
+        }
+
+        .category-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 9999px;
+            background: var(--category-color);
+            flex-shrink: 0;
+        }
+
+        .category-picker-grid {
+            display: none;
+        }
+
+        .category-select-wrap {
+            display: block;
+        }
+
+        .mobile-category-trigger {
+            display: none;
+        }
+
+        #categorySheetOverlay {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        #categorySheetOverlay.flex {
+            opacity: 1;
+        }
+
+        #categorySheetOverlay.category-closing {
+            opacity: 0;
+        }
+
+        .category-dropdown-trigger {
+            min-height: 20px;
+        }
+
+        .category-dropdown-menu {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: calc(100% + 6px);
+            z-index: 80;
+            max-height: 120px;
+            overflow-y: auto;
+            background: #0f172a;
+            border: 1px solid #334155;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+            scrollbar-gutter: stable;
+        }
+
+        .category-dropdown-menu::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .category-dropdown-menu::-webkit-scrollbar-track {
+            background: #020617;
+            margin: 6px 0;
+        }
+
+        .category-dropdown-menu::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #5eead4, #008080);
+            border: 2px solid #020617;
+        }
+
+        .category-dropdown-item {
+            --category-color: #008080;
+            color: #cbd5e1;
+            transition: all 0.16s ease;
+        }
+
+        .category-dropdown-item:hover,
+        .category-dropdown-item.is-selected {
+            background: #172033;
+            background: color-mix(in srgb, var(--category-color) 14%, #0f172a);
+            color: #f8fafc;
+        }
+
+        .category-dropdown-item .category-icon {
+            color: var(--category-color);
+        }
+
+        .category-dropdown-item .category-check {
+            color: var(--category-color);
+            opacity: 0;
+        }
+
+        .category-dropdown-item.is-selected .category-check {
+            opacity: 1;
+        }
+
+        #breakdownOverlay {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        #breakdownOverlay.flex {
+            opacity: 1;
+        }
+
+        #breakdownOverlay.breakdown-closing {
+            opacity: 0;
+        }
+
+        #breakdownModal {
+            animation: modalPop 0.22s ease forwards;
+        }
+
+        #breakdownOverlay.breakdown-closing #breakdownModal {
+            animation: modalPopOut 0.18s ease forwards;
+        }
+
+        .donut-chart {
+            width: min(210px, 62vw);
+            aspect-ratio: 1;
+            border-radius: 9999px;
+            background: #1e293b;
+            position: relative;
+            display: grid;
+            place-items: center;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+        }
+
+        .donut-chart::after {
+            content: '';
+            position: absolute;
+            inset: 24%;
+            border-radius: 9999px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            z-index: 1;
+        }
+
+        .donut-ring {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+            z-index: 0;
+        }
+
+        .donut-ring circle {
+            fill: none;
+            stroke-linecap: butt;
+        }
+
+        .donut-center {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .category-swatch {
+            width: 10px;
+            height: 10px;
+            border-radius: 9999px;
+            flex-shrink: 0;
+        }
+
         .toast-enter {
             animation: toastIn 0.3s ease forwards;
         }
@@ -251,6 +463,42 @@
             display: none;
         }
 
+        .desktop-budget-action {
+            display: block;
+        }
+
+        #budgetCard {
+            display: none;
+        }
+
+        #budgetCard.desktop-modal-active {
+            display: block;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            z-index: 111;
+            width: min(calc(100vw - 32px), 380px);
+            transform: translate(-50%, -50%);
+            animation: budgetModalIn 0.22s ease forwards;
+        }
+
+        #budgetCard.desktop-modal-closing {
+            animation: budgetModalOut 0.18s ease forwards;
+        }
+
+        #budgetCard.desktop-modal-active .mobile-sheet-close {
+            display: flex;
+            position: absolute;
+            top: 14px;
+            right: 14px;
+        }
+
+        #budgetCard.desktop-modal-active .mobile-sheet-done {
+            display: flex;
+            min-height: 44px;
+            margin-top: 12px;
+        }
+
         .mobile-sheet-close {
             display: none;
         }
@@ -283,6 +531,30 @@
             }
         }
 
+        @keyframes budgetModalIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, calc(-50% + 8px)) scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        @keyframes budgetModalOut {
+            from {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: translate(-50%, calc(-50% + 8px)) scale(0.96);
+            }
+        }
+
         @media (max-width: 1024px) {
             .row-actions {
                 opacity: 1;
@@ -299,7 +571,10 @@
             }
 
             .expense-item .icon-circle {
-                display: none;
+                display: flex;
+                width: 32px;
+                height: 32px;
+                margin-right: 10px;
             }
 
             input,
@@ -310,6 +585,10 @@
 
             .mobile-input-actions {
                 display: grid;
+            }
+
+            .desktop-budget-action {
+                display: none;
             }
 
             .input-card {
@@ -335,6 +614,10 @@
                 padding: 12px 18px calc(18px + env(safe-area-inset-bottom));
                 box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.35);
                 animation: sheetIn 0.24s cubic-bezier(0.2, 0.85, 0.25, 1) forwards;
+            }
+
+            #budgetCard.mobile-sheet-active {
+                display: block;
             }
 
             .input-card.mobile-sheet-closing {
@@ -415,6 +698,92 @@
             #modalOverlay.input-sheet #modalActions button {
                 min-height: 44px;
                 border-radius: 10px;
+            }
+
+            .category-picker-grid {
+                display: grid;
+            }
+
+            .category-select-wrap {
+                display: none;
+            }
+
+            .mobile-category-trigger {
+                display: flex;
+            }
+
+            #categorySheetOverlay.category-closing {
+                opacity: 0;
+            }
+
+            #categorySheet {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 126;
+                width: 100%;
+                max-height: calc(100vh - 64px);
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
+                border-radius: 20px 20px 0 0;
+                border-left: 0;
+                border-right: 0;
+                border-bottom: 0;
+                padding: 12px 18px calc(18px + env(safe-area-inset-bottom));
+                box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.35);
+                animation: sheetIn 0.24s cubic-bezier(0.2, 0.85, 0.25, 1) forwards;
+            }
+
+            #categorySheet.category-closing {
+                animation: sheetOut 0.18s ease forwards;
+            }
+
+            #categorySheet::before {
+                content: '';
+                display: block;
+                width: 42px;
+                height: 5px;
+                margin: 0 auto 14px;
+                border-radius: 9999px;
+                background: #475569;
+            }
+
+            #breakdownOverlay {
+                align-items: flex-end;
+                justify-content: center;
+                padding: 0;
+            }
+
+            #breakdownModal {
+                width: 100%;
+                max-width: none;
+                max-height: calc(100vh - 64px);
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
+                border-radius: 20px 20px 0 0;
+                border-left: 0;
+                border-right: 0;
+                border-bottom: 0;
+                padding: 12px 18px calc(18px + env(safe-area-inset-bottom));
+                box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.35);
+                animation: sheetIn 0.24s cubic-bezier(0.2, 0.85, 0.25, 1) forwards;
+            }
+
+            #breakdownOverlay.breakdown-closing #breakdownModal {
+                animation: sheetOut 0.18s ease forwards;
+            }
+
+            #breakdownModal::before {
+                content: '';
+                display: block;
+                width: 42px;
+                height: 5px;
+                margin: 0 auto 14px;
+                border-radius: 9999px;
+                background: #475569;
             }
 
             #groupSheetOverlay.group-closing {
@@ -621,6 +990,38 @@
                     </button>
                 </div>
 
+                <button onclick="openInputSheet('budget')" id="desktopBudgetBtn"
+                    class="desktop-budget-action dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5 w-full text-left hover:bg-slate-700/60 transition duration-200">
+                    <div class="flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <div class="w-9 h-9 rounded-lg bg-accent/15 text-accent flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-wallet text-sm"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-sm font-bold text-gray-200">Set Budget</p>
+                                <p class="text-xs text-slate-500 truncate" id="desktopBudgetSummary">No budget set</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-pen text-xs text-slate-500"></i>
+                    </div>
+                </button>
+
+                <button onclick="openBreakdownModal()" id="breakdownBtn"
+                    class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5 w-full text-left hover:bg-slate-700/60 transition duration-200">
+                    <div class="flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <div class="w-9 h-9 rounded-lg bg-amber-500/15 text-amber-400 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-circle-notch text-sm"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-sm font-bold text-gray-200">Spending Breakdown</p>
+                                <p class="text-xs text-slate-500 truncate" id="breakdownSummary">By starting budget</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-right text-xs text-slate-500"></i>
+                    </div>
+                </button>
+
                 <!-- Budget Input (per group) -->
                 <div class="dark-card rounded-xl sm:rounded-2xl p-4 sm:p-5 relative input-card" id="budgetCard">
                     <button onclick="closeInputSheet()"
@@ -638,7 +1039,7 @@
                         <input type="number" id="startingCapital" placeholder="Enter budget for this group"
                             class="input-dark w-full pl-9 pr-4 py-3 rounded-xl text-sm font-medium" step="50" />
                     </div>
-                    <button onclick="closeInputSheet()"
+                    <button onclick="finishBudgetEntry()"
                         class="mobile-sheet-done w-full btn-glow text-white font-bold py-3 rounded-xl items-center justify-center text-sm">
                         Done
                     </button>
@@ -701,6 +1102,28 @@
                                     step="0.01" />
                             </div>
                         </div>
+                        <div>
+                            <label
+                                class="block text-[11px] font-semibold text-text-light mb-1.5 uppercase tracking-wider">Category</label>
+                            <input type="hidden" id="expenseCategory" value="other">
+                            <div class="category-select-wrap relative">
+                                <button type="button" id="expenseCategoryDropdownBtn"
+                                    onclick="toggleCategoryDropdown(event)"
+                                    class="category-dropdown-trigger input-dark w-full px-4 py-3 pr-10 rounded-xl text-sm font-medium flex items-center gap-2 text-left">
+                                    <span class="category-dot" id="selectedCategoryDot"></span>
+                                    <i class="category-icon fas fa-receipt text-xs w-4 text-center" id="selectedCategoryIcon"></i>
+                                    <span class="flex-1 truncate" id="selectedCategoryLabel">Other</span>
+                                </button>
+                                <i class="fas fa-chevron-down absolute right-4 top-[23px] -translate-y-1/2 text-slate-500 text-xs pointer-events-none"></i>
+                                <div id="expenseCategoryDropdownMenu" class="category-dropdown-menu custom-scrollbar hidden rounded-xl py-1"></div>
+                            </div>
+                            <button type="button" onclick="openCategorySheet()" class="mobile-category-trigger input-dark w-full px-4 py-3 rounded-xl text-sm font-medium items-center gap-2 text-left">
+                                <span class="category-dot" id="mobileSelectedCategoryDot"></span>
+                                <i class="category-icon fas fa-receipt text-xs w-4 text-center" id="mobileSelectedCategoryIcon"></i>
+                                <span class="flex-1 truncate" id="mobileSelectedCategoryLabel">Other</span>
+                                <i class="fas fa-chevron-right text-slate-500 text-xs"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="flex gap-3">
                         <button onclick="handleSubmission()" id="submitButton"
@@ -748,7 +1171,7 @@
         </div>
 
         <footer class="text-center py-8 mt-6">
-            <p class="text-xs text-slate-600">BaiNance &mdash; All data stored locally on your device</p>
+            <p class="text-xs text-slate-600">BaiNance - All data stored locally on your device</p>
         </footer>
     </div>
 
@@ -762,6 +1185,78 @@
     <!-- Mobile Input Sheet Backdrop -->
     <div id="inputSheetOverlay" class="fixed inset-0 z-[110] hidden"
         style="background: rgba(0,0,0,0.5); backdrop-filter: blur(3px);" onclick="closeInputSheet()"></div>
+
+    <!-- Mobile Category Picker Sheet -->
+    <div id="categorySheetOverlay" class="fixed inset-0 z-[125] hidden"
+        style="background: rgba(0,0,0,0.5); backdrop-filter: blur(3px);" onclick="closeCategorySheet()">
+        <div id="categorySheet" class="dark-card custom-scrollbar" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between gap-3 mb-4">
+                <div>
+                    <p class="text-sm font-bold text-gray-200">Choose Category</p>
+                    <p class="text-xs text-slate-500">Pick where this spending belongs</p>
+                </div>
+                <button onclick="closeCategorySheet()" class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 flex items-center justify-center transition duration-200" aria-label="Close category picker">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            </div>
+            <div id="expenseCategoryPicker" class="category-picker-grid grid-cols-2 gap-2" role="group"
+                aria-label="Choose an expense category"></div>
+        </div>
+    </div>
+
+    <!-- Spending Breakdown Modal -->
+    <div id="breakdownOverlay" class="fixed inset-0 z-[125] hidden items-center justify-center p-4"
+        style="background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);" onclick="closeBreakdownModal()">
+        <div class="dark-card rounded-2xl p-5 w-full max-w-2xl shadow-2xl" id="breakdownModal"
+            onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between gap-3 mb-4">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <div class="w-9 h-9 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-circle-notch text-sm"></i>
+                    </div>
+                    <div class="min-w-0">
+                        <h3 class="text-sm font-bold text-gray-200">Spending Breakdown</h3>
+                        <p class="text-xs text-slate-500 truncate" id="breakdownScope">Starting budget based</p>
+                    </div>
+                </div>
+                <button onclick="closeBreakdownModal()"
+                    class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 flex items-center justify-center transition duration-200"
+                    aria-label="Close spending breakdown">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-[240px_1fr] gap-5 items-center">
+                <div class="flex flex-col items-center">
+                    <div class="donut-chart" id="categoryDonut">
+                        <svg class="donut-ring" id="categoryDonutSvg" viewBox="0 0 100 100" aria-hidden="true"></svg>
+                        <div class="donut-center">
+                            <p class="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Budget used</p>
+                            <p class="text-2xl font-black text-white leading-tight" id="breakdownPercent">0%</p>
+                            <p class="text-[11px] text-slate-500" id="breakdownTotal">No spending yet</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 w-full mt-4">
+                        <div class="rounded-lg bg-slate-900/60 border border-slate-700 p-3">
+                            <p class="text-[10px] text-slate-500 uppercase font-semibold tracking-wider">Budget</p>
+                            <p class="text-sm font-bold text-gray-200" id="breakdownBudget">&#8369;0.00</p>
+                        </div>
+                        <div class="rounded-lg bg-slate-900/60 border border-slate-700 p-3">
+                            <p class="text-[10px] text-slate-500 uppercase font-semibold tracking-wider">Spent</p>
+                            <p class="text-sm font-bold text-red-300" id="breakdownSpent">&#8369;0.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <p class="text-xs font-bold text-gray-300">Categories</p>
+                        <p class="text-[11px] text-slate-500">Percent of budget</p>
+                    </div>
+                    <div id="categoryBreakdownList" class="space-y-2 max-h-[340px] overflow-y-auto pr-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Custom Modal -->
     <div id="modalOverlay" class="fixed inset-0 z-[130] hidden items-center justify-center p-4"
@@ -788,6 +1283,8 @@
         let activeInputSheet = null;
         let inputSheetCloseTimer = null;
         let groupSheetCloseTimer = null;
+        let categorySheetCloseTimer = null;
+        let breakdownCloseTimer = null;
         let sheetDragState = null;
 
         function isMobileView() {
@@ -806,16 +1303,24 @@
             const modalOverlay = document.getElementById('modalOverlay');
             const inputSheetOverlay = document.getElementById('inputSheetOverlay');
             const groupSheetOverlay = document.getElementById('groupSheetOverlay');
+            const categorySheetOverlay = document.getElementById('categorySheetOverlay');
+            const breakdownOverlay = document.getElementById('breakdownOverlay');
             const modalOpen = modalOverlay && !modalOverlay.classList.contains('hidden');
             const inputSheetOpen = inputSheetOverlay && !inputSheetOverlay.classList.contains('hidden');
             const groupSheetOpen = groupSheetOverlay && !groupSheetOverlay.classList.contains('hidden');
-            document.body.style.overflow = modalOpen || inputSheetOpen || groupSheetOpen ? 'hidden' : '';
+            const categorySheetOpen = categorySheetOverlay && !categorySheetOverlay.classList.contains('hidden');
+            const breakdownOpen = breakdownOverlay && !breakdownOverlay.classList.contains('hidden');
+            document.body.style.overflow = modalOpen || inputSheetOpen || groupSheetOpen || categorySheetOpen || breakdownOpen ? 'hidden' : '';
         }
 
         function openInputSheet(type) {
+            if (type === 'budget' && !isMobileView()) {
+                openDesktopBudgetModal();
+                return;
+            }
+
             if (!isMobileView()) {
                 const focusMap = {
-                    budget: 'startingCapital',
                     savings: 'transferAmount',
                     expense: 'expenseLabel',
                 };
@@ -852,7 +1357,31 @@
             if (target && !isMobileView()) setTimeout(() => target.focus(), 120);
         }
 
+        function openDesktopBudgetModal() {
+            if (isAllView()) return;
+            const overlay = document.getElementById('inputSheetOverlay');
+            const card = document.getElementById('budgetCard');
+            if (!overlay || !card) return;
+            if (inputSheetCloseTimer) {
+                clearTimeout(inputSheetCloseTimer);
+                inputSheetCloseTimer = null;
+            }
+
+            closeGroupSelector();
+            activeInputSheet = 'budget';
+            overlay.classList.remove('hidden', 'sheet-closing');
+            overlay.classList.add('flex');
+            card.style.transform = '';
+            card.classList.remove('mobile-sheet-active', 'mobile-sheet-closing', 'desktop-modal-closing', 'sheet-dragging');
+            card.classList.add('desktop-modal-active');
+            updateBodyLock();
+
+            const input = document.getElementById('startingCapital');
+            if (input) setTimeout(() => input.focus(), 120);
+        }
+
         function closeInputSheet() {
+            closeCategorySheet();
             const overlay = document.getElementById('inputSheetOverlay');
             const cards = getInputSheetCards();
             const card = activeInputSheet ? cards[activeInputSheet] : null;
@@ -862,13 +1391,17 @@
             if (card) {
                 card.style.transform = '';
                 card.classList.remove('sheet-dragging');
-                card.classList.add('mobile-sheet-closing');
+                if (card.classList.contains('desktop-modal-active')) {
+                    card.classList.add('desktop-modal-closing');
+                } else {
+                    card.classList.add('mobile-sheet-closing');
+                }
             }
             if (inputSheetCloseTimer) clearTimeout(inputSheetCloseTimer);
             inputSheetCloseTimer = setTimeout(() => {
                 Object.values(cards).forEach(el => {
                     el.style.transform = '';
-                    el.classList.remove('mobile-sheet-active', 'mobile-sheet-closing', 'sheet-dragging');
+                    el.classList.remove('mobile-sheet-active', 'mobile-sheet-closing', 'desktop-modal-active', 'desktop-modal-closing', 'sheet-dragging');
                 });
                 overlay.classList.add('hidden');
                 overlay.classList.remove('flex', 'sheet-closing');
@@ -890,6 +1423,12 @@
 
             const promptBox = e.target.closest('#modalOverlay.input-sheet #modalBox');
             if (promptBox) return { el: promptBox, close: () => closeModal(null) };
+
+            const categorySheet = e.target.closest('#categorySheetOverlay.flex #categorySheet');
+            if (categorySheet) return { el: categorySheet, close: closeCategorySheet };
+
+            const breakdownBox = e.target.closest('#breakdownOverlay.flex #breakdownModal');
+            if (breakdownBox) return { el: breakdownBox, close: closeBreakdownModal, scrollEl: e.target.closest('#categoryBreakdownList') || breakdownBox };
 
             return null;
         }
@@ -1032,6 +1571,8 @@
         window.addEventListener('resize', function () {
             if (!isMobileView()) closeInputSheet();
             closeGroupSelector();
+            closeCategorySheet();
+            closeCategoryDropdown();
         });
 
         // --- Toast ---
@@ -1116,11 +1657,50 @@
         // --- DOM ---
         const labelEl = document.getElementById('expenseLabel');
         const amountEl = document.getElementById('expenseAmount');
+        const categoryInputEl = document.getElementById('expenseCategory');
+        const categoryDropdownBtn = document.getElementById('expenseCategoryDropdownBtn');
+        const categoryDropdownMenu = document.getElementById('expenseCategoryDropdownMenu');
+        const selectedCategoryDot = document.getElementById('selectedCategoryDot');
+        const selectedCategoryIcon = document.getElementById('selectedCategoryIcon');
+        const selectedCategoryLabel = document.getElementById('selectedCategoryLabel');
+        const mobileSelectedCategoryDot = document.getElementById('mobileSelectedCategoryDot');
+        const mobileSelectedCategoryIcon = document.getElementById('mobileSelectedCategoryIcon');
+        const mobileSelectedCategoryLabel = document.getElementById('mobileSelectedCategoryLabel');
+        const categoryPickerEl = document.getElementById('expenseCategoryPicker');
         const editingIdEl = document.getElementById('editingId');
         const submitButton = document.getElementById('submitButton');
         const cancelButton = document.getElementById('cancelEditButton');
         const expensesList = document.getElementById('expensesList');
         const transferAmountEl = document.getElementById('transferAmount');
+        const DEFAULT_EXPENSE_CATEGORY = 'other';
+        const SPENDING_CATEGORIES = [
+            { id: 'other', label: 'Other', icon: 'receipt', color: '#14b8a6' },
+            { id: 'food', label: 'Food', icon: 'utensils', color: '#f97316' },
+            { id: 'groceries', label: 'Groceries', icon: 'cart-shopping', color: '#22c55e' },
+            { id: 'transportation', label: 'Transportation', icon: 'car', color: '#38bdf8' },
+            { id: 'shopping', label: 'Shopping', icon: 'bag-shopping', color: '#a78bfa' },
+            { id: 'home', label: 'Home', icon: 'house', color: '#f59e0b' },
+            { id: 'bills', label: 'Bills', icon: 'bolt', color: '#daed09' },
+            { id: 'health', label: 'Health', icon: 'heart-pulse', color: '#fb7185' },
+            { id: 'travel', label: 'Travel', icon: 'plane-departure', color: '#c2489d' },
+            { id: 'subscriptions', label: 'Subscriptions', icon: 'rotate', color: '#2dd4bf' },
+            { id: 'education', label: 'Education', icon: 'book-open', color: '#818cf8' },
+            { id: 'gifts', label: 'Gifts', icon: 'gift', color: '#f472b6' },
+        ];
+        const LEGACY_ICON_CATEGORIES = {
+            receipt: 'other',
+            utensils: 'food',
+            'cart-shopping': 'groceries',
+            car: 'transportation',
+            house: 'home',
+            bolt: 'bills',
+            film: 'travel',
+            'bag-shopping': 'shopping',
+            'heart-pulse': 'health',
+            gift: 'gifts',
+        };
+        const CATEGORY_ALIASES = { transport: 'transportation', entertainment: 'travel' };
+        let categoryDropdownOpen = false;
 
         // --- Utilities ---
         function formatCurrency(n) {
@@ -1134,6 +1714,302 @@
         }
 
         function getGroup(name) { return groups.find(g => g.name === name); }
+
+        function getExpenseCategory(categoryId) {
+            return SPENDING_CATEGORIES.find(category => category.id === categoryId) || SPENDING_CATEGORIES[0];
+        }
+
+        function getExpenseCategoryId(exp) {
+            if (!exp) return DEFAULT_EXPENSE_CATEGORY;
+            const legacyCategory = exp.icon ? LEGACY_ICON_CATEGORIES[exp.icon] : '';
+            const categoryId = exp.category || legacyCategory || DEFAULT_EXPENSE_CATEGORY;
+            return getExpenseCategory(CATEGORY_ALIASES[categoryId] || categoryId).id;
+        }
+
+        function selectExpenseCategory(categoryId) {
+            if (!categoryInputEl) return;
+            categoryInputEl.value = getExpenseCategory(categoryId).id;
+            closeCategoryDropdown();
+            closeCategorySheet();
+            renderExpenseCategoryControl();
+        }
+
+        function renderExpenseCategoryControl() {
+            if (!categoryInputEl) return;
+            const selectedCategory = getExpenseCategory(categoryInputEl.value).id;
+            const selected = getExpenseCategory(selectedCategory);
+
+            if (categoryDropdownBtn && selectedCategoryDot && selectedCategoryIcon && selectedCategoryLabel) {
+                categoryDropdownBtn.style.setProperty('--category-color', selected.color);
+                selectedCategoryDot.style.setProperty('--category-color', selected.color);
+                selectedCategoryIcon.className = `category-icon fas fa-${selected.icon} text-xs w-4 text-center`;
+                selectedCategoryIcon.style.color = selected.color;
+                selectedCategoryLabel.textContent = selected.label;
+                categoryDropdownBtn.setAttribute('aria-expanded', categoryDropdownOpen ? 'true' : 'false');
+            }
+
+            if (mobileSelectedCategoryDot && mobileSelectedCategoryIcon && mobileSelectedCategoryLabel) {
+                mobileSelectedCategoryDot.style.setProperty('--category-color', selected.color);
+                mobileSelectedCategoryIcon.className = `category-icon fas fa-${selected.icon} text-xs w-4 text-center`;
+                mobileSelectedCategoryIcon.style.color = selected.color;
+                mobileSelectedCategoryLabel.textContent = selected.label;
+            }
+
+            if (categoryDropdownMenu && !categoryDropdownMenu.children.length) {
+                categoryDropdownMenu.innerHTML = SPENDING_CATEGORIES.map(category => `
+                    <button type="button" onclick="selectExpenseCategory('${category.id}')" data-expense-category-option="${category.id}"
+                        class="category-dropdown-item w-full px-3.5 py-2.5 flex items-center gap-2 text-left text-sm"
+                        style="--category-color:${category.color}">
+                        <span class="category-dot"></span>
+                        <i class="category-icon fas fa-${category.icon} text-xs w-4 text-center"></i>
+                        <span class="flex-1 truncate font-semibold">${category.label}</span>
+                        <i class="category-check fas fa-check text-[10px]"></i>
+                    </button>
+                `).join('');
+            }
+
+            if (categoryDropdownMenu) {
+                categoryDropdownMenu.querySelectorAll('[data-expense-category-option]').forEach(button => {
+                    button.classList.toggle('is-selected', button.dataset.expenseCategoryOption === selectedCategory);
+                });
+            }
+
+            if (!categoryPickerEl) return;
+            if (!categoryPickerEl.children.length) {
+                categoryPickerEl.innerHTML = SPENDING_CATEGORIES.map(category => `
+                    <button type="button" onclick="selectExpenseCategory('${category.id}')" data-expense-category="${category.id}"
+                        aria-label="${category.label} category" aria-pressed="false"
+                        class="category-option h-11 rounded-lg flex items-center gap-2 px-3 text-left"
+                        style="--category-color:${category.color}">
+                        <span class="category-dot"></span>
+                        <i class="category-icon fas fa-${category.icon} text-xs w-4 text-center"></i>
+                        <span class="text-xs font-semibold truncate">${category.label}</span>
+                    </button>
+                `).join('');
+            }
+            categoryPickerEl.querySelectorAll('[data-expense-category]').forEach(button => {
+                const active = button.dataset.expenseCategory === selectedCategory;
+                button.classList.toggle('is-selected', active);
+                button.setAttribute('aria-pressed', active ? 'true' : 'false');
+            });
+        }
+
+        function toggleCategoryDropdown(event) {
+            if (event) event.stopPropagation();
+            if (categoryDropdownOpen) closeCategoryDropdown();
+            else openCategoryDropdown();
+        }
+
+        function openCategoryDropdown() {
+            if (!categoryDropdownMenu || isMobileView()) return;
+            categoryDropdownOpen = true;
+            categoryDropdownMenu.classList.remove('hidden');
+            if (categoryDropdownBtn) categoryDropdownBtn.setAttribute('aria-expanded', 'true');
+            renderExpenseCategoryControl();
+        }
+
+        function closeCategoryDropdown() {
+            if (!categoryDropdownMenu) return;
+            categoryDropdownOpen = false;
+            categoryDropdownMenu.classList.add('hidden');
+            if (categoryDropdownBtn) categoryDropdownBtn.setAttribute('aria-expanded', 'false');
+        }
+
+        function openCategorySheet() {
+            if (!isMobileView()) {
+                openCategoryDropdown();
+                return;
+            }
+            if (categorySheetCloseTimer) {
+                clearTimeout(categorySheetCloseTimer);
+                categorySheetCloseTimer = null;
+            }
+            renderExpenseCategoryControl();
+            const overlay = document.getElementById('categorySheetOverlay');
+            const sheet = document.getElementById('categorySheet');
+            if (!overlay || !sheet) return;
+            overlay.classList.remove('hidden', 'category-closing');
+            overlay.classList.add('flex');
+            sheet.style.transform = '';
+            sheet.classList.remove('category-closing', 'sheet-dragging');
+            updateBodyLock();
+        }
+
+        function closeCategorySheet() {
+            const overlay = document.getElementById('categorySheetOverlay');
+            const sheet = document.getElementById('categorySheet');
+            if (!overlay || overlay.classList.contains('hidden')) return;
+
+            overlay.classList.add('category-closing');
+            if (sheet) {
+                sheet.style.transform = '';
+                sheet.classList.remove('sheet-dragging');
+                sheet.classList.add('category-closing');
+            }
+            if (categorySheetCloseTimer) clearTimeout(categorySheetCloseTimer);
+            categorySheetCloseTimer = setTimeout(() => {
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex', 'category-closing');
+                if (sheet) {
+                    sheet.style.transform = '';
+                    sheet.classList.remove('category-closing', 'sheet-dragging');
+                }
+                categorySheetCloseTimer = null;
+                updateBodyLock();
+            }, 180);
+        }
+
+        function getVisibleExpenseEntries() {
+            const visible = isAllView() ? expenses : expenses.filter(exp => exp.group === activeGroup);
+            return visible.filter(exp => exp.type === 'expense' || !exp.type);
+        }
+
+        function getBreakdownData() {
+            const stats = isAllView() ? getAllStats() : getGroupStats(activeGroup);
+            const budget = stats.budget || 0;
+            const visibleExpenses = getVisibleExpenseEntries();
+            const rows = SPENDING_CATEGORIES.map(category => {
+                const amount = visibleExpenses
+                    .filter(exp => getExpenseCategoryId(exp) === category.id)
+                    .reduce((sum, exp) => sum + exp.amount, 0);
+                return {
+                    ...category,
+                    amount,
+                    budgetPercent: budget > 0 ? (amount / budget) * 100 : 0,
+                };
+            }).filter(row => row.amount > 0);
+
+            const totalSpent = rows.reduce((sum, row) => sum + row.amount, 0);
+            rows.forEach(row => {
+                row.spentPercent = totalSpent > 0 ? (row.amount / totalSpent) * 100 : 0;
+            });
+
+            return { budget, totalSpent, rows };
+        }
+
+        function renderDonutChart({ budget, totalSpent, rows }) {
+            const svg = document.getElementById('categoryDonutSvg');
+            if (!svg) return;
+
+            const radius = 38;
+            const strokeWidth = 18;
+            const base = budget > 0 ? Math.max(budget, totalSpent) : 0;
+            let cursor = 0;
+            const baseRing = `<circle cx="50" cy="50" r="${radius}" pathLength="100" stroke="#334155" stroke-width="${strokeWidth}"></circle>`;
+
+            if (base <= 0 || totalSpent <= 0) {
+                svg.innerHTML = baseRing;
+                return;
+            }
+
+            const segments = rows.map(row => {
+                const length = Math.max(0, (row.amount / base) * 100);
+                const dashOffset = -cursor;
+                cursor += length;
+                return `<circle cx="50" cy="50" r="${radius}" pathLength="100" stroke="${row.color}" stroke-width="${strokeWidth}" stroke-dasharray="${length} ${100 - length}" stroke-dashoffset="${dashOffset}"></circle>`;
+            }).join('');
+
+            svg.innerHTML = baseRing + segments;
+        }
+
+        function openBreakdownModal() {
+            if (breakdownCloseTimer) {
+                clearTimeout(breakdownCloseTimer);
+                breakdownCloseTimer = null;
+            }
+
+            closeInputSheet();
+            closeGroupSelector();
+            renderBreakdownModal();
+
+            const overlay = document.getElementById('breakdownOverlay');
+            const modal = document.getElementById('breakdownModal');
+            if (!overlay || !modal) return;
+            modal.style.transform = '';
+            modal.classList.remove('sheet-dragging');
+            overlay.classList.remove('hidden', 'breakdown-closing');
+            overlay.classList.add('flex');
+            updateBodyLock();
+        }
+
+        function closeBreakdownModal() {
+            const overlay = document.getElementById('breakdownOverlay');
+            const modal = document.getElementById('breakdownModal');
+            if (!overlay || overlay.classList.contains('hidden')) return;
+
+            overlay.classList.add('breakdown-closing');
+            if (modal) {
+                modal.style.transform = '';
+                modal.classList.remove('sheet-dragging');
+            }
+            if (breakdownCloseTimer) clearTimeout(breakdownCloseTimer);
+            breakdownCloseTimer = setTimeout(() => {
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex', 'breakdown-closing');
+                if (modal) modal.style.transform = '';
+                breakdownCloseTimer = null;
+                updateBodyLock();
+            }, 180);
+        }
+
+        function renderBreakdownModal() {
+            const data = getBreakdownData();
+            const budgetUsedPercent = data.budget > 0 ? Math.round((data.totalSpent / data.budget) * 100) : 0;
+            const scope = isAllView() ? 'All groups' : activeGroup;
+            const list = document.getElementById('categoryBreakdownList');
+
+            document.getElementById('breakdownScope').textContent = scope + ' starting budget';
+            document.getElementById('breakdownPercent').textContent = budgetUsedPercent + '%';
+            document.getElementById('breakdownTotal').textContent = data.totalSpent > 0 ? formatCurrency(data.totalSpent) + ' spent' : 'No spending yet';
+            document.getElementById('breakdownBudget').textContent = formatCurrency(data.budget);
+            document.getElementById('breakdownSpent').textContent = formatCurrency(data.totalSpent);
+            renderDonutChart(data);
+
+            if (!list) return;
+            if (data.budget <= 0) {
+                list.innerHTML = `<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-4 text-center">
+                    <p class="text-sm font-semibold text-gray-300">Set a starting budget first</p>
+                    <p class="text-xs text-slate-500 mt-1">The chart uses the budget as its base.</p>
+                </div>`;
+                return;
+            }
+
+            if (data.rows.length === 0) {
+                list.innerHTML = `<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-4 text-center">
+                    <p class="text-sm font-semibold text-gray-300">No categorized spending yet</p>
+                    <p class="text-xs text-slate-500 mt-1">Add an expense and choose a category.</p>
+                </div>`;
+                return;
+            }
+
+            list.innerHTML = data.rows
+                .sort((a, b) => b.amount - a.amount)
+                .map(row => {
+                    const pct = Math.round(row.budgetPercent);
+                    const width = Math.min(row.budgetPercent, 100).toFixed(2);
+                    return `<div class="rounded-lg border border-slate-700 bg-slate-900/50 p-3" style="border-left:3px solid ${row.color}">
+                        <div class="flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <span class="category-swatch" style="background:${row.color}"></span>
+                                <i class="fas fa-${row.icon} text-xs w-4 text-center" style="color:${row.color}"></i>
+                                <span class="text-sm font-semibold text-gray-200 truncate">${row.label}</span>
+                            </div>
+                            <div class="text-right flex-shrink-0">
+                                <p class="text-sm font-bold text-gray-200">${pct}%</p>
+                                <p class="text-[10px] text-slate-500">${formatCurrency(row.amount)}</p>
+                            </div>
+                        </div>
+                        <div class="h-1.5 rounded-full bg-slate-800 overflow-hidden mt-2">
+                            <div class="h-full rounded-full" style="width:${width}%; background:${row.color}"></div>
+                        </div>
+                    </div>`;
+                }).join('');
+        }
+
+        function refreshBreakdownIfOpen() {
+            const overlay = document.getElementById('breakdownOverlay');
+            if (overlay && !overlay.classList.contains('hidden')) renderBreakdownModal();
+        }
 
         function getGroupStats(groupName) {
             const g = getGroup(groupName);
@@ -1260,6 +2136,10 @@
             if (groupSelectorOpen && !document.getElementById('groupSelectorWrapper').contains(e.target)) {
                 closeGroupSelector();
             }
+            const categoryWrap = document.querySelector('.category-select-wrap');
+            if (categoryDropdownOpen && categoryWrap && !categoryWrap.contains(e.target)) {
+                closeCategoryDropdown();
+            }
         });
 
         function switchGroup(name) {
@@ -1333,7 +2213,7 @@
                 input.disabled = false;
                 input.value = g && g.budget > 0 ? g.budget.toFixed(2) : '';
                 input.placeholder = 'Set budget for ' + activeGroup;
-                label.textContent = 'Budget — ' + activeGroup;
+                label.textContent = 'Budget - ' + activeGroup;
             }
         }
 
@@ -1342,6 +2222,11 @@
             const g = getGroup(activeGroup);
             if (g) { g.budget = parseFloat(e.target.value) || 0; saveData(); updateDisplay(); }
         });
+
+        function finishBudgetEntry() {
+            closeInputSheet();
+            toast('Budget updated', { icon: 'wallet', color: 'accent' });
+        }
 
         // --- Form Visibility ---
         function updateFormVisibility() {
@@ -1357,6 +2242,12 @@
                 btn.classList.toggle('opacity-40', isAll);
                 btn.classList.toggle('pointer-events-none', isAll);
             });
+            const desktopBudgetBtn = document.getElementById('desktopBudgetBtn');
+            if (desktopBudgetBtn) {
+                desktopBudgetBtn.disabled = isAll;
+                desktopBudgetBtn.classList.toggle('opacity-40', isAll);
+                desktopBudgetBtn.classList.toggle('pointer-events-none', isAll);
+            }
             if (isAll) closeInputSheet();
         }
 
@@ -1406,6 +2297,7 @@
         function resetForm() {
             labelEl.value = '';
             amountEl.value = '';
+            selectExpenseCategory(DEFAULT_EXPENSE_CATEGORY);
             editingIdEl.value = '';
             submitButton.innerHTML = '<i class="fas fa-paper-plane mr-2 text-xs"></i> Log Expense';
             submitButton.classList.remove('btn-warning-glow');
@@ -1417,6 +2309,7 @@
             if (isAllView()) return;
             const label = labelEl.value.trim();
             const amount = parseFloat(amountEl.value);
+            const category = getExpenseCategory(categoryInputEl ? categoryInputEl.value : DEFAULT_EXPENSE_CATEGORY).id;
             const editingId = editingIdEl.value;
 
             if (!label) {
@@ -1430,15 +2323,20 @@
 
             if (editingId) {
                 const idx = expenses.findIndex(exp => exp.id == editingId);
-                if (idx !== -1) { expenses[idx].label = label; expenses[idx].amount = amount; }
+                if (idx !== -1) {
+                    expenses[idx].label = label;
+                    expenses[idx].amount = amount;
+                    expenses[idx].category = category;
+                    delete expenses[idx].icon;
+                }
                 saveData(); resetForm(); updateDisplay();
                 closeInputSheet();
                 toast('Transaction updated', { icon: 'pen', color: 'amber' });
             } else {
-                expenses.push({ id: Date.now(), label, amount, type: 'expense', group: activeGroup, date: new Date().toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' }) });
+                expenses.push({ id: Date.now(), label, amount, category, type: 'expense', group: activeGroup, date: new Date().toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' }) });
                 saveData(); resetForm(); updateDisplay();
                 closeInputSheet();
-                toast(label + ' — ' + formatCurrency(amount) + ' logged', { icon: 'receipt', color: 'accent' });
+                toast(label + ' - ' + formatCurrency(amount) + ' logged', { icon: 'receipt', color: 'accent' });
             }
         }
 
@@ -1449,6 +2347,7 @@
             if (activeGroup !== exp.group) { switchGroup(exp.group); }
             labelEl.value = exp.label;
             amountEl.value = exp.amount;
+            selectExpenseCategory(getExpenseCategoryId(exp));
             editingIdEl.value = id;
             submitButton.innerHTML = '<i class="fas fa-sync-alt mr-2 text-xs"></i> Update Expense';
             submitButton.classList.remove('btn-glow');
@@ -1499,6 +2398,15 @@
             document.getElementById('displayExpenses').textContent = formatCurrency(stats.spent);
             document.getElementById('displayBank').textContent = formatCurrency(stats.savings);
             document.getElementById('displayRemaining').textContent = formatCurrency(stats.remaining);
+            const desktopBudgetSummary = document.getElementById('desktopBudgetSummary');
+            if (desktopBudgetSummary) {
+                desktopBudgetSummary.textContent = stats.budget > 0 ? formatCurrency(stats.budget) : 'No budget set';
+            }
+            const breakdownSummary = document.getElementById('breakdownSummary');
+            if (breakdownSummary) {
+                const spentPct = stats.budget > 0 ? Math.round((stats.spent / stats.budget) * 100) : 0;
+                breakdownSummary.textContent = stats.budget > 0 ? `${spentPct}% of budget spent` : 'Set a budget first';
+            }
 
             // Progress
             const totalUsed = stats.spent + stats.savings;
@@ -1516,6 +2424,9 @@
             rc.className = 'rounded-xl sm:rounded-2xl p-3 sm:p-5 border shadow-lg shadow-black/10';
             rl.className = 'text-[9px] sm:text-[11px] font-semibold uppercase tracking-wider mb-1';
             rt.className = 'stat-value text-lg sm:text-2xl font-extrabold leading-none drop-shadow-sm';
+            rc.removeAttribute('style');
+            rt.removeAttribute('style');
+            rl.removeAttribute('style');
             if (stats.remaining < 0) { rc.classList.add('bg-red-500/30', 'border-red-400/40'); rt.classList.add('text-red-200'); rl.classList.add('text-red-300/80'); }
             else if (stats.remaining > 0) { rc.classList.add('bg-emerald-500/30', 'border-emerald-400/40'); rt.classList.add('text-emerald-200'); rl.classList.add('text-emerald-300/80'); }
             else { rc.classList.add('bg-white/25', 'border-white/30'); rt.classList.add('text-white'); rl.classList.add('text-white/70'); }
@@ -1534,6 +2445,7 @@
                     <p class="text-text-light font-medium text-sm">${msgs[historyFilter]}</p>
                     <p class="text-xs text-slate-600 mt-1">Your transactions will appear here</p>
                 </div>`;
+                refreshBreakdownIfOpen();
                 return;
             }
 
@@ -1542,18 +2454,21 @@
                 const isBank = exp.type === 'bank';
                 const isW = exp.type === 'withdraw';
                 const isT = isBank || isW;
-                const iconBg = isBank ? 'bg-blue-500/15' : isW ? 'bg-amber-500/15' : 'bg-accent/15';
-                const iconCls = isBank ? 'fa-building-columns text-blue-400' : isW ? 'fa-arrow-left text-amber-400' : 'fa-arrow-down text-accent';
+                const category = getExpenseCategory(getExpenseCategoryId(exp));
+                const iconBg = isBank ? 'bg-blue-500/15' : isW ? 'bg-amber-500/15' : '';
+                const iconStyle = isT ? '' : `style="background:${category.color}24; color:${category.color}; border:1px solid ${category.color}33"`;
+                const iconCls = isBank ? 'fa-building-columns text-blue-400' : isW ? 'fa-arrow-left text-amber-400' : 'fa-' + category.icon;
                 const amtClr = isBank ? 'text-blue-400' : isW ? 'text-emerald-400' : 'text-red-400';
                 const prefix = isW ? '+' : '-';
                 const grpTag = isAllView() && exp.group ? `<span class="text-[9px] sm:text-[10px] font-semibold text-accent bg-accent/10 px-1.5 py-0.5 rounded-md ml-1.5">${exp.group}</span>` : '';
+                const categoryText = isT ? '' : ` &bull; <span style="color:${category.color}">${category.label}</span>`;
                 const editBtn = isT ? '' : `<button onclick="editExpense(${exp.id})" title="Edit" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-slate-500 hover:text-amber-400 hover:bg-amber-400/10 transition duration-200"><i class="fas fa-pen text-[10px] sm:text-[11px]"></i></button>`;
 
                 return `<div class="expense-item flex items-center p-2.5 sm:p-3 rounded-lg sm:rounded-xl group">
-                    <div class="icon-circle w-9 h-9 rounded-xl ${iconBg} items-center justify-center mr-3 flex-shrink-0 hidden sm:flex"><i class="fas ${iconCls} text-xs"></i></div>
+                    <div class="icon-circle w-9 h-9 rounded-xl ${iconBg} items-center justify-center mr-3 flex-shrink-0 flex" ${iconStyle}><i class="fas ${iconCls} text-xs"></i></div>
                     <div class="flex-grow min-w-0">
                         <div class="flex items-center"><p class="font-semibold text-gray-200 text-xs sm:text-sm truncate">${exp.label}</p>${grpTag}</div>
-                        <p class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">${exp.date}</p>
+                        <p class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">${exp.date}${categoryText}</p>
                     </div>
                     <div class="flex items-center gap-0.5 sm:gap-1 flex-shrink-0 ml-2">
                         <p class="font-bold ${amtClr} text-xs sm:text-sm mr-0.5 sm:mr-1">${prefix}${formatCurrency(exp.amount)}</p>
@@ -1562,6 +2477,7 @@
                 </div>`;
             }).join('');
             expensesList.scrollTop = 0;
+            refreshBreakdownIfOpen();
         }
 
         // --- Keyboard Shortcuts ---
@@ -1573,6 +2489,7 @@
             updateGroupSelectorLabel();
             updateBudgetInput();
             updateFormVisibility();
+            renderExpenseCategoryControl();
             setHistoryFilter('all');
             updateDisplay();
         };
