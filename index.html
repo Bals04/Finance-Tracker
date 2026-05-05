@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BaiNance</title>
+    <title>BuzzBudget</title>
     <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23008080'/><text x='50' y='68' font-size='55' font-weight='bold' text-anchor='middle' fill='white'>B</text></svg>">
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%231B1B1B'/><g fill='none' stroke='%23D6A21A' stroke-width='6' stroke-linejoin='round'><path d='M50 17 64 25v16l-14 8-14-8V25z'/><path d='M28 47 42 55v16l-14 8-14-8V55z'/><path d='M72 47 86 55v16l-14 8-14-8V55z'/><path d='M50 55 64 63v16l-14 8-14-8V63z'/></g></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@700;800;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Outfit:wght@700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
@@ -20,12 +20,28 @@
             theme: {
                 extend: {
                     colors: {
-                        'accent': '#008080',
-                        'accent-dark': '#006666',
-                        'text-light': '#94a3b8',
-                        'warning': '#f59e0b',
+                        'accent': '#D6A21A',
+                        'accent-dark': '#9B7110',
+                        'text-light': '#B8B0A0',
+                        'warning': '#D6A21A',
+                        slate: {
+                            300: '#D8D2C3',
+                            400: '#B8B0A0',
+                            500: '#8F8778',
+                            600: '#6F6656',
+                            700: '#3A3322',
+                            800: '#242424',
+                            900: '#1B1B1B'
+                        },
+                        blue: {
+                            100: '#FFF2C6',
+                            200: '#F3D37A',
+                            300: '#E4BD47',
+                            400: '#D6A21A',
+                            500: '#B98514'
+                        },
                     },
-                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'] }
                 }
             }
         }
@@ -36,12 +52,12 @@
         }
 
         body {
-            background: #0f172a;
+            background: #1B1B1B;
             min-height: 100vh;
         }
 
         .hero-gradient {
-            background: linear-gradient(135deg, #006666 0%, #008080 40%, #14b8a6 100%);
+            background: linear-gradient(135deg, #1B1B1B 0%, #8A6411 44%, #D6A21A 100%);
         }
 
         #expensesList::-webkit-scrollbar {
@@ -53,7 +69,7 @@
         }
 
         #expensesList::-webkit-scrollbar-thumb {
-            background: #334155;
+            background: #4A412B;
             border-radius: 9999px;
         }
 
@@ -68,30 +84,30 @@
         }
 
         .input-dark {
-            background: #1e293b;
-            border: 1.5px solid #334155;
-            color: #f1f5f9;
+            background: #242424;
+            border: 1.5px solid #3A3322;
+            color: #F7F0DF;
             transition: all 0.2s ease;
         }
 
         .input-dark::placeholder {
-            color: #475569;
+            color: #8F8778;
         }
 
         .input-dark:focus {
-            border-color: #008080;
-            box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.15);
+            border-color: #D6A21A;
+            box-shadow: 0 0 0 3px rgba(214, 162, 26, 0.16);
             outline: none;
         }
 
         .btn-glow {
-            background: linear-gradient(135deg, #008080, #0d9488);
-            box-shadow: 0 0 20px rgba(0, 128, 128, 0.3);
+            background: linear-gradient(135deg, #D6A21A, #9B7110);
+            box-shadow: 0 0 20px rgba(214, 162, 26, 0.28);
             transition: all 0.3s ease;
         }
 
         .btn-glow:hover {
-            box-shadow: 0 0 30px rgba(0, 128, 128, 0.5);
+            box-shadow: 0 0 30px rgba(214, 162, 26, 0.42);
             transform: translateY(-1px);
         }
 
@@ -100,24 +116,24 @@
         }
 
         .btn-warning-glow {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            background: linear-gradient(135deg, #D6A21A, #9B7110);
+            box-shadow: 0 0 20px rgba(214, 162, 26, 0.28);
             transition: all 0.3s ease;
         }
 
         .btn-warning-glow:hover {
-            box-shadow: 0 0 30px rgba(245, 158, 11, 0.5);
+            box-shadow: 0 0 30px rgba(214, 162, 26, 0.42);
             transform: translateY(-1px);
         }
 
         .btn-blue-glow {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            background: linear-gradient(135deg, #D6A21A, #8A6411);
+            box-shadow: 0 0 20px rgba(214, 162, 26, 0.28);
             transition: all 0.3s ease;
         }
 
         .btn-blue-glow:hover {
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 30px rgba(214, 162, 26, 0.42);
             transform: translateY(-1px);
         }
 
@@ -126,19 +142,104 @@
         }
 
         .dark-card {
-            background: #1e293b;
-            border: 1px solid #334155;
+            background: #242424;
+            border: 1px solid #3A3322;
+        }
+
+        .savings-card {
+            background: #17659E;
+            border-color: #7DB7EA;
+        }
+
+        .savings-card .savings-icon {
+            color: #FFFFFF;
+        }
+
+        .savings-card .savings-label {
+            color: rgba(191, 219, 254, 0.78);
+        }
+
+        .savings-card .savings-value {
+            color: #DBEAFE;
+        }
+
+        .buzz-helper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 2px;
+            pointer-events: none;
+        }
+
+        .buzz-helper-desktop {
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% - 14px);
+            z-index: 4;
+            transform: translateX(-50%);
+            width: max-content;
+        }
+
+        .buzz-helper-mobile {
+            display: none;
+        }
+
+        .buzz-mascot {
+            width: clamp(142px, 15vw, 198px);
+            aspect-ratio: 1;
+            object-fit: contain;
+            flex-shrink: 0;
+            filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.3));
+        }
+
+        .buzz-dialog {
+            position: relative;
+            width: 360px;
+            max-width: min(360px, 42vw);
+            border-radius: 12px;
+            background: #FFFFFF;
+            border: 1px solid rgba(214, 162, 26, 0.36);
+            color: #1B1B1B;
+            padding: 10px 16px;
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.24);
+            backdrop-filter: blur(10px);
+        }
+
+        .buzz-name {
+            display: block;
+            margin-bottom: 3px;
+            color: #9B7110;
+            font-size: 0.72rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .buzz-dialog::after {
+            content: '';
+            position: absolute;
+            right: -7px;
+            top: 50%;
+            width: 13px;
+            height: 13px;
+            background: #FFFFFF;
+            border-right: 1px solid rgba(214, 162, 26, 0.36);
+            border-top: 1px solid rgba(214, 162, 26, 0.36);
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .input-sheet-buzz-backdrop {
+            display: none;
         }
 
         .expense-item {
-            background: #1e293b;
+            background: #242424;
             border: 1px solid transparent;
             transition: all 0.2s ease;
         }
 
         .expense-item:hover {
-            border-color: #334155;
-            background: #253349;
+            border-color: #4A412B;
+            background: #2C2A24;
         }
 
         .expense-item:hover .row-actions {
@@ -151,7 +252,7 @@
         }
 
         .progress-track {
-            background: #334155;
+            background: #4A412B;
             height: 6px;
             border-radius: 9999px;
             overflow: hidden;
@@ -165,7 +266,7 @@
 
         .custom-scrollbar {
             scrollbar-width: thin;
-            scrollbar-color: #14b8a6 #0f172a;
+            scrollbar-color: #D6A21A #1B1B1B;
             scrollbar-gutter: stable;
         }
 
@@ -175,39 +276,39 @@
         }
 
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: #0f172a;
+            background: #1B1B1B;
             border-radius: 9999px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #2dd4bf, #008080);
-            border: 2px solid #0f172a;
+            background: linear-gradient(180deg, #D6A21A, #8A6411);
+            border: 2px solid #1B1B1B;
             border-radius: 9999px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #5eead4, #0d9488);
+            background: linear-gradient(180deg, #E0B33F, #9B7110);
         }
 
         .category-option {
-            --category-color: #008080;
-            background: #0f172a;
-            border: 1px solid #334155;
-            color: #94a3b8;
+            --category-color: #D6A21A;
+            background: #1B1B1B;
+            border: 1px solid #3A3322;
+            color: #B8B0A0;
             transition: all 0.18s ease;
         }
 
         .category-option:hover {
-            color: #e2e8f0;
-            border-color: #475569;
-            background: #172033;
+            color: #F7F0DF;
+            border-color: #6F6656;
+            background: #242424;
         }
 
         .category-option.is-selected {
-            color: #f8fafc;
+            color: #FFF7E1;
             border-color: var(--category-color);
-            background: #172033;
-            background: color-mix(in srgb, var(--category-color) 18%, #0f172a);
+            background: #242424;
+            background: color-mix(in srgb, var(--category-color) 18%, #1B1B1B);
             box-shadow: 0 0 0 3px color-mix(in srgb, var(--category-color) 18%, transparent);
         }
 
@@ -260,8 +361,8 @@
             z-index: 80;
             max-height: 120px;
             overflow-y: auto;
-            background: #0f172a;
-            border: 1px solid #334155;
+            background: #1B1B1B;
+            border: 1px solid #3A3322;
             box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
             scrollbar-gutter: stable;
         }
@@ -271,26 +372,26 @@
         }
 
         .category-dropdown-menu::-webkit-scrollbar-track {
-            background: #020617;
+            background: #141414;
             margin: 6px 0;
         }
 
         .category-dropdown-menu::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #5eead4, #008080);
-            border: 2px solid #020617;
+            background: linear-gradient(180deg, #E0B33F, #D6A21A);
+            border: 2px solid #141414;
         }
 
         .category-dropdown-item {
-            --category-color: #008080;
-            color: #cbd5e1;
+            --category-color: #D6A21A;
+            color: #D8D2C3;
             transition: all 0.16s ease;
         }
 
         .category-dropdown-item:hover,
         .category-dropdown-item.is-selected {
-            background: #172033;
-            background: color-mix(in srgb, var(--category-color) 14%, #0f172a);
-            color: #f8fafc;
+            background: #242424;
+            background: color-mix(in srgb, var(--category-color) 14%, #1B1B1B);
+            color: #FFF7E1;
         }
 
         .category-dropdown-item .category-icon {
@@ -331,7 +432,7 @@
             width: min(210px, 62vw);
             aspect-ratio: 1;
             border-radius: 9999px;
-            background: #1e293b;
+            background: #242424;
             position: relative;
             display: grid;
             place-items: center;
@@ -343,8 +444,8 @@
             position: absolute;
             inset: 24%;
             border-radius: 9999px;
-            background: #1e293b;
-            border: 1px solid #334155;
+            background: #242424;
+            border: 1px solid #3A3322;
             z-index: 1;
         }
 
@@ -559,11 +660,146 @@
             .row-actions {
                 opacity: 1;
             }
+
+            .buzz-mascot {
+                width: clamp(124px, 14vw, 160px);
+            }
+
+            .buzz-dialog {
+                width: 300px;
+                max-width: 32vw;
+            }
         }
 
         @media (max-width: 640px) {
             .stat-value {
                 font-size: 1.1rem !important;
+            }
+
+            .buzz-helper {
+                align-items: center;
+                flex-direction: row;
+                justify-content: space-between;
+                position: relative;
+                max-width: none;
+                min-height: 166px;
+                margin: 14px 0 -2px;
+                gap: 8px;
+                overflow: hidden;
+            }
+
+            .buzz-helper-desktop {
+                display: none;
+            }
+
+            .buzz-helper-mobile {
+                display: flex;
+            }
+
+            .buzz-helper-mobile.is-sheet-hidden {
+                display: none;
+            }
+
+            .buzz-mascot {
+                position: absolute;
+                right: -18px;
+                bottom: -14px;
+                width: clamp(178px, 52vw, 230px);
+                margin-left: 0;
+                z-index: 1;
+            }
+
+            .buzz-dialog {
+                width: auto;
+                min-height: 0;
+                max-width: min(196px, calc(100vw - 174px));
+                margin: 2px clamp(106px, 31vw, 136px) 0 0;
+                padding: 11px 12px;
+                background: #FFFFFF;
+                border-color: rgba(214, 162, 26, 0.45);
+                color: #1B1B1B;
+                box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+                z-index: 2;
+            }
+
+            .buzz-dialog::after {
+                right: -7px;
+                left: auto;
+                top: 54%;
+                background: #FFFFFF;
+                border-right: 1px solid rgba(214, 162, 26, 0.45);
+                border-top: 1px solid rgba(214, 162, 26, 0.45);
+                border-left: 0;
+                border-bottom: 0;
+            }
+
+            #groupSelectorWrapper {
+                margin-top: 12px;
+            }
+
+            .input-sheet-buzz-backdrop.is-visible {
+                display: flex;
+            }
+
+            .input-sheet-buzz-backdrop {
+                position: fixed;
+                left: 14px;
+                right: 14px;
+                bottom: min(58vh, 360px);
+                z-index: 111;
+                pointer-events: none;
+                align-items: flex-end;
+                justify-content: flex-end;
+                gap: 4px;
+            }
+
+            .input-sheet-buzz-dialog {
+                position: relative;
+                width: min(216px, calc(100vw - 226px));
+                margin-right: -10px;
+                margin-bottom: 54px;
+                padding: 10px 12px;
+                border-radius: 12px;
+                background: #FFFFFF;
+                border: 1px solid rgba(214, 162, 26, 0.45);
+                color: #1B1B1B;
+                box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+            }
+
+            .input-sheet-buzz-dialog::after {
+                content: '';
+                position: absolute;
+                right: -7px;
+                top: 54%;
+                width: 13px;
+                height: 13px;
+                background: #FFFFFF;
+                border-right: 1px solid rgba(214, 162, 26, 0.45);
+                border-top: 1px solid rgba(214, 162, 26, 0.45);
+                transform: translateY(-50%) rotate(45deg);
+            }
+
+            .input-sheet-buzz-backdrop img {
+                width: clamp(188px, 52vw, 238px);
+                flex-shrink: 0;
+                object-fit: contain;
+                transform: translateY(-28px);
+                filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.25));
+            }
+
+            @media (max-height: 740px) {
+                .input-sheet-buzz-backdrop {
+                    bottom: min(62vh, 320px);
+                }
+
+                .input-sheet-buzz-backdrop img {
+                    width: clamp(166px, 48vw, 212px);
+                    transform: translateY(-24px);
+                }
+
+                .input-sheet-buzz-dialog {
+                    margin-bottom: 42px;
+                }
             }
 
             .expense-item {
@@ -631,7 +867,7 @@
                 height: 5px;
                 margin: 0 auto 14px;
                 border-radius: 9999px;
-                background: #475569;
+                background: #6F6656;
             }
 
             .input-card.sheet-dragging,
@@ -688,7 +924,7 @@
                 height: 5px;
                 margin: 0 auto 14px;
                 border-radius: 9999px;
-                background: #475569;
+                background: #6F6656;
             }
 
             #modalOverlay.input-sheet #modalActions {
@@ -747,7 +983,7 @@
                 height: 5px;
                 margin: 0 auto 14px;
                 border-radius: 9999px;
-                background: #475569;
+                background: #6F6656;
             }
 
             #breakdownOverlay {
@@ -783,7 +1019,7 @@
                 height: 5px;
                 margin: 0 auto 14px;
                 border-radius: 9999px;
-                background: #475569;
+                background: #6F6656;
             }
 
             #groupSheetOverlay.group-closing {
@@ -826,7 +1062,7 @@
                 height: 5px;
                 margin: 0 auto 14px;
                 border-radius: 9999px;
-                background: #475569;
+                background: #6F6656;
                 touch-action: none;
             }
 
@@ -865,20 +1101,24 @@
 
     <!-- Hero Banner -->
     <div class="hero-gradient">
-        <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-16 sm:pb-24">
+        <div class="relative max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-16 sm:pb-24">
             <header class="flex items-center justify-between">
                 <div class="flex items-center gap-2.5 sm:gap-3">
-                    <div
-                        class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                        <i class="fas fa-chart-pie text-base sm:text-lg text-white"></i>
-                    </div>
                     <div>
                         <h1 class="text-xl sm:text-3xl font-black text-white tracking-tight leading-none italic"
-                            style="font-family: 'Outfit', sans-serif;">BaiNance</h1>
+                            style="font-family: 'Outfit', sans-serif;">BuzzBudget</h1>
                         <p class="text-[10px] sm:text-xs text-white/50 mt-0.5 italic">Your personal finance tracker</p>
                     </div>
                 </div>
             </header>
+
+            <div class="buzz-helper buzz-helper-mobile" aria-label="Buzz mascot">
+                <div class="buzz-dialog">
+                    <span class="buzz-name">Veeh</span>
+                    <p class="text-[11px] font-semibold leading-snug">Hi! I'm Veeh, and I'm here to judge you based on your spending habits.</p>
+                </div>
+                <img src="assets/buzz.png" alt="Buzz mascot" class="buzz-mascot">
+            </div>
 
             <!-- Group Selector -->
             <div class="mt-5 relative" id="groupSelectorWrapper">
@@ -889,7 +1129,7 @@
                 </button>
                 <div id="groupSelectorMenu"
                     class="hidden absolute left-0 right-0 sm:right-auto sm:min-w-[240px] top-full mt-1.5 rounded-xl overflow-hidden shadow-2xl z-50"
-                    style="background: #1a2536; border: 1px solid #334155;">
+                    style="background: #242424; border: 1px solid #3A3322;">
                     <div class="group-sheet-grabber" aria-hidden="true"></div>
                     <div class="group-picker-header items-center justify-between mb-3 px-1">
                         <div>
@@ -933,16 +1173,16 @@
                         id="displayExpenses">&#8369;0.00</p>
                 </div>
                 <div
-                    class="bg-blue-500/25 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-blue-400/30 shadow-lg shadow-black/10">
+                    class="savings-card backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-5 border shadow-lg shadow-black/10">
                     <div class="flex items-center gap-1 sm:gap-1.5 mb-1">
-                        <i class="fas fa-building-columns text-blue-300/70 text-[10px] sm:text-xs"></i>
-                        <p class="text-[9px] sm:text-[11px] font-semibold text-blue-200/70 uppercase tracking-wider">
+                        <i class="fas fa-building-columns savings-icon text-[10px] sm:text-xs"></i>
+                        <p class="text-[9px] sm:text-[11px] font-semibold savings-label uppercase tracking-wider">
                             Savings</p>
                     </div>
-                    <p class="stat-value text-lg sm:text-2xl font-extrabold text-blue-100 leading-none drop-shadow-sm"
+                    <p class="stat-value text-lg sm:text-2xl font-extrabold savings-value leading-none drop-shadow-sm"
                         id="displayBank">&#8369;0.00</p>
                 </div>
-                <div class="rounded-xl sm:rounded-2xl p-3 sm:p-5 border shadow-lg shadow-black/10" id="remainingCard">
+                <div class="relative overflow-visible rounded-xl sm:rounded-2xl p-3 sm:p-5 border shadow-lg shadow-black/10" id="remainingCard">
                     <div class="flex items-center gap-1 sm:gap-1.5 mb-1">
                         <i class="fas fa-coins text-white/60 text-[10px] sm:text-xs" id="remainingIcon"></i>
                         <p class="text-[9px] sm:text-[11px] font-semibold uppercase tracking-wider" id="remainingLabel">
@@ -950,6 +1190,13 @@
                     </div>
                     <p class="stat-value text-lg sm:text-2xl font-extrabold leading-none drop-shadow-sm"
                         id="displayRemaining">&#8369;0.00</p>
+                    <div class="buzz-helper buzz-helper-desktop" aria-label="Buzz mascot">
+                        <div class="buzz-dialog">
+                            <span class="buzz-name">Veeh</span>
+                            <p class="text-[11px] sm:text-sm font-semibold leading-snug">Hi! I'm Veeh, and I'm here to look at your spending habits.</p>
+                        </div>
+                        <img src="assets/buzz.png" alt="Buzz mascot" class="buzz-mascot">
+                    </div>
                 </div>
             </div>
 
@@ -1171,7 +1418,7 @@
         </div>
 
         <footer class="text-center py-8 mt-6">
-            <p class="text-xs text-slate-600">BaiNance - All data stored locally on your device</p>
+            <p class="text-xs text-slate-600">BuzzBudget - All data stored locally on your device</p>
         </footer>
     </div>
 
@@ -1185,6 +1432,13 @@
     <!-- Mobile Input Sheet Backdrop -->
     <div id="inputSheetOverlay" class="fixed inset-0 z-[110] hidden"
         style="background: rgba(0,0,0,0.5); backdrop-filter: blur(3px);" onclick="closeInputSheet()"></div>
+    <div id="inputSheetBuzzBackdrop" class="input-sheet-buzz-backdrop" aria-label="Veeh transaction helper">
+        <div class="input-sheet-buzz-dialog">
+            <span class="buzz-name">Veeh</span>
+            <p class="text-[11px] font-semibold leading-snug">Wow gasto nanamarn.</p>
+        </div>
+        <img src="assets/buzz.png" alt="Veeh mascot">
+    </div>
 
     <!-- Mobile Category Picker Sheet -->
     <div id="categorySheetOverlay" class="fixed inset-0 z-[125] hidden"
@@ -1336,6 +1590,8 @@
             }
 
             const overlay = document.getElementById('inputSheetOverlay');
+            const buzzBackdrop = document.getElementById('inputSheetBuzzBackdrop');
+            const menuBuzz = document.querySelector('.buzz-helper-mobile');
             const cards = getInputSheetCards();
             const card = cards[type];
             if (!overlay || !card) return;
@@ -1344,6 +1600,10 @@
             activeInputSheet = type;
             overlay.classList.remove('hidden', 'sheet-closing');
             overlay.classList.add('flex');
+            if (buzzBackdrop) {
+                buzzBackdrop.classList.toggle('is-visible', type === 'expense');
+            }
+            if (menuBuzz) menuBuzz.classList.add('is-sheet-hidden');
             card.style.transform = '';
             card.classList.add('mobile-sheet-active');
             updateBodyLock();
@@ -1360,6 +1620,8 @@
         function openDesktopBudgetModal() {
             if (isAllView()) return;
             const overlay = document.getElementById('inputSheetOverlay');
+            const buzzBackdrop = document.getElementById('inputSheetBuzzBackdrop');
+            const menuBuzz = document.querySelector('.buzz-helper-mobile');
             const card = document.getElementById('budgetCard');
             if (!overlay || !card) return;
             if (inputSheetCloseTimer) {
@@ -1371,6 +1633,8 @@
             activeInputSheet = 'budget';
             overlay.classList.remove('hidden', 'sheet-closing');
             overlay.classList.add('flex');
+            if (buzzBackdrop) buzzBackdrop.classList.remove('is-visible');
+            if (menuBuzz) menuBuzz.classList.add('is-sheet-hidden');
             card.style.transform = '';
             card.classList.remove('mobile-sheet-active', 'mobile-sheet-closing', 'desktop-modal-closing', 'sheet-dragging');
             card.classList.add('desktop-modal-active');
@@ -1383,11 +1647,15 @@
         function closeInputSheet() {
             closeCategorySheet();
             const overlay = document.getElementById('inputSheetOverlay');
+            const buzzBackdrop = document.getElementById('inputSheetBuzzBackdrop');
+            const menuBuzz = document.querySelector('.buzz-helper-mobile');
             const cards = getInputSheetCards();
             const card = activeInputSheet ? cards[activeInputSheet] : null;
             if (!overlay || overlay.classList.contains('hidden')) return;
 
             overlay.classList.add('sheet-closing');
+            if (buzzBackdrop) buzzBackdrop.classList.remove('is-visible');
+            if (menuBuzz) menuBuzz.classList.remove('is-sheet-hidden');
             if (card) {
                 card.style.transform = '';
                 card.classList.remove('sheet-dragging');
@@ -1589,7 +1857,7 @@
 
             const el = document.createElement('div');
             el.className = `toast-enter pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl border shadow-lg text-sm font-medium ${colors[color] || colors.accent}`;
-            el.style.background = '#1e293b';
+            el.style.background = '#242424';
             el.innerHTML = `<i class="fas fa-${icon} text-xs ${iconColors[color] || iconColors.accent}"></i><span class="text-gray-200">${message}</span>`;
 
             container.appendChild(el);
@@ -1674,16 +1942,16 @@
         const transferAmountEl = document.getElementById('transferAmount');
         const DEFAULT_EXPENSE_CATEGORY = 'other';
         const SPENDING_CATEGORIES = [
-            { id: 'other', label: 'Other', icon: 'receipt', color: '#14b8a6' },
+            { id: 'other', label: 'Other', icon: 'receipt', color: '#D6A21A' },
             { id: 'food', label: 'Food', icon: 'utensils', color: '#f97316' },
             { id: 'groceries', label: 'Groceries', icon: 'cart-shopping', color: '#22c55e' },
             { id: 'transportation', label: 'Transportation', icon: 'car', color: '#38bdf8' },
             { id: 'shopping', label: 'Shopping', icon: 'bag-shopping', color: '#a78bfa' },
             { id: 'home', label: 'Home', icon: 'house', color: '#f59e0b' },
-            { id: 'bills', label: 'Bills', icon: 'bolt', color: '#daed09' },
+            { id: 'bills', label: 'Bills', icon: 'bolt', color: '#B98514' },
             { id: 'health', label: 'Health', icon: 'heart-pulse', color: '#fb7185' },
             { id: 'travel', label: 'Travel', icon: 'plane-departure', color: '#c2489d' },
-            { id: 'subscriptions', label: 'Subscriptions', icon: 'rotate', color: '#2dd4bf' },
+            { id: 'subscriptions', label: 'Subscriptions', icon: 'rotate', color: '#C49A2C' },
             { id: 'education', label: 'Education', icon: 'book-open', color: '#818cf8' },
             { id: 'gifts', label: 'Gifts', icon: 'gift', color: '#f472b6' },
         ];
@@ -1895,7 +2163,7 @@
             const strokeWidth = 18;
             const base = budget > 0 ? Math.max(budget, totalSpent) : 0;
             let cursor = 0;
-            const baseRing = `<circle cx="50" cy="50" r="${radius}" pathLength="100" stroke="#334155" stroke-width="${strokeWidth}"></circle>`;
+            const baseRing = `<circle cx="50" cy="50" r="${radius}" pathLength="100" stroke="#3A3322" stroke-width="${strokeWidth}"></circle>`;
 
             if (base <= 0 || totalSpent <= 0) {
                 svg.innerHTML = baseRing;
@@ -2421,14 +2689,21 @@
             const rc = document.getElementById('remainingCard');
             const rl = document.getElementById('remainingLabel');
             const rt = document.getElementById('displayRemaining');
-            rc.className = 'rounded-xl sm:rounded-2xl p-3 sm:p-5 border shadow-lg shadow-black/10';
+            const ri = document.getElementById('remainingIcon');
+            rc.className = 'relative overflow-visible rounded-xl sm:rounded-2xl p-3 sm:p-5 border shadow-lg shadow-black/10';
             rl.className = 'text-[9px] sm:text-[11px] font-semibold uppercase tracking-wider mb-1';
             rt.className = 'stat-value text-lg sm:text-2xl font-extrabold leading-none drop-shadow-sm';
+            ri.className = 'fas fa-coins text-white text-[10px] sm:text-xs';
             rc.removeAttribute('style');
             rt.removeAttribute('style');
             rl.removeAttribute('style');
             if (stats.remaining < 0) { rc.classList.add('bg-red-500/30', 'border-red-400/40'); rt.classList.add('text-red-200'); rl.classList.add('text-red-300/80'); }
-            else if (stats.remaining > 0) { rc.classList.add('bg-emerald-500/30', 'border-emerald-400/40'); rt.classList.add('text-emerald-200'); rl.classList.add('text-emerald-300/80'); }
+            else if (stats.remaining > 0) {
+                rc.style.background = '#168A4A';
+                rc.style.borderColor = '#57C785';
+                rt.classList.add('text-white');
+                rl.classList.add('text-white/80');
+            }
             else { rc.classList.add('bg-white/25', 'border-white/30'); rt.classList.add('text-white'); rl.classList.add('text-white/70'); }
 
             // Filtered history
