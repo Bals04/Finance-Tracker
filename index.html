@@ -167,7 +167,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            gap: 2px;
+            gap: 0;
             pointer-events: none;
         }
 
@@ -196,6 +196,7 @@
             position: relative;
             width: 360px;
             max-width: min(360px, 42vw);
+            margin-right: -8px;
             border-radius: 12px;
             background: #FFFFFF;
             border: 1px solid rgba(214, 162, 26, 0.36);
@@ -467,6 +468,30 @@
             position: relative;
             z-index: 2;
             text-align: center;
+            width: 52%;
+            display: grid;
+            justify-items: center;
+            gap: 2px;
+            line-height: 1.05;
+        }
+
+        .donut-center-label {
+            font-size: 0.58rem;
+            line-height: 1;
+            max-width: 100%;
+            white-space: nowrap;
+        }
+
+        .donut-center-percent {
+            font-size: clamp(1.25rem, 9vw, 1.5rem);
+            line-height: 1;
+        }
+
+        .donut-center-total {
+            font-size: 0.58rem;
+            line-height: 1.05;
+            max-width: 100%;
+            overflow-wrap: anywhere;
         }
 
         .category-swatch {
@@ -684,7 +709,7 @@
                 max-width: none;
                 min-height: 166px;
                 margin: 14px 0 -2px;
-                gap: 8px;
+                gap: 0;
                 overflow: hidden;
             }
 
@@ -702,7 +727,7 @@
 
             .buzz-mascot {
                 position: absolute;
-                right: -18px;
+                right: -8px;
                 bottom: -14px;
                 width: clamp(178px, 52vw, 230px);
                 margin-left: 0;
@@ -713,7 +738,7 @@
                 width: auto;
                 min-height: 0;
                 max-width: min(196px, calc(100vw - 174px));
-                margin: 2px clamp(106px, 31vw, 136px) 0 0;
+                margin: 2px clamp(124px, 37vw, 162px) 0 0;
                 padding: 11px 12px;
                 background: #FFFFFF;
                 border-color: rgba(214, 162, 26, 0.45);
@@ -745,19 +770,19 @@
                 position: fixed;
                 left: 14px;
                 right: 14px;
-                bottom: min(58vh, 360px);
+                bottom: calc(var(--input-sheet-height, 320px) - 6px);
                 z-index: 111;
                 pointer-events: none;
                 align-items: flex-end;
-                justify-content: flex-end;
-                gap: 4px;
+                justify-content: flex-start;
+                gap: 0;
             }
 
             .input-sheet-buzz-dialog {
                 position: relative;
                 width: min(216px, calc(100vw - 226px));
-                margin-right: -10px;
-                margin-bottom: 54px;
+                margin-left: -34px;
+                margin-bottom: 22px;
                 padding: 10px 12px;
                 border-radius: 12px;
                 background: #FFFFFF;
@@ -769,13 +794,13 @@
             .input-sheet-buzz-dialog::after {
                 content: '';
                 position: absolute;
-                right: -7px;
+                left: -7px;
                 top: 54%;
                 width: 13px;
                 height: 13px;
                 background: #FFFFFF;
-                border-right: 1px solid rgba(214, 162, 26, 0.45);
-                border-top: 1px solid rgba(214, 162, 26, 0.45);
+                border-left: 1px solid rgba(214, 162, 26, 0.45);
+                border-bottom: 1px solid rgba(214, 162, 26, 0.45);
                 transform: translateY(-50%) rotate(45deg);
             }
 
@@ -783,22 +808,42 @@
                 width: clamp(188px, 52vw, 238px);
                 flex-shrink: 0;
                 object-fit: contain;
-                transform: translateY(-28px);
                 filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.25));
             }
 
-            @media (max-height: 740px) {
-                .input-sheet-buzz-backdrop {
-                    bottom: min(62vh, 320px);
-                }
+            .input-sheet-buzz-backdrop img {
+                order: -1;
+            }
 
+            #inputSheetBuzzBackdrop {
+                justify-content: flex-end;
+            }
+
+            #inputSheetBuzzBackdrop img {
+                order: 0;
+            }
+
+            #inputSheetBuzzBackdrop .input-sheet-buzz-dialog {
+                margin-left: 0;
+                margin-right: -34px;
+            }
+
+            #inputSheetBuzzBackdrop .input-sheet-buzz-dialog::after {
+                left: auto;
+                right: -7px;
+                border-left: 0;
+                border-bottom: 0;
+                border-right: 1px solid rgba(214, 162, 26, 0.45);
+                border-top: 1px solid rgba(214, 162, 26, 0.45);
+            }
+
+            @media (max-height: 740px) {
                 .input-sheet-buzz-backdrop img {
                     width: clamp(166px, 48vw, 212px);
-                    transform: translateY(-24px);
                 }
 
                 .input-sheet-buzz-dialog {
-                    margin-bottom: 42px;
+                    margin-bottom: 18px;
                 }
             }
 
@@ -993,10 +1038,12 @@
             }
 
             #breakdownModal {
+                position: relative;
+                z-index: 2;
                 width: 100%;
                 max-width: none;
-                max-height: calc(100vh - 64px);
-                overflow-y: auto;
+                max-height: calc(100vh - 172px);
+                overflow: hidden;
                 overscroll-behavior: contain;
                 -webkit-overflow-scrolling: touch;
                 border-radius: 20px 20px 0 0;
@@ -1020,6 +1067,72 @@
                 margin: 0 auto 14px;
                 border-radius: 9999px;
                 background: #6F6656;
+            }
+
+            #breakdownModal .breakdown-body {
+                min-height: 0;
+                overflow: hidden;
+            }
+
+            #breakdownModal .donut-chart {
+                width: min(158px, 44vw);
+            }
+
+            #categoryBreakdownList {
+                max-height: min(28vh, 220px);
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .breakdown-bee-backdrop {
+                display: none;
+                position: fixed;
+                left: 14px;
+                right: 14px;
+                bottom: calc(var(--breakdown-sheet-height, 340px) - 6px);
+                z-index: 1;
+                pointer-events: none;
+                align-items: flex-end;
+                justify-content: flex-end;
+                gap: 0;
+            }
+
+            #breakdownOverlay.flex .breakdown-bee-backdrop {
+                display: flex;
+            }
+
+            .breakdown-bee-dialog {
+                position: relative;
+                width: min(216px, calc(100vw - 222px));
+                margin-right: -30px;
+                margin-bottom: 20px;
+                padding: 10px 12px;
+                border-radius: 12px;
+                background: #FFFFFF;
+                border: 1px solid rgba(214, 162, 26, 0.45);
+                color: #1B1B1B;
+                box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+            }
+
+            .breakdown-bee-dialog::after {
+                content: '';
+                position: absolute;
+                right: -7px;
+                top: 54%;
+                width: 13px;
+                height: 13px;
+                background: #FFFFFF;
+                border-right: 1px solid rgba(214, 162, 26, 0.45);
+                border-top: 1px solid rgba(214, 162, 26, 0.45);
+                transform: translateY(-50%) rotate(45deg);
+            }
+
+            .breakdown-bee-backdrop img {
+                width: clamp(180px, 50vw, 226px);
+                flex-shrink: 0;
+                object-fit: contain;
+                filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.25));
             }
 
             #groupSheetOverlay.group-closing {
@@ -1117,7 +1230,7 @@
                     <span class="buzz-name">Veeh</span>
                     <p class="text-[11px] font-semibold leading-snug">Hi! I'm Veeh, and I'm here to judge you based on your spending habits.</p>
                 </div>
-                <img src="assets/buzz.png" alt="Buzz mascot" class="buzz-mascot">
+                <img src="assets/menu-bee.png" alt="Veeh mascot" class="buzz-mascot">
             </div>
 
             <!-- Group Selector -->
@@ -1195,7 +1308,7 @@
                             <span class="buzz-name">Veeh</span>
                             <p class="text-[11px] sm:text-sm font-semibold leading-snug">Hi! I'm Veeh, and I'm here to look at your spending habits.</p>
                         </div>
-                        <img src="assets/buzz.png" alt="Buzz mascot" class="buzz-mascot">
+                        <img src="assets/menu-bee.png" alt="Veeh mascot" class="buzz-mascot">
                     </div>
                 </div>
             </div>
@@ -1439,6 +1552,13 @@
         </div>
         <img src="assets/buzz.png" alt="Veeh mascot">
     </div>
+    <div id="savingsSheetMascotBackdrop" class="input-sheet-buzz-backdrop" aria-label="Savings mascot helper">
+        <div class="input-sheet-buzz-dialog">
+            <span class="buzz-name">Veeh</span>
+            <p class="text-[11px] font-semibold leading-snug">Nice save. Future you says thanks.</p>
+        </div>
+        <img src="assets/savings-mascot.png" alt="Savings mascot">
+    </div>
 
     <!-- Mobile Category Picker Sheet -->
     <div id="categorySheetOverlay" class="fixed inset-0 z-[125] hidden"
@@ -1461,6 +1581,13 @@
     <!-- Spending Breakdown Modal -->
     <div id="breakdownOverlay" class="fixed inset-0 z-[125] hidden items-center justify-center p-4"
         style="background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);" onclick="closeBreakdownModal()">
+        <div class="breakdown-bee-backdrop" aria-label="Veeh spending breakdown helper">
+            <div class="breakdown-bee-dialog">
+                <span class="buzz-name">Veeh</span>
+                <p class="text-[11px] font-semibold leading-snug" id="breakdownBeeMessage">Let's see where your budget is going.</p>
+            </div>
+            <img src="assets/breakdown-bee.png" alt="Breakdown bee mascot">
+        </div>
         <div class="dark-card rounded-2xl p-5 w-full max-w-2xl shadow-2xl" id="breakdownModal"
             onclick="event.stopPropagation()">
             <div class="flex items-center justify-between gap-3 mb-4">
@@ -1480,14 +1607,14 @@
                 </button>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-[240px_1fr] gap-5 items-center">
+            <div class="breakdown-body grid grid-cols-1 sm:grid-cols-[240px_1fr] gap-5 items-center">
                 <div class="flex flex-col items-center">
                     <div class="donut-chart" id="categoryDonut">
                         <svg class="donut-ring" id="categoryDonutSvg" viewBox="0 0 100 100" aria-hidden="true"></svg>
                         <div class="donut-center">
-                            <p class="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Budget used</p>
-                            <p class="text-2xl font-black text-white leading-tight" id="breakdownPercent">0%</p>
-                            <p class="text-[11px] text-slate-500" id="breakdownTotal">No spending yet</p>
+                            <p class="donut-center-label font-semibold uppercase text-slate-500">Budget used</p>
+                            <p class="donut-center-percent font-black text-white" id="breakdownPercent">0%</p>
+                            <p class="donut-center-total text-slate-500" id="breakdownTotal">No spending yet</p>
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-2 w-full mt-4">
@@ -1553,6 +1680,33 @@
             };
         }
 
+        function updateInputSheetMascotPosition() {
+            if (!isMobileView() || !activeInputSheet) {
+                document.documentElement.style.removeProperty('--input-sheet-height');
+                return;
+            }
+
+            const card = getInputSheetCards()[activeInputSheet];
+            if (!card || !card.classList.contains('mobile-sheet-active')) return;
+            document.documentElement.style.setProperty('--input-sheet-height', Math.round(card.getBoundingClientRect().height) + 'px');
+        }
+
+        function updateBreakdownMascotPosition() {
+            const overlay = document.getElementById('breakdownOverlay');
+            const modal = document.getElementById('breakdownModal');
+            if (!isMobileView() || !overlay || overlay.classList.contains('hidden') || !modal) {
+                document.documentElement.style.removeProperty('--breakdown-sheet-height');
+                return;
+            }
+
+            document.documentElement.style.setProperty('--breakdown-sheet-height', Math.round(modal.getBoundingClientRect().height) + 'px');
+        }
+
+        window.addEventListener('resize', () => {
+            updateInputSheetMascotPosition();
+            updateBreakdownMascotPosition();
+        });
+
         function updateBodyLock() {
             const modalOverlay = document.getElementById('modalOverlay');
             const inputSheetOverlay = document.getElementById('inputSheetOverlay');
@@ -1591,6 +1745,7 @@
 
             const overlay = document.getElementById('inputSheetOverlay');
             const buzzBackdrop = document.getElementById('inputSheetBuzzBackdrop');
+            const savingsBackdrop = document.getElementById('savingsSheetMascotBackdrop');
             const menuBuzz = document.querySelector('.buzz-helper-mobile');
             const cards = getInputSheetCards();
             const card = cards[type];
@@ -1603,9 +1758,13 @@
             if (buzzBackdrop) {
                 buzzBackdrop.classList.toggle('is-visible', type === 'expense');
             }
+            if (savingsBackdrop) {
+                savingsBackdrop.classList.toggle('is-visible', type === 'savings');
+            }
             if (menuBuzz) menuBuzz.classList.add('is-sheet-hidden');
             card.style.transform = '';
             card.classList.add('mobile-sheet-active');
+            requestAnimationFrame(updateInputSheetMascotPosition);
             updateBodyLock();
 
             const focusMap = {
@@ -1621,6 +1780,7 @@
             if (isAllView()) return;
             const overlay = document.getElementById('inputSheetOverlay');
             const buzzBackdrop = document.getElementById('inputSheetBuzzBackdrop');
+            const savingsBackdrop = document.getElementById('savingsSheetMascotBackdrop');
             const menuBuzz = document.querySelector('.buzz-helper-mobile');
             const card = document.getElementById('budgetCard');
             if (!overlay || !card) return;
@@ -1634,6 +1794,7 @@
             overlay.classList.remove('hidden', 'sheet-closing');
             overlay.classList.add('flex');
             if (buzzBackdrop) buzzBackdrop.classList.remove('is-visible');
+            if (savingsBackdrop) savingsBackdrop.classList.remove('is-visible');
             if (menuBuzz) menuBuzz.classList.add('is-sheet-hidden');
             card.style.transform = '';
             card.classList.remove('mobile-sheet-active', 'mobile-sheet-closing', 'desktop-modal-closing', 'sheet-dragging');
@@ -1648,6 +1809,7 @@
             closeCategorySheet();
             const overlay = document.getElementById('inputSheetOverlay');
             const buzzBackdrop = document.getElementById('inputSheetBuzzBackdrop');
+            const savingsBackdrop = document.getElementById('savingsSheetMascotBackdrop');
             const menuBuzz = document.querySelector('.buzz-helper-mobile');
             const cards = getInputSheetCards();
             const card = activeInputSheet ? cards[activeInputSheet] : null;
@@ -1655,6 +1817,7 @@
 
             overlay.classList.add('sheet-closing');
             if (buzzBackdrop) buzzBackdrop.classList.remove('is-visible');
+            if (savingsBackdrop) savingsBackdrop.classList.remove('is-visible');
             if (menuBuzz) menuBuzz.classList.remove('is-sheet-hidden');
             if (card) {
                 card.style.transform = '';
@@ -1674,6 +1837,7 @@
                 overlay.classList.add('hidden');
                 overlay.classList.remove('flex', 'sheet-closing');
                 activeInputSheet = null;
+                document.documentElement.style.removeProperty('--input-sheet-height');
                 inputSheetCloseTimer = null;
                 updateBodyLock();
             }, 180);
@@ -2192,20 +2356,25 @@
 
             const overlay = document.getElementById('breakdownOverlay');
             const modal = document.getElementById('breakdownModal');
+            const menuBuzz = document.querySelector('.buzz-helper-mobile');
             if (!overlay || !modal) return;
             modal.style.transform = '';
             modal.classList.remove('sheet-dragging');
             overlay.classList.remove('hidden', 'breakdown-closing');
             overlay.classList.add('flex');
+            if (menuBuzz) menuBuzz.classList.add('is-sheet-hidden');
+            requestAnimationFrame(updateBreakdownMascotPosition);
             updateBodyLock();
         }
 
         function closeBreakdownModal() {
             const overlay = document.getElementById('breakdownOverlay');
             const modal = document.getElementById('breakdownModal');
+            const menuBuzz = document.querySelector('.buzz-helper-mobile');
             if (!overlay || overlay.classList.contains('hidden')) return;
 
             overlay.classList.add('breakdown-closing');
+            if (menuBuzz) menuBuzz.classList.remove('is-sheet-hidden');
             if (modal) {
                 modal.style.transform = '';
                 modal.classList.remove('sheet-dragging');
@@ -2215,9 +2384,29 @@
                 overlay.classList.add('hidden');
                 overlay.classList.remove('flex', 'breakdown-closing');
                 if (modal) modal.style.transform = '';
+                document.documentElement.style.removeProperty('--breakdown-sheet-height');
                 breakdownCloseTimer = null;
                 updateBodyLock();
             }, 180);
+        }
+
+        function updateBreakdownBeeMessage(data, budgetUsedPercent) {
+            const message = document.getElementById('breakdownBeeMessage');
+            if (!message) return;
+
+            if (data.budget <= 0) {
+                message.textContent = 'Set a budget first so I can show where your money is allocated.';
+                return;
+            }
+
+            if (data.rows.length === 0) {
+                message.textContent = 'No spending yet. Once you add expenses, I will show which categories use your budget.';
+                return;
+            }
+
+            const top = [...data.rows].sort((a, b) => b.amount - a.amount)[0];
+            const topPercent = Math.round(top.budgetPercent);
+            message.textContent = `Most of your budget is going to ${top.label}: ${formatCurrency(top.amount)}, about ${topPercent}% of your budget. Total used is ${budgetUsedPercent}%.`;
         }
 
         function renderBreakdownModal() {
@@ -2228,10 +2417,12 @@
 
             document.getElementById('breakdownScope').textContent = scope + ' starting budget';
             document.getElementById('breakdownPercent').textContent = budgetUsedPercent + '%';
-            document.getElementById('breakdownTotal').textContent = data.totalSpent > 0 ? formatCurrency(data.totalSpent) + ' spent' : 'No spending yet';
+            document.getElementById('breakdownTotal').textContent = data.totalSpent > 0 ? formatCurrency(data.totalSpent) : 'No spending yet';
             document.getElementById('breakdownBudget').textContent = formatCurrency(data.budget);
             document.getElementById('breakdownSpent').textContent = formatCurrency(data.totalSpent);
             renderDonutChart(data);
+            updateBreakdownBeeMessage(data, budgetUsedPercent);
+            requestAnimationFrame(updateBreakdownMascotPosition);
 
             if (!list) return;
             if (data.budget <= 0) {
